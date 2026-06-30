@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
-import { GymProvider } from "./context/GymContext";
+import { GymProvider } from "./components/context/GymContext";
 import HomePage from "./pages/HomePage";
 import GymListPage from "./pages/GymListPage";
 import GymDetailPage from "./pages/GymDetailPage";
