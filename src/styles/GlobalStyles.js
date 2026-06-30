@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-  /* Removed Google Fonts import as it should be in index.html */
-
   * {
     box-sizing: border-box;
     margin: 0;
@@ -46,118 +44,125 @@ const GlobalStyles = createGlobalStyle`
     font-weight: ${({ theme }) => theme.fontWeights.bold};
   }
 
+  h4 {
+    font-size: ${({ theme }) => theme.fontSizes["2xl"]};
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+  }
+
+  h5 {
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  }
+
+  h6 {
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  }
+
   p {
-    margin-bottom: 1rem;
+    margin-bottom: ${({ theme }) => theme.space.md};
+    line-height: 1.7;
   }
 
   a {
-    text-decoration: none;
     color: ${({ theme }) => theme.colors.primary};
+    text-decoration: none;
+    transition: ${({ theme }) => theme.transitions.default};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.primaryDark};
+      text-decoration: underline;
+    }
+
+    &:focus {
+      outline: 2px solid ${({ theme }) => theme.colors.accent};
+      outline-offset: 2px;
+    }
+  }
+
+  button {
+    font-family: ${({ theme }) => theme.fonts.body};
+    cursor: pointer;
+    border: none;
+    transition: ${({ theme }) => theme.transitions.default};
+
+    &:focus-visible {
+      outline: 2px solid ${({ theme }) => theme.colors.accent};
+      outline-offset: 2px;
+    }
+  }
+
+  input, textarea, select {
+    font-family: ${({ theme }) => theme.fonts.body};
+    border: 1px solid ${({ theme }) => theme.colors.lightGray};
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    padding: ${({ theme }) => theme.space.sm};
+    font-size: ${({ theme }) => theme.fontSizes.md};
     transition: ${({ theme }) => theme.transitions.fast};
+
+    &:focus {
+      outline: none;
+      border-color: ${({ theme }) => theme.colors.primary};
+      box-shadow: 0 0 0 3px rgba(255, 60, 95, 0.1);
+    }
+
+    &:disabled {
+      background-color: ${({ theme }) => theme.colors.lightGray};
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
   }
 
   img {
     max-width: 100%;
     height: auto;
-  }
-
-  button {
-    cursor: pointer;
-    font-family: ${({ theme }) => theme.fonts.body};
-    border: none;
-    background: none;
+    display: block;
   }
 
   ul, ol {
-    list-style-position: inside;
+    margin-left: 1.5rem;
+    margin-bottom: ${({ theme }) => theme.space.md};
   }
 
-  section {
-    padding: 5rem 0;
+  li {
+    margin-bottom: 0.5rem;
   }
 
-  .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
+  hr {
+    border: none;
+    border-top: 1px solid ${({ theme }) => theme.colors.lightGray};
+    margin: ${({ theme }) => theme.space.lg} 0;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    section {
-      padding: 3rem 0;
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.light};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray};
+    border-radius: 5px;
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.dark};
     }
   }
 
-  /* Utility Classes */
-  .text-center {
-    text-align: center;
-  }
-
-  .text-primary {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-
-  .text-secondary {
-    color: ${({ theme }) => theme.colors.secondary};
-  }
-
-  .bg-primary {
+  /* Selection styling */
+  ::selection {
     background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.white};
   }
 
-  .bg-secondary {
-    background-color: ${({ theme }) => theme.colors.secondary};
+  ::-moz-selection {
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.white};
   }
-
-  .bg-light {
-    background-color: ${({ theme }) => theme.colors.light};
-  }
-
-  .bg-dark {
-    background-color: ${({ theme }) => theme.colors.dark};
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .flex-col {
-    flex-direction: column;
-  }
-
-  .items-center {
-    align-items: center;
-  }
-
-  .justify-center {
-    justify-content: center;
-  }
-
-  .justify-between {
-    justify-content: space-between;
-  }
-
-  .gap-sm {
-    gap: ${({ theme }) => theme.space.sm};
-  }
-
-  .gap-md {
-    gap: ${({ theme }) => theme.space.md};
-  }
-
-  .gap-lg {
-    gap: ${({ theme }) => theme.space.lg};
-  }
-
-  .mt-sm { margin-top: ${({ theme }) => theme.space.sm}; }
-  .mt-md { margin-top: ${({ theme }) => theme.space.md}; }
-  .mt-lg { margin-top: ${({ theme }) => theme.space.lg}; }
-  .mt-xl { margin-top: ${({ theme }) => theme.space.xl}; }
-
-  .mb-sm { margin-bottom: ${({ theme }) => theme.space.sm}; }
-  .mb-md { margin-bottom: ${({ theme }) => theme.space.md}; }
-  .mb-lg { margin-bottom: ${({ theme }) => theme.space.lg}; }
-  .mb-xl { margin-bottom: ${({ theme }) => theme.space.xl}; }
 `;
 
 export default GlobalStyles;
