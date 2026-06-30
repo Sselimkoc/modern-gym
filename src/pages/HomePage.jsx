@@ -15,6 +15,7 @@ import Button from "../components/ui/Button";
 import Container from "../components/ui/Container";
 import ImageGallery from "../components/ui/ImageGallery";
 import gymsData from "../data/gyms.json";
+import useSEO from "../hooks/useSEO";
 
 const HighlightedGymsSection = styled.section`
   padding: ${({ theme }) => `${theme.space.xl} 0`};
@@ -170,7 +171,8 @@ const CTASection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>') repeat;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>')
+      repeat;
     opacity: 0.1;
   }
 `;
@@ -206,6 +208,16 @@ const ButtonGroup = styled(motion.div)`
 
 const HomePage = () => {
   const navigate = useNavigate();
+
+  useSEO({
+    title: "Modern Gym - Your Fitness Journey",
+    description:
+      "Discover premium gym facilities with world-class equipment, expert trainers, and programs for all fitness levels.",
+    keywords: "gym, fitness, training, health, wellness",
+    image:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    url: "https://modern-gym.com",
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -323,7 +335,8 @@ const HomePage = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Join thousands of members achieving their fitness goals at our world-class facilities
+            Join thousands of members achieving their fitness goals at our
+            world-class facilities
           </CTAText>
           <ButtonGroup
             initial={{ opacity: 0, y: 20 }}
@@ -334,7 +347,11 @@ const HomePage = () => {
             <Button size="lg" onClick={() => navigate("/gyms")}>
               Explore Gyms
             </Button>
-            <Button variant="outline" size="lg" onClick={() => navigate("/gyms")}>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate("/gyms")}
+            >
               Contact Us
             </Button>
           </ButtonGroup>

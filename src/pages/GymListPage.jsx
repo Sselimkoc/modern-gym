@@ -6,6 +6,8 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Container from "../components/ui/Container";
 import gymsData from "../data/gyms.json";
+import useSEO from "../hooks/useSEO";
+
 
 const HeroSection = styled.section`
   background: linear-gradient(135deg, #ff3c5f 0%, #1e2a38 100%);
@@ -156,8 +158,17 @@ const ViewButton = styled(motion.button)`
   }
 `;
 
+
 const GymListPage = () => {
   const navigate = useNavigate();
+
+  useSEO({
+    title: "Browse Gyms - Modern Gym",
+    description: "Explore our premium gym facilities across the city with world-class equipment and expert trainers.",
+    keywords: "browse gyms, fitness centers, gym facilities, training",
+    url: "https://modern-gym.com/gyms",
+  });
+
 
   const containerVariants = {
     hidden: { opacity: 0 },

@@ -12,6 +12,7 @@ import ImageGallery from "../components/ui/ImageGallery";
 import ReviewCard from "../components/ui/ReviewCard";
 import Button from "../components/ui/Button";
 import gymsData from "../data/gyms.json";
+import useSEO from "../hooks/useSEO";
 
 const BackNavigation = styled.div`
   padding: ${({ theme }) => `${theme.space.lg} 0`};
@@ -173,11 +174,20 @@ const StatLabel = styled.div`
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 `;
 
+
+
 const GymDetailPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-
   const gym = useMemo(() => gymsData.find((g) => g.slug === slug), [slug]);
+
+  useSEO({
+    title: gym?.name || "Gym",
+    description: gym?.description_full || gym?.description,
+    keywords: `${gym?.name}, gym, fitness, ${gym?.services.slice(0, 3).join(", ")}`,
+    image: gym?.heroImage,
+    url: `https://modern-gym.com/gym/${slug}`,
+  });
 
   if (!gym) {
     return (
