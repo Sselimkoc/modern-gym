@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import LazyImage from "./LazyImage";
 
 const GalleryContainer = styled.div`
   width: 100%;
@@ -18,14 +19,14 @@ const GridContainer = styled.div`
   }
 `;
 
-const ImageItem = styled(motion.img)`
+const ImageItem = styled(motion.div)`
   width: 100%;
   height: 250px;
-  object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   cursor: pointer;
   transition: ${({ theme }) => theme.transitions.default};
   box-shadow: ${({ theme }) => theme.shadows.md};
+  overflow: hidden;
 
   &:hover {
     transform: translateY(-4px);
@@ -81,6 +82,7 @@ const CloseButton = styled.button`
   justify-content: center;
   cursor: pointer;
   transition: ${({ theme }) => theme.transitions.fast};
+  z-index: 10;
 
   &:hover {
     transform: scale(1.1);
@@ -106,14 +108,6 @@ const NavigationButton = styled.button`
     background-color: rgba(255, 255, 255, 0.2);
   }
 
-  &:left {
-    left: ${({ theme }) => theme.space.md};
-  }
-
-  &:right {
-    right: ${({ theme }) => theme.space.md};
-  }
-
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 40px;
     height: 40px;
@@ -128,10 +122,11 @@ const ImageCounter = styled.div`
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
-  padding: ${({ theme }) => theme.space.sm} ${({ theme }) => theme.space.md};
+  padding: ${({ theme }) => `${theme.space.sm} ${theme.space.md}`};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-family: ${({ theme }) => theme.fonts.body};
+  z-index: 9;
 `;
 
 const ImageGallery = ({ images = [], alt = "Gallery" }) => {
@@ -164,15 +159,19 @@ const ImageGallery = ({ images = [], alt = "Gallery" }) => {
         {images.map((image, index) => (
           <ImageItem
             key={index}
-            src={image}
-            alt={`${alt} ${index + 1}`}
             onClick={() => setSelectedIndex(index)}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
             viewport={{ once: true }}
-            loading="lazy"
-          />
+          >
+            <LazyImage
+              src={image}
+              alt={`${alt} ${index + 1}`}
+              width="100%"
+              height="100%"
+            />
+          </ImageItem>
         ))}
       </GridContainer>
 
