@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Navbar from "../components/layout/Navbar";
@@ -10,14 +9,15 @@ import WellnessSection from "../components/sections/WellnessSection";
 import VirtualClassesSection from "../components/sections/VirtualClassesSection";
 import TestimonialsSection from "../components/sections/TestimonialsSection";
 import MobileAppSection from "../components/sections/MobileAppSection";
+import ContactSection from "../components/common/ContactSection";
 import Footer from "../components/layout/Footer";
 import Button from "../components/ui/Button";
 import Container from "../components/ui/Container";
 import ImageGallery from "../components/ui/ImageGallery";
-import gymsData from "../data/gyms.json";
+import siteConfig from "../data/siteConfig";
 import useSEO from "../hooks/useSEO";
 
-const HighlightedGymsSection = styled.section`
+const GallerySection = styled.section`
   padding: ${({ theme }) => `${theme.space.xl} 0`};
   background: linear-gradient(135deg, #f7f7f7 0%, #ffffff 100%);
 `;
@@ -40,119 +40,6 @@ const SectionTitle = styled.h2`
     height: 4px;
     background: linear-gradient(90deg, #ff3c5f, #00e6b8);
     border-radius: 2px;
-  }
-`;
-
-const GymsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: ${({ theme }) => theme.space.lg};
-  margin-bottom: ${({ theme }) => theme.space.xl};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const GymShowcase = styled(motion.div)`
-  background: white;
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  overflow: hidden;
-  box-shadow: ${({ theme }) => theme.shadows.lg};
-  cursor: pointer;
-  transition: ${({ theme }) => theme.transitions.default};
-
-  &:hover {
-    box-shadow: 0 20px 40px rgba(255, 60, 95, 0.15);
-    transform: translateY(-8px);
-  }
-`;
-
-const ImageWrapper = styled.div`
-  position: relative;
-  height: 240px;
-  overflow: hidden;
-  background: ${({ theme }) => theme.colors.dark};
-`;
-
-const GymImage = styled(motion.img)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: ${({ theme }) => theme.transitions.default};
-
-  ${GymShowcase}:hover & {
-    transform: scale(1.08);
-  }
-`;
-
-const GymBadge = styled.div`
-  position: absolute;
-  top: ${({ theme }) => theme.space.md};
-  right: ${({ theme }) => theme.space.md};
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  padding: ${({ theme }) => `${theme.space.xs} ${theme.space.md}`};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  z-index: 2;
-  box-shadow: ${({ theme }) => theme.shadows.md};
-`;
-
-const GymContent = styled.div`
-  padding: ${({ theme }) => theme.space.lg};
-`;
-
-const GymName = styled.h3`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  color: ${({ theme }) => theme.colors.dark};
-  margin-bottom: ${({ theme }) => theme.space.sm};
-`;
-
-const GymDesc = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  margin-bottom: ${({ theme }) => theme.space.md};
-  line-height: 1.6;
-`;
-
-const GymServices = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.space.sm};
-  margin-bottom: ${({ theme }) => theme.space.md};
-`;
-
-const ServiceTag = styled.span`
-  background: ${({ theme }) => theme.colors.light};
-  color: ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => `${theme.space.xs} ${theme.space.sm}`};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-weight: ${({ theme }) => theme.fontWeights.medium};
-`;
-
-const ViewButton = styled(motion.button)`
-  width: 100%;
-  background: linear-gradient(135deg, #ff3c5f 0%, #ff6b8b 100%);
-  color: white;
-  border: none;
-  padding: ${({ theme }) => theme.space.md};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  cursor: pointer;
-  transition: ${({ theme }) => theme.transitions.default};
-  box-shadow: ${({ theme }) => theme.shadows.primary};
-
-  &:hover {
-    box-shadow: 0 8px 20px rgba(255, 60, 95, 0.35);
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 `;
 
@@ -206,38 +93,21 @@ const ButtonGroup = styled(motion.div)`
   }
 `;
 
-const HomePage = () => {
-  const navigate = useNavigate();
+const scrollToSection = (sectionId) => {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
+const HomePage = () => {
   useSEO({
-    title: "Modern Gym - Your Fitness Journey",
-    description:
-      "Discover premium gym facilities with world-class equipment, expert trainers, and programs for all fitness levels.",
+    title: `${siteConfig.name} - ${siteConfig.tagline}`,
+    description: siteConfig.description,
     keywords: "gym, fitness, training, health, wellness",
-    image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    image: siteConfig.heroImage,
     url: "https://modern-gym.com",
   });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
 
   return (
     <div>
@@ -245,78 +115,25 @@ const HomePage = () => {
       <Hero />
       <FeaturesSection />
       <ProgramsSection />
-
-      {/* New: Gym Showcase */}
-      <HighlightedGymsSection>
-        <Container>
-          <SectionTitle>Featured Gyms</SectionTitle>
-          <GymsGrid
-            as={motion.div}
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {gymsData.slice(0, 2).map((gym, index) => (
-              <GymShowcase
-                key={gym.id}
-                variants={itemVariants}
-                onClick={() => navigate(`/gym/${gym.slug}`)}
-              >
-                <ImageWrapper>
-                  <GymImage
-                    src={gym.heroImage}
-                    alt={gym.name}
-                    initial={{ scale: 1 }}
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                  <GymBadge>Featured</GymBadge>
-                </ImageWrapper>
-
-                <GymContent>
-                  <GymName>{gym.name}</GymName>
-                  <GymDesc>{gym.description}</GymDesc>
-
-                  <GymServices>
-                    {gym.services.slice(0, 3).map((service) => (
-                      <ServiceTag key={service}>{service}</ServiceTag>
-                    ))}
-                    {gym.services.length > 3 && (
-                      <ServiceTag>+{gym.services.length - 3} more</ServiceTag>
-                    )}
-                  </GymServices>
-
-                  <ViewButton
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => navigate(`/gym/${gym.slug}`)}
-                  >
-                    View Details →
-                  </ViewButton>
-                </GymContent>
-              </GymShowcase>
-            ))}
-          </GymsGrid>
-
-          <motion.div
-            style={{ textAlign: "center" }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <Button size="lg" onClick={() => navigate("/gyms")}>
-              Browse All Gyms
-            </Button>
-          </motion.div>
-        </Container>
-      </HighlightedGymsSection>
-
       <WellnessSection />
       <VirtualClassesSection />
       <TestimonialsSection />
       <MobileAppSection />
+
+      {/* Facility Gallery */}
+      <GallerySection id="gallery">
+        <Container>
+          <SectionTitle>Our Facility</SectionTitle>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <ImageGallery images={siteConfig.images} alt={siteConfig.name} />
+          </motion.div>
+        </Container>
+      </GallerySection>
 
       {/* CTA Section */}
       <CTASection>
@@ -336,7 +153,7 @@ const HomePage = () => {
             viewport={{ once: true }}
           >
             Join thousands of members achieving their fitness goals at our
-            world-class facilities
+            world-class facility
           </CTAText>
           <ButtonGroup
             initial={{ opacity: 0, y: 20 }}
@@ -344,19 +161,29 @@ const HomePage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Button size="lg" onClick={() => navigate("/gyms")}>
-              Explore Gyms
+            <Button size="lg" onClick={() => scrollToSection("hero")}>
+              Join Now
             </Button>
             <Button
               variant="outline"
               size="lg"
-              onClick={() => navigate("/gyms")}
+              onClick={() => scrollToSection("contact")}
             >
               Contact Us
             </Button>
           </ButtonGroup>
         </Container>
       </CTASection>
+
+      {/* Contact */}
+      <div id="contact">
+        <ContactSection
+          phone={siteConfig.phone}
+          email={siteConfig.email}
+          address={siteConfig.address}
+          hours={siteConfig.hours}
+        />
+      </div>
 
       <Footer />
     </div>

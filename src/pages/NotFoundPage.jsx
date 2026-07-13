@@ -85,9 +85,6 @@ const NotFoundPage = () => {
               <Button size="lg" onClick={() => navigate("/")}>
                 Back to Home
               </Button>
-              <Button variant="outline" size="lg" onClick={() => navigate("/gyms")}>
-                Browse Gyms
-              </Button>
             </ButtonGroup>
           </Content>
         </Container>

@@ -4,10 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { HelmetProvider } from "react-helmet-async";
 import theme from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
-import { GymProvider } from "./components/context/GymContext";
 import HomePage from "./pages/HomePage";
-import GymListPage from "./pages/GymListPage";
-import GymDetailPage from "./pages/GymDetailPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -15,16 +12,12 @@ function App() {
     <HelmetProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <GymProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/gyms" element={<GymListPage />} />
-              <Route path="/gym/:slug" element={<GymDetailPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Router>
-        </GymProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Router>
       </ThemeProvider>
     </HelmetProvider>
   );

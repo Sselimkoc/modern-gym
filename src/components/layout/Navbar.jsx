@@ -266,6 +266,8 @@ const Navbar = () => {
         "virtual-classes",
         "testimonials",
         "mobile-app",
+        "gallery",
+        "contact",
       ];
 
       // Find the current section in view
@@ -521,6 +523,26 @@ const Navbar = () => {
           >
             Mobile App
           </NavLink>
+          <NavLink
+            href="#gallery"
+            active={activeSection === "gallery"}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("gallery");
+            }}
+          >
+            Gallery
+          </NavLink>
+          <NavLink
+            href="#contact"
+            active={activeSection === "contact"}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("contact");
+            }}
+          >
+            Contact
+          </NavLink>
           <Button small onClick={() => scrollToSection("hero")}>
             Join Now
           </Button>
@@ -736,6 +758,72 @@ const Navbar = () => {
                     />
                   </svg>
                   Mobile App
+                </NavLink>
+                <NavLink
+                  href="#gallery"
+                  active={activeSection === "gallery"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("gallery");
+                  }}
+                  variants={itemVariants}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="3"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="8.5"
+                      cy="8.5"
+                      r="1.5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    />
+                    <path
+                      d="m21 15-5-5L5 21"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Gallery
+                </NavLink>
+                <NavLink
+                  href="#contact"
+                  active={activeSection === "contact"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("contact");
+                  }}
+                  variants={itemVariants}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22 16.92V19.92C22 20.4704 21.7893 20.9983 21.4142 21.3734C21.0391 21.7485 20.5113 21.9592 19.96 21.96C16.4223 21.6459 13.0418 20.3358 10.21 18.18C7.57451 16.1865 5.54313 13.5707 4.5 10.46C3.37738 7.01834 3.25245 3.4202 4.14 0C4.14123 0.550461 4.35071 1.07825 4.72573 1.45327C5.10076 1.8283 5.62855 2.03777 6.18 2.04H9.18C9.62518 2.03538 10.0551 2.19104 10.3949 2.47721C10.7347 2.76337 10.9625 3.16172 11.04 3.6C11.2225 4.68715 11.5157 5.75335 11.92 6.78C12.0729 7.1291 12.0933 7.52314 11.9782 7.88525C11.8631 8.24735 11.6198 8.55479 11.29 8.75L9.84 9.75C10.7884 12.4876 12.9326 14.6318 15.67 15.58L16.67 14.13C16.8652 13.8002 17.1726 13.5569 17.5347 13.4418C17.8969 13.3267 18.2909 13.3471 18.64 13.5C19.6667 13.9043 20.7329 14.1975 21.82 14.38C22.2628 14.458 22.6647 14.6942 22.9483 15.0449C23.2319 15.3956 23.3802 15.8372 23.36 16.29C23.36 16.29 23.36 16.92 22 16.92Z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Contact
                 </NavLink>
               </MobileNavContent>
 

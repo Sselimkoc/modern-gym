@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import LazyImage from "./LazyImage";
@@ -132,26 +132,29 @@ const ImageCounter = styled.div`
 const ImageGallery = ({ images = [], alt = "Gallery" }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+  }, [images.length]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
+  }, [images.length]);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Escape") setSelectedIndex(null);
-    if (e.key === "ArrowLeft") handlePrevious();
-    if (e.key === "ArrowRight") handleNext();
-  };
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Escape") setSelectedIndex(null);
+      if (e.key === "ArrowLeft") handlePrevious();
+      if (e.key === "ArrowRight") handleNext();
+    },
+    [handlePrevious, handleNext]
+  );
 
   React.useEffect(() => {
     if (selectedIndex !== null) {
       window.addEventListener("keydown", handleKeyDown);
       return () => window.removeEventListener("keydown", handleKeyDown);
     }
-  }, [selectedIndex, images.length]);
+  }, [selectedIndex, handleKeyDown]);
 
   return (
     <GalleryContainer>
