@@ -271,7 +271,6 @@ const Navbar = () => {
         "programs",
         "membership",
         "wellness",
-        "virtual-classes",
         "testimonials",
         "mobile-app",
         "gallery",

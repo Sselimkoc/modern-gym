@@ -8,7 +8,6 @@ import FeaturesSection from "../components/sections/FeaturesSection";
 import ProgramsSection from "../components/sections/ProgramsSection";
 import MembershipSection from "../components/sections/MembershipSection";
 import WellnessSection from "../components/sections/WellnessSection";
-import VirtualClassesSection from "../components/sections/VirtualClassesSection";
 import TestimonialsSection from "../components/sections/TestimonialsSection";
 import MobileAppSection from "../components/sections/MobileAppSection";
 import ContactSection from "../components/common/ContactSection";
@@ -126,9 +125,6 @@ const HomePage = () => {
       <MembershipSection />
       <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
       <WellnessSection />
-      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
-      <VirtualClassesSection />
-      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
       <TestimonialsSection />
       <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
       <MobileAppSection />
@@ -175,8 +171,8 @@ const HomePage = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Join thousands of members achieving their fitness goals at our
-            world-class facility
+            Join our community and start achieving your fitness goals with
+            expert support every step of the way
           </CTAText>
           <ButtonGroup
             initial={{ opacity: 0, y: 20 }}

@@ -299,8 +299,8 @@ const WellnessSection = () => {
             >
               <Title>Spa & Wellness Experience</Title>
               <Subtitle>
-                Rejuvenate your body and mind in our state-of-the-art spa and
-                wellness center. Enjoy a variety of treatments designed to help
+                Rejuvenate your body and mind in our spa and wellness
+                center. Enjoy a variety of treatments designed to help
                 you relax, recover, and revitalize.
               </Subtitle>
             </motion.div>

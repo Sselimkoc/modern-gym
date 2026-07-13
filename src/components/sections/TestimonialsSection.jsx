@@ -280,7 +280,7 @@ const SliderDot = styled.button`
 const testimonials = [
   {
     id: 1,
-    text: "I've been a member for over a year now, and the transformation in my fitness level is incredible. The trainers are knowledgeable and supportive, and the facilities are always clean and well-maintained. The virtual classes have been a game-changer for my busy schedule!",
+    text: "I've been a member for over a year now, and the transformation in my fitness level is incredible. The trainers are knowledgeable and supportive, and the facilities are always clean and well-maintained. The mobile app makes booking classes so easy!",
     rating: 5,
     date: "2 hafta önce",
     photo:

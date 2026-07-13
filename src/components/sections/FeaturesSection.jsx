@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import Card from "../ui/Card";
+import siteConfig from "../../data/siteConfig";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -137,9 +138,9 @@ const features = [
         />
       </svg>
     ),
-    title: "State-of-the-Art Equipment",
+    title: "Quality Equipment",
     description:
-      "Access to the latest fitness technology and premium equipment for optimal workout results.",
+      "Access to modern fitness equipment maintained to a high standard for a reliable workout every time.",
   },
   {
     icon: (
@@ -296,9 +297,9 @@ const features = [
         />
       </svg>
     ),
-    title: "Virtual Training",
+    title: "Track Your Progress",
     description:
-      "Access workouts anytime, anywhere with our virtual classes and mobile fitness app.",
+      "Book classes, track workouts, and stay connected with our community through our mobile app.",
   },
   {
     icon: (
@@ -334,7 +335,7 @@ const FeaturesSection = () => {
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <Title>Why Choose ModernGym</Title>
+          <Title>Why Choose {siteConfig.name}</Title>
           <Subtitle>
             We offer more than just a place to work out. Experience a complete
             fitness ecosystem designed for your success.

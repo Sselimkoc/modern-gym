@@ -255,9 +255,9 @@ const Footer = () => {
             PowerFit
           </FooterLogo>
           <FooterDescription>
-            Transform your body and mind with our premium fitness experience.
-            Our expert trainers and state-of-the-art facilities are designed to
-            help you achieve your ultimate fitness potential.
+            Transform your body and mind with our fitness experience.
+            Our expert trainers and quality facilities are here to
+            help you reach your fitness goals.
           </FooterDescription>
           <SocialLinks>
             <SocialLink
@@ -398,17 +398,6 @@ const Footer = () => {
                 }}
               >
                 Wellness
-              </a>
-            </FooterLink>
-            <FooterLink>
-              <a
-                href="#virtual-classes"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("virtual-classes");
-                }}
-              >
-                Virtual Classes
               </a>
             </FooterLink>
             <FooterLink>
