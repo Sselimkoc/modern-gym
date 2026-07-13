@@ -34,11 +34,23 @@ const IconWrapper = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   flex-shrink: 0;
   font-size: 1.5rem;
+  color: ${({ theme, color }) =>
+    color === "primary" ? theme.colors.white : theme.colors.secondary};
+
+  svg {
+    width: 26px;
+    height: 26px;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     width: 50px;
     height: 50px;
     font-size: 1.2rem;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
   }
 `;
 

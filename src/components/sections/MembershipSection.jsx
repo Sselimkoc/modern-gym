@@ -57,6 +57,11 @@ const TrialBadge = styled.span`
   color: ${({ theme }) => theme.colors.accent};
   font-size: 0.85rem;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
 `;
 
 const PlansGrid = styled.div`
@@ -213,7 +218,10 @@ const MembershipSection = () => {
             <Subtitle>
               Hedeflerine uygun bir paket seç, istediğin zaman iptal et.
             </Subtitle>
-            <TrialBadge>✓ {siteConfig.freeTrialText}</TrialBadge>
+            <TrialBadge>
+              <CheckIcon />
+              {siteConfig.freeTrialText}
+            </TrialBadge>
           </motion.div>
         </SectionHeader>
 

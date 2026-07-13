@@ -74,7 +74,7 @@ const CloseButton = styled.button`
   right: ${({ theme }) => theme.space.md};
   background-color: transparent;
   color: white;
-  font-size: 2rem;
+  border: none;
   width: 50px;
   height: 50px;
   display: flex;
@@ -83,6 +83,11 @@ const CloseButton = styled.button`
   cursor: pointer;
   transition: ${({ theme }) => theme.transitions.fast};
   z-index: 10;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 
   &:hover {
     transform: scale(1.1);
@@ -99,10 +104,17 @@ const NavigationButton = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: ${({ theme }) => theme.transitions.fast};
   z-index: 10;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
@@ -111,7 +123,11 @@ const NavigationButton = styled.button`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 40px;
     height: 40px;
-    font-size: 1.2rem;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 `;
 
@@ -192,8 +208,16 @@ const ImageGallery = ({ images = [], alt = "Gallery" }) => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
             >
-              <CloseButton onClick={() => setSelectedIndex(null)}>
-                ✕
+              <CloseButton onClick={() => setSelectedIndex(null)} aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M18 6 6 18M6 6l12 12"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </CloseButton>
 
               <NavigationButton
@@ -201,7 +225,15 @@ const ImageGallery = ({ images = [], alt = "Gallery" }) => {
                 style={{ left: "20px" }}
                 aria-label="Previous image"
               >
-                ❮
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M15 18l-6-6 6-6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </NavigationButton>
 
               <LightboxImage
@@ -214,7 +246,15 @@ const ImageGallery = ({ images = [], alt = "Gallery" }) => {
                 style={{ right: "20px" }}
                 aria-label="Next image"
               >
-                ❯
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9 18l6-6-6-6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </NavigationButton>
 
               <ImageCounter>
