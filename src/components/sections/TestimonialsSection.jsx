@@ -284,7 +284,7 @@ const testimonials = [
     rating: 5,
     date: "2 hafta önce",
     photo:
-      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
     author: {
       name: "Emily Rodriguez",
       image:
@@ -308,7 +308,7 @@ const testimonials = [
     rating: 4,
     date: "1 ay önce",
     photo:
-      "https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
     author: {
       name: "Sophia Chen",
       image:

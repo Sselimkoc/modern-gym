@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import Container from "../ui/Container";
 import ScrollProgressBar from "../ui/ScrollProgressBar";
 import { motion, AnimatePresence } from "framer-motion";
+import siteConfig from "../../data/siteConfig";
 
 const NavbarWrapper = styled.nav`
   position: fixed;
@@ -430,7 +431,7 @@ const Navbar = () => {
               </linearGradient>
             </defs>
           </svg>
-          POWER<span>FIT</span>
+          {siteConfig.name}
         </Logo>
 
         <MenuToggle
@@ -552,7 +553,7 @@ const Navbar = () => {
                     scrollToSection("hero");
                   }}
                 >
-                  POWER<span>FIT</span>
+                  {siteConfig.name}
                 </Logo>
               </MobileNavHeader>
 

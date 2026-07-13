@@ -220,7 +220,7 @@ const programs = {
       description:
         "Take your strength to elite levels with this advanced powerlifting program.",
       image:
-        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       level: "Advanced",
       duration: "12 weeks",
       sessions: "4x per week",
@@ -288,7 +288,7 @@ const programs = {
       id: 5,
       title: "Cardio Kickboxing",
       description:
-        "Burn fat and learn self-defense with high-energy kickboxing workouts. Our expert trainers will guide you through proper technique while providing an intense cardio workout that builds strength and confidence.",
+        "Burn fat and learn self-defense with high-energy kickboxing workouts.",
       image:
         "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
       level: "Intermediate",
@@ -314,12 +314,19 @@ const programs = {
       description:
         "Take your strength to elite levels with this advanced powerlifting program.",
       image:
-        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       level: "Advanced",
       duration: "12 weeks",
       sessions: "4x per week",
     },
   ],
+};
+
+const scrollToSection = (sectionId) => {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
 };
 
 const ProgramsSection = () => {
@@ -429,7 +436,9 @@ const ProgramsSection = () => {
                             <span>{program.sessions}</span>
                           </ProgramDetail>
                         </ProgramDetails>
-                        <Button fullWidth>Learn More</Button>
+                        <Button fullWidth onClick={() => scrollToSection("contact")}>
+                          Learn More
+                        </Button>
                       </div>
                     </ProgramContent>
                   </ProgramCard>
@@ -440,8 +449,12 @@ const ProgramsSection = () => {
         </motion.div>
 
         <ButtonContainer>
-          <Button variant="outline" size="lg">
-            View All Programs
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => scrollToSection("membership")}
+          >
+            View Membership Plans
           </Button>
         </ButtonContainer>
       </Container>

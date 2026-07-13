@@ -36,37 +36,66 @@ const FeaturesGrid = styled.div`
 const FeatureCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   padding: 2rem;
+  position: relative;
+  overflow: hidden;
   transition: ${({ theme }) => theme.transitions.default};
   height: 100%;
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: ${({ theme }) => theme.colors.gradientPrimary};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
   &:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
+    box-shadow: ${({ theme }) => theme.shadows.hover};
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
   }
 `;
 
 const IconContainer = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.gradientPrimary};
+  width: 60px;
+  height: 60px;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  background: rgba(124, 58, 237, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  box-shadow: ${({ theme }) => theme.shadows.primary};
+  transition: ${({ theme }) => theme.transitions.default};
 
   svg {
-    width: 40px;
-    height: 40px;
-    color: white;
+    width: 28px;
+    height: 28px;
+    color: ${({ theme }) => theme.colors.primary};
+    transition: ${({ theme }) => theme.transitions.default};
+  }
+
+  ${FeatureCard}:hover & {
+    background: ${({ theme }) => theme.colors.gradientPrimary};
+
+    svg {
+      color: white;
+    }
   }
 `;
 
 const FeatureTitle = styled.h3`
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
@@ -213,35 +242,7 @@ const features = [
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M8 15C8 15 9 16 12 16C15 16 16 15 16 15"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 12V13"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M7 9C8.10457 9 9 8.10457 9 7C9 5.89543 8.10457 5 7 5C5.89543 5 5 5.89543 5 7C5 8.10457 5.89543 9 7 9Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M17 9C18.1046 9 19 8.10457 19 7C19 5.89543 18.1046 5 17 5C15.8954 5 15 5.89543 15 7C15 8.10457 15.8954 9 17 9Z"
+          d="M20 6L9 17l-5-5"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
@@ -249,47 +250,22 @@ const features = [
         />
       </svg>
     ),
-    title: "Spa & Wellness",
+    title: "No Long-Term Contracts",
     description:
-      "Relax and recover with our premium spa facilities including sauna, steam room, and massage therapy.",
+      "Start with a free trial and stay because you want to — cancel anytime, no hidden fees.",
   },
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect
-          x="5"
-          y="2"
-          width="14"
-          height="20"
-          rx="2"
+        <path
+          d="M9 11l3 3L22 4"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
-          d="M12 18H12.01"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M9 22H15"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8 6H16"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8 10H16"
+          d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
@@ -297,9 +273,9 @@ const features = [
         />
       </svg>
     ),
-    title: "Track Your Progress",
+    title: "Clean & Safe Facility",
     description:
-      "Book classes, track workouts, and stay connected with our community through our mobile app.",
+      "Equipment sanitized daily and well-maintained spaces so you can focus on your workout, not worry.",
   },
   {
     icon: (

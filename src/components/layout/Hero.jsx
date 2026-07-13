@@ -9,6 +9,7 @@ import {
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import heroVideo from "../../assets/videos/hero.mp4";
+import siteConfig from "../../data/siteConfig";
 
 const HeroWrapper = styled.section`
   position: relative;
@@ -311,7 +312,7 @@ const Hero = () => {
               transition={{ type: "spring", damping: 20, stiffness: 300 }}
             >
               <CloseButton onClick={() => setShowModal(false)}>×</CloseButton>
-              <FormTitle>Join PowerFit Today</FormTitle>
+              <FormTitle>Join {siteConfig.name} Today</FormTitle>
               <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <Label htmlFor="name">Full Name</Label>

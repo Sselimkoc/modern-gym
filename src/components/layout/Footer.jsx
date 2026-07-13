@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Container from "../ui/Container";
+import siteConfig from "../../data/siteConfig";
 
 const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.colors.secondary};
@@ -252,7 +253,7 @@ const Footer = () => {
                 </linearGradient>
               </defs>
             </svg>
-            PowerFit
+            {siteConfig.name}
           </FooterLogo>
           <FooterDescription>
             Transform your body and mind with our fitness experience.
@@ -609,7 +610,7 @@ const Footer = () => {
       <Container>
         <BottomBar>
           <Copyright>
-            © {new Date().getFullYear()} PowerFit. All rights reserved.
+            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </Copyright>
           <BottomLinks>
             <a href="/privacy">Privacy Policy</a>
