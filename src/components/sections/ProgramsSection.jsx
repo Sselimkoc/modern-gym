@@ -50,7 +50,7 @@ const Tab = styled.button`
 
   &:hover {
     background: ${({ active, theme }) =>
-      active ? theme.colors.primary : "rgba(255,60,95,0.08)"};
+      active ? theme.colors.primary : "rgba(124,58,237,0.08)"};
     border-color: ${({ theme }) => theme.colors.primary};
     color: ${({ active, theme }) =>
       active ? theme.colors.white : theme.colors.primary};
@@ -117,7 +117,8 @@ const ProgramLevel = styled.span`
       : level === "Intermediate"
       ? theme.colors.primary
       : theme.colors.secondary};
-  color: white;
+  color: ${({ level, theme }) =>
+    level === "Beginner" ? theme.colors.secondary : theme.colors.white};
   padding: 0.4rem 0.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-size: 0.8rem;

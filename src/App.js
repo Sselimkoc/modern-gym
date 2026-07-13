@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { HelmetProvider } from "react-helmet-async";
 import theme from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
+import StickyJoinButton from "./components/ui/StickyJoinButton";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Router>
+        <StickyJoinButton />
       </ThemeProvider>
     </HelmetProvider>
   );

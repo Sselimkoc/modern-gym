@@ -104,7 +104,7 @@ const LiveBadge = styled.div`
   top: 1rem;
   right: 1rem;
   background-color: ${({ theme }) => theme.colors.accent};
-  color: white;
+  color: ${({ theme }) => theme.colors.secondary};
   padding: 0.25rem 0.75rem;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   font-size: 0.8rem;

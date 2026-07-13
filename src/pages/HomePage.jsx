@@ -5,6 +5,7 @@ import Navbar from "../components/layout/Navbar";
 import Hero from "../components/layout/Hero";
 import FeaturesSection from "../components/sections/FeaturesSection";
 import ProgramsSection from "../components/sections/ProgramsSection";
+import MembershipSection from "../components/sections/MembershipSection";
 import WellnessSection from "../components/sections/WellnessSection";
 import VirtualClassesSection from "../components/sections/VirtualClassesSection";
 import TestimonialsSection from "../components/sections/TestimonialsSection";
@@ -19,7 +20,8 @@ import useSEO from "../hooks/useSEO";
 
 const GallerySection = styled.section`
   padding: ${({ theme }) => `${theme.space.xl} 0`};
-  background: linear-gradient(135deg, #f7f7f7 0%, #ffffff 100%);
+  background: ${({ theme }) =>
+    `linear-gradient(135deg, ${theme.colors.light} 0%, #ffffff 100%)`};
 `;
 
 const SectionTitle = styled.h2`
@@ -38,13 +40,13 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #ff3c5f, #00e6b8);
+    background: ${({ theme }) => theme.colors.gradientPrimary};
     border-radius: 2px;
   }
 `;
 
 const CTASection = styled.section`
-  background: linear-gradient(135deg, #ff3c5f 0%, #1e2a38 100%);
+  background: ${({ theme }) => theme.colors.gradientDark};
   padding: ${({ theme }) => `${theme.space.xl} 0`};
   text-align: center;
   color: white;
@@ -115,6 +117,7 @@ const HomePage = () => {
       <Hero />
       <FeaturesSection />
       <ProgramsSection />
+      <MembershipSection />
       <WellnessSection />
       <VirtualClassesSection />
       <TestimonialsSection />

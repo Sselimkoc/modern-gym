@@ -40,8 +40,8 @@ const Overlay = styled.div`
   height: 100%;
   background: linear-gradient(
     120deg,
-    rgba(30, 42, 56, 0.7) 60%,
-    rgba(255, 60, 95, 0.4) 100%
+    rgba(42, 27, 61, 0.75) 60%,
+    rgba(124, 58, 237, 0.45) 100%
   );
   z-index: 2;
 `;
@@ -76,6 +76,28 @@ const ButtonContainer = styled(motion.div)`
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+`;
+
+const TrustRow = styled(motion.div)`
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 // Modal styles
@@ -157,7 +179,7 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 0 2px rgba(255, 60, 95, 0.2);
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25);
   }
 `;
 
@@ -230,6 +252,48 @@ const Hero = () => {
               View Programs
             </Button>
           </ButtonContainer>
+          <TrustRow
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              İlk hafta ücretsiz
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Taahhüt yok
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              İstediğin zaman iptal et
+            </span>
+          </TrustRow>
         </Content>
       </Container>
 

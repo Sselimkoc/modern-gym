@@ -155,7 +155,7 @@ const AuthorName = styled.h4`
 
 const AuthorTitle = styled.p`
   margin: 0;
-  color: ${({ theme }) => theme.colors.accent};
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 0.9rem;
 `;
 

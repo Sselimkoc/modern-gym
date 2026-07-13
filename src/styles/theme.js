@@ -1,17 +1,17 @@
 const theme = {
   colors: {
-    primary: "#ff3c5f",
-    primaryDark: "#ff1744",
-    secondary: "#1e2a38",
-    accent: "#00e6b8",
-    light: "#f7f7f7",
+    primary: "#7C3AED",
+    primaryDark: "#6D28D9",
+    secondary: "#2A1B3D",
+    accent: "#FFD93D",
+    light: "#FFFBEA",
     white: "#ffffff",
-    dark: "#222222",
-    gray: "#888888",
-    lightGray: "#e0e0e0",
-    gradientPrimary: "linear-gradient(135deg, #ff3c5f 0%, #ff6b8b 100%)",
-    gradientDark: "linear-gradient(135deg, #1e2a38 0%, #364759 100%)",
-    overlay: "rgba(30, 42, 56, 0.7)",
+    dark: "#241832",
+    gray: "#8A7E99",
+    lightGray: "#E9E1F5",
+    gradientPrimary: "linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)",
+    gradientDark: "linear-gradient(135deg, #2A1B3D 0%, #3D2A5C 100%)",
+    overlay: "rgba(42, 27, 61, 0.7)",
   },
   fonts: {
     heading: "'Montserrat', sans-serif",
@@ -49,7 +49,7 @@ const theme = {
     md: "0 4px 6px rgba(0,0,0,0.1)",
     lg: "0 10px 15px rgba(0,0,0,0.1)",
     xl: "0 20px 25px rgba(0,0,0,0.1)",
-    primary: "0 4px 16px rgba(255,60,95,0.25)",
+    primary: "0 4px 16px rgba(124,58,237,0.3)",
     hover: "0 8px 30px rgba(0,0,0,0.12)",
   },
   space: {
@@ -91,7 +91,7 @@ const theme = {
   },
   utilities: {
     focusRing: `
-      outline: 2px solid #00e6b8;
+      outline: 2px solid #FFD93D;
       outline-offset: 2px;
     `,
     visibleHidden: `

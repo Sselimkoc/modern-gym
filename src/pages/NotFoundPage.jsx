@@ -12,7 +12,8 @@ const Section = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f7f7f7 0%, #ffffff 100%);
+  background: ${({ theme }) =>
+    `linear-gradient(135deg, ${theme.colors.light} 0%, #ffffff 100%)`};
   padding: ${({ theme }) => `${theme.space.xl} 0`};
 `;
 
@@ -24,7 +25,7 @@ const Content = styled(motion.div)`
 const ErrorCode = styled.div`
   font-size: clamp(4rem, 10vw, 8rem);
   font-weight: ${({ theme }) => theme.fontWeights.extraBold};
-  background: linear-gradient(135deg, #ff3c5f, #1e2a38);
+  background: ${({ theme }) => theme.colors.gradientPrimary};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -269,6 +269,7 @@ const Navbar = () => {
         "hero",
         "features",
         "programs",
+        "membership",
         "wellness",
         "virtual-classes",
         "testimonials",
@@ -403,8 +404,8 @@ const Navbar = () => {
                 y2="17.5"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#FF6B6B" />
-                <stop offset="1" stopColor="#4472CA" />
+                <stop stopColor="#7C3AED" />
+                <stop offset="1" stopColor="#FFD93D" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear"
@@ -414,8 +415,8 @@ const Navbar = () => {
                 y2="11"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#FF6B6B" />
-                <stop offset="1" stopColor="#4472CA" />
+                <stop stopColor="#7C3AED" />
+                <stop offset="1" stopColor="#FFD93D" />
               </linearGradient>
               <linearGradient
                 id="paint2_linear"
@@ -425,8 +426,8 @@ const Navbar = () => {
                 y2="21"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stopColor="#FF6B6B" />
-                <stop offset="1" stopColor="#4472CA" />
+                <stop stopColor="#7C3AED" />
+                <stop offset="1" stopColor="#FFD93D" />
               </linearGradient>
             </defs>
           </svg>
@@ -489,6 +490,16 @@ const Navbar = () => {
             }}
           >
             Programs
+          </NavLink>
+          <NavLink
+            href="#membership"
+            active={activeSection === "membership"}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("membership");
+            }}
+          >
+            Membership
           </NavLink>
           <NavLink
             href="#wellness"
@@ -651,6 +662,30 @@ const Navbar = () => {
                     />
                   </svg>
                   Programs
+                </NavLink>
+                <NavLink
+                  href="#membership"
+                  active={activeSection === "membership"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("membership");
+                  }}
+                  variants={itemVariants}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 6L9 17l-5-5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Membership
                 </NavLink>
                 <NavLink
                   href="#wellness"

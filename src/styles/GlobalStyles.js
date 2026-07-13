@@ -103,7 +103,7 @@ const GlobalStyles = createGlobalStyle`
     &:focus {
       outline: none;
       border-color: ${({ theme }) => theme.colors.primary};
-      box-shadow: 0 0 0 3px rgba(255, 60, 95, 0.1);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
     }
 
     &:disabled {

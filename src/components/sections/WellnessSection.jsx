@@ -96,7 +96,7 @@ const IconWrapper = styled.div`
   svg {
     width: 20px;
     height: 20px;
-    color: white;
+    color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 

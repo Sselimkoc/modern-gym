@@ -36,7 +36,7 @@ const StyledCard = styled(motion.div)`
       hover ? "0 15px 30px rgba(0, 0, 0, 0.1)" : "inherit"};
     transform: ${({ hover }) => (hover ? "translateY(-8px)" : "none")};
     border-color: ${({ hover, theme }) =>
-      hover ? "rgba(255, 60, 95, 0.2)" : "rgba(0, 0, 0, 0.05)"};
+      hover ? "rgba(124, 58, 237, 0.25)" : "rgba(0, 0, 0, 0.05)"};
   }
 `;
 

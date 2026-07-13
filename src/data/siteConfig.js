@@ -36,6 +36,53 @@ const siteConfig = {
     "https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
     "https://images.unsplash.com/photo-1552821554-5fefe8c9ef14?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   ],
+  freeTrialText: "İlk hafta ücretsiz, taahhüt yok",
+  membershipPlans: [
+    {
+      id: "basic",
+      name: "Basic",
+      price: 29,
+      period: "ay",
+      description: "Spor rutinine yeni başlayanlar için",
+      features: [
+        "Salon erişimi (06:00 - 22:00)",
+        "Kardiyo ve ağırlık ekipmanları",
+        "Soyunma odası ve dolap",
+      ],
+      popular: false,
+      cta: "Başla",
+    },
+    {
+      id: "premium",
+      name: "Premium",
+      price: 49,
+      period: "ay",
+      description: "En çok tercih edilen paket",
+      features: [
+        "7/24 salon erişimi",
+        "Sınırsız grup dersleri",
+        "Ayda 2 misafir hakkı",
+        "Sauna ve dinlenme alanı",
+      ],
+      popular: true,
+      cta: "Hemen Katıl",
+    },
+    {
+      id: "elite",
+      name: "Elite",
+      price: 79,
+      period: "ay",
+      description: "Kişisel antrenörlü tam kapsamlı deneyim",
+      features: [
+        "Premium paketindeki her şey",
+        "Ayda 4 personal training seansı",
+        "Beslenme danışmanlığı",
+        "Öncelikli ders rezervasyonu",
+      ],
+      popular: false,
+      cta: "Başla",
+    },
+  ],
 };
 
 export default siteConfig;
