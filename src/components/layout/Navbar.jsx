@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
+import ScrollProgressBar from "../ui/ScrollProgressBar";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NavbarWrapper = styled.nav`
@@ -11,8 +12,14 @@ const NavbarWrapper = styled.nav`
   width: 100%;
   z-index: 1000;
   background-color: ${({ scrolled, theme }) =>
-    scrolled ? theme.colors.secondary : "transparent"};
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    scrolled ? `${theme.colors.secondary}b3` : "transparent"};
+  backdrop-filter: ${({ scrolled }) => (scrolled ? "blur(16px) saturate(180%)" : "none")};
+  -webkit-backdrop-filter: ${({ scrolled }) =>
+    scrolled ? "blur(16px) saturate(180%)" : "none"};
+  border-bottom: 1px solid
+    ${({ scrolled }) => (scrolled ? "rgba(255, 255, 255, 0.08)" : "transparent")};
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease, border-color 0.3s ease;
   box-shadow: ${({ scrolled, theme }) =>
     scrolled ? theme.shadows.md : "none"};
 `;
@@ -21,26 +28,29 @@ const NavContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  gap: 2rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
 `;
 
 const Logo = styled.a`
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.light};
   text-decoration: none;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  letter-spacing: 0.01em;
 
   span {
     color: ${({ theme }) => theme.colors.accent};
   }
 
   svg {
-    margin-right: 10px;
-    width: 32px;
-    height: 32px;
+    margin-right: 8px;
+    width: 28px;
+    height: 28px;
   }
 `;
 
@@ -76,6 +86,8 @@ const NavLinks = styled(motion.div)`
   align-items: center;
 
   &.desktop-nav {
+    gap: 0.25rem;
+
     @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
       display: none;
     }
@@ -90,7 +102,10 @@ const NavLinks = styled(motion.div)`
       right: 0;
       width: 280px;
       height: 100vh;
-      background-color: ${({ theme }) => theme.colors.secondary};
+      background-color: ${({ theme }) => `${theme.colors.secondary}e6`};
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
@@ -119,33 +134,25 @@ const MobileNavOverlay = styled(motion.div)`
 `;
 
 const NavLink = styled(motion.a)`
-  color: ${({ theme }) => theme.colors.light};
-  margin-right: 2rem;
+  color: ${({ theme, active }) => (active ? theme.colors.white : theme.colors.light)};
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
   position: relative;
-  transition: color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  background-color: ${({ active }) => (active ? "rgba(255, 255, 255, 0.14)" : "transparent")};
+  opacity: ${({ active }) => (active ? 1 : 0.85)};
 
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: ${({ active }) => (active ? "100%" : "0")};
-    height: 2px;
-    background-color: ${({ theme }) => theme.colors.accent};
-    transition: width 0.3s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
+    background-color: rgba(255, 255, 255, 0.08);
+    opacity: 1;
   }
 
   svg {
@@ -156,15 +163,11 @@ const NavLink = styled(motion.a)`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    margin-right: 0;
-    margin-bottom: 0.8rem;
-    padding: 0.8rem 1.5rem;
+    margin-bottom: 0.4rem;
+    padding: 0.85rem 1.5rem;
     width: 100%;
     font-size: 1rem;
-
-    &::after {
-      display: none;
-    }
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
   }
 `;
 
@@ -182,7 +185,9 @@ const MobileNavHeader = styled.div`
     position: sticky;
     top: 0;
     left: 0;
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => `${theme.colors.secondary}e6`};
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     z-index: 2;
   }
 `;
@@ -209,7 +214,9 @@ const MobileNavFooter = styled.div`
     position: sticky;
     bottom: 0;
     left: 0;
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => `${theme.colors.secondary}e6`};
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     z-index: 2;
   }
 `;
@@ -543,7 +550,11 @@ const Navbar = () => {
           >
             Contact
           </NavLink>
-          <Button small onClick={() => scrollToSection("hero")}>
+          <Button
+            small
+            style={{ marginLeft: "0.75rem" }}
+            onClick={() => scrollToSection("hero")}
+          >
             Join Now
           </Button>
         </NavLinks>
@@ -888,6 +899,8 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </NavContainer>
+
+      <ScrollProgressBar />
     </NavbarWrapper>
   );
 };
