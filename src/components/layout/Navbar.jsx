@@ -472,16 +472,6 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <NavLinks className="desktop-nav">
           <NavLink
-            href="#features"
-            active={activeSection === "features"}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("features");
-            }}
-          >
-            Features
-          </NavLink>
-          <NavLink
             href="#programs"
             active={activeSection === "programs"}
             onClick={(e) => {
@@ -500,46 +490,6 @@ const Navbar = () => {
             }}
           >
             Membership
-          </NavLink>
-          <NavLink
-            href="#wellness"
-            active={activeSection === "wellness"}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("wellness");
-            }}
-          >
-            Wellness
-          </NavLink>
-          <NavLink
-            href="#virtual-classes"
-            active={activeSection === "virtual-classes"}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("virtual-classes");
-            }}
-          >
-            Virtual Classes
-          </NavLink>
-          <NavLink
-            href="#testimonials"
-            active={activeSection === "testimonials"}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("testimonials");
-            }}
-          >
-            Testimonials
-          </NavLink>
-          <NavLink
-            href="#mobile-app"
-            active={activeSection === "mobile-app"}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("mobile-app");
-            }}
-          >
-            Mobile App
           </NavLink>
           <NavLink
             href="#gallery"
@@ -609,30 +559,6 @@ const Navbar = () => {
 
               <MobileNavContent>
                 <NavLink
-                  href="#features"
-                  active={activeSection === "features"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection("features");
-                  }}
-                  variants={itemVariants}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5 3v18M12 3v18M19 3v18"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Features
-                </NavLink>
-                <NavLink
                   href="#programs"
                   active={activeSection === "programs"}
                   onClick={(e) => {
@@ -686,124 +612,6 @@ const Navbar = () => {
                     />
                   </svg>
                   Membership
-                </NavLink>
-                <NavLink
-                  href="#wellness"
-                  active={activeSection === "wellness"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection("wellness");
-                  }}
-                  variants={itemVariants}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M18 8c2.209 0 4-1.791 4-4s-1.791-4-4-4-4 1.791-4 4c0 .73.196 1.412.535 2M6 20c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4c0-.73-.196-1.412-.535-2M18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM6 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Wellness
-                </NavLink>
-                <NavLink
-                  href="#virtual-classes"
-                  active={activeSection === "virtual-classes"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection("virtual-classes");
-                  }}
-                  variants={itemVariants}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M23 7 16 12l7 5V7z"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <rect
-                      x="1"
-                      y="5"
-                      width="15"
-                      height="14"
-                      rx="2"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Virtual Classes
-                </NavLink>
-                <NavLink
-                  href="#testimonials"
-                  active={activeSection === "testimonials"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection("testimonials");
-                  }}
-                  variants={itemVariants}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17 8h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2v4l-4-4H9a2 2 0 0 1-2-2v-1M9 8H7a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v4l4-4h3"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Testimonials
-                </NavLink>
-                <NavLink
-                  href="#mobile-app"
-                  active={activeSection === "mobile-app"}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection("mobile-app");
-                  }}
-                  variants={itemVariants}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      x="5"
-                      y="2"
-                      width="14"
-                      height="20"
-                      rx="2"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M12 18h.01"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Mobile App
                 </NavLink>
                 <NavLink
                   href="#gallery"
