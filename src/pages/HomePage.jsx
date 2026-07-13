@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
+import SectionWave from "../components/ui/SectionWave";
 import Navbar from "../components/layout/Navbar";
 import Hero from "../components/layout/Hero";
 import FeaturesSection from "../components/sections/FeaturesSection";
@@ -103,6 +104,8 @@ const scrollToSection = (sectionId) => {
 };
 
 const HomePage = () => {
+  const theme = useTheme();
+
   useSEO({
     title: `${siteConfig.name} - ${siteConfig.tagline}`,
     description: siteConfig.description,
@@ -115,18 +118,34 @@ const HomePage = () => {
     <div>
       <Navbar />
       <Hero />
+      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={0} />
       <FeaturesSection />
+      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.white} variant={1} />
       <ProgramsSection />
+      <SectionWave bgColor={theme.colors.white} fillColor={theme.colors.secondary} variant={0} />
       <MembershipSection />
+      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
       <WellnessSection />
+      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
       <VirtualClassesSection />
+      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
       <TestimonialsSection />
+      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
       <MobileAppSection />
+      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
 
       {/* Facility Gallery */}
       <GallerySection id="gallery">
         <Container>
-          <SectionTitle>Our Facility</SectionTitle>
+          <SectionTitle
+            as={motion.h2}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            Our Facility
+          </SectionTitle>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -137,6 +156,7 @@ const HomePage = () => {
           </motion.div>
         </Container>
       </GallerySection>
+      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
 
       {/* CTA Section */}
       <CTASection>
@@ -177,6 +197,7 @@ const HomePage = () => {
           </ButtonGroup>
         </Container>
       </CTASection>
+      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
 
       {/* Contact */}
       <div id="contact">
@@ -187,6 +208,7 @@ const HomePage = () => {
           hours={siteConfig.hours}
         />
       </div>
+      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
 
       <Footer />
     </div>

@@ -356,15 +356,14 @@ const ProgramsSection = () => {
   return (
     <SectionWrapper id="programs" ref={ref}>
       <Container>
-        <SectionHeader>
-          <Title
-            as={motion.h2}
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            Our Fitness Programs
-          </Title>
+        <SectionHeader
+          as={motion.div}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <Title>Our Fitness Programs</Title>
           <Subtitle>
             Discover programs tailored to your fitness level and goals. From
             beginners to advanced athletes, we have something for everyone.

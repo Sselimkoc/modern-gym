@@ -70,7 +70,15 @@ const ContactSection = ({ email, phone, address, hours }) => {
   return (
     <Section>
       <Container>
-        <Title>Get In Touch</Title>
+        <Title
+          as={motion.h2}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          Get In Touch
+        </Title>
 
         <Grid>
           {phone && (

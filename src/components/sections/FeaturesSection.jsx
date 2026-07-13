@@ -327,7 +327,13 @@ const FeaturesSection = () => {
   return (
     <SectionWrapper id="features">
       <Container>
-        <SectionHeader>
+        <SectionHeader
+          as={motion.div}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <Title>Why Choose ModernGym</Title>
           <Subtitle>
             We offer more than just a place to work out. Experience a complete

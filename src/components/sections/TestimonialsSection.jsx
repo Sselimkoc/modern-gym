@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 
@@ -9,30 +9,30 @@ const SectionWrapper = styled.section`
   background-color: ${({ theme }) => theme.colors.light};
   position: relative;
   overflow: hidden;
+`;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: -150px;
-    left: -150px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.accent};
-    opacity: 0.05;
-  }
+const CircleTopLeft = styled(motion.div)`
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.accent};
+  opacity: 0.08;
+  pointer-events: none;
+`;
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -100px;
-    right: -100px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.primary};
-    opacity: 0.05;
-  }
+const CircleBottomRight = styled(motion.div)`
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.primary};
+  opacity: 0.08;
+  pointer-events: none;
 `;
 
 const SectionHeader = styled.div`
@@ -226,6 +226,13 @@ const TestimonialsSection = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const circle1Y = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const circle2Y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -236,7 +243,9 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <SectionWrapper id="testimonials">
+    <SectionWrapper id="testimonials" ref={sectionRef}>
+      <CircleTopLeft style={{ y: circle1Y }} />
+      <CircleBottomRight style={{ y: circle2Y }} />
       <Container>
         <SectionHeader>
           <motion.div

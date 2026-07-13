@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
 import siteConfig from "../../data/siteConfig";
@@ -10,19 +10,19 @@ const SectionWrapper = styled.section`
   background: ${({ theme }) => theme.colors.gradientDark};
   position: relative;
   overflow: hidden;
+`;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: -20%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.primary};
-    opacity: 0.12;
-    filter: blur(60px);
-  }
+const Blob = styled(motion.div)`
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.primary};
+  opacity: 0.12;
+  filter: blur(60px);
+  pointer-events: none;
 `;
 
 const SectionHeader = styled.div`
@@ -191,8 +191,16 @@ const scrollToSection = (sectionId) => {
 };
 
 const MembershipSection = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const blobY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+
   return (
-    <SectionWrapper id="membership">
+    <SectionWrapper id="membership" ref={ref}>
+      <Blob style={{ y: blobY }} />
       <Container>
         <SectionHeader>
           <motion.div
