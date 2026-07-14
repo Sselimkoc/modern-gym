@@ -93,6 +93,9 @@ const PlanCard = styled(motion.div)`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     transform: none;
+    border-width: ${({ popular }) => (popular ? "2px" : "1px")};
+    box-shadow: ${({ popular }) =>
+      popular ? "0 10px 30px rgba(255, 217, 61, 0.22)" : "none"};
   }
 `;
 

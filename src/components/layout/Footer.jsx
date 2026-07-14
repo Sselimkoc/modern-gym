@@ -140,37 +140,14 @@ const BottomBar = styled.div`
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
+  text-align: center;
 `;
 
 const Copyright = styled.p`
   font-size: 0.9rem;
   opacity: 0.7;
-`;
-
-const BottomLinks = styled.div`
-  display: flex;
-  gap: 1.5rem;
-
-  a {
-    font-size: 0.9rem;
-    color: ${({ theme }) => theme.colors.white};
-    opacity: 0.7;
-    text-decoration: none;
-    transition: ${({ theme }) => theme.transitions.fast};
-
-    &:hover {
-      opacity: 1;
-      color: ${({ theme }) => theme.colors.primary};
-    }
-  }
 `;
 
 const Footer = () => {
@@ -392,6 +369,17 @@ const Footer = () => {
             </FooterLink>
             <FooterLink>
               <a
+                href="#membership"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("membership");
+                }}
+              >
+                Membership
+              </a>
+            </FooterLink>
+            <FooterLink>
+              <a
                 href="#wellness"
                 onClick={(e) => {
                   e.preventDefault();
@@ -421,6 +409,28 @@ const Footer = () => {
                 }}
               >
                 Mobile App
+              </a>
+            </FooterLink>
+            <FooterLink>
+              <a
+                href="#gallery"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("gallery");
+                }}
+              >
+                Gallery
+              </a>
+            </FooterLink>
+            <FooterLink>
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("contact");
+                }}
+              >
+                Contact
               </a>
             </FooterLink>
           </FooterLinks>
@@ -612,12 +622,6 @@ const Footer = () => {
           <Copyright>
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </Copyright>
-          <BottomLinks>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/careers">Careers</a>
-            <a href="/sitemap">Sitemap</a>
-          </BottomLinks>
         </BottomBar>
       </Container>
     </FooterWrapper>
