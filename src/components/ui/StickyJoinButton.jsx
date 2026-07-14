@@ -73,7 +73,7 @@ const StickyJoinButton = () => {
               strokeLinejoin="round"
             />
           </svg>
-          Ücretsiz Deneme
+          Free Trial
         </FloatingButton>
       )}
     </AnimatePresence>

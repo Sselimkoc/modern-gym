@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
 import siteConfig from "../../data/siteConfig";
+import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -200,11 +201,16 @@ const scrollToSection = (sectionId) => {
 
 const MembershipSection = () => {
   const ref = useRef(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const blobY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+  const blobY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [-60, 60]
+  );
 
   return (
     <SectionWrapper id="membership" ref={ref}>
@@ -219,7 +225,7 @@ const MembershipSection = () => {
           >
             <Title>Choose Your Membership</Title>
             <Subtitle>
-              Hedeflerine uygun bir paket seç, istediğin zaman iptal et.
+              Pick the plan that fits your goals, cancel anytime.
             </Subtitle>
             <TrialBadge>
               <CheckIcon />
@@ -238,7 +244,7 @@ const MembershipSection = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              {plan.popular && <PopularBadge>En Popüler</PopularBadge>}
+              {plan.popular && <PopularBadge>Most Popular</PopularBadge>}
               <PlanName>{plan.name}</PlanName>
               <PlanDescription>{plan.description}</PlanDescription>
               <PriceRow>

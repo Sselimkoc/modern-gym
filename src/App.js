@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
 import { ThemeProvider } from "styled-components";
 import { HelmetProvider } from "react-helmet-async";
 import theme from "./styles/theme";
@@ -14,15 +15,17 @@ function App() {
     <HelmetProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <JoinModalProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Router>
-          <StickyJoinButton />
-        </JoinModalProvider>
+        <MotionConfig reducedMotion="user">
+          <JoinModalProvider>
+            <Router>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Router>
+            <StickyJoinButton />
+          </JoinModalProvider>
+        </MotionConfig>
       </ThemeProvider>
     </HelmetProvider>
   );

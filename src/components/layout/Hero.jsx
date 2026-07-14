@@ -11,6 +11,7 @@ import Container from "../ui/Container";
 import heroVideo from "../../assets/videos/hero.mp4";
 import siteConfig from "../../data/siteConfig";
 import { useJoinModal } from "../../context/JoinModalContext";
+import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
 
 const HeroWrapper = styled.section`
   position: relative;
@@ -228,15 +229,28 @@ const SuccessText = styled.p`
 const Hero = () => {
   const { isOpen: showModal, openJoinModal, closeJoinModal } = useJoinModal();
   const [submitted, setSubmitted] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    prefersReducedMotion ? [1, 1] : [1, 0]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    prefersReducedMotion ? [1, 1] : [1, 1.1]
+  );
+  const y = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    prefersReducedMotion ? [0, 0] : [0, 100]
+  );
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
@@ -260,7 +274,7 @@ const Hero = () => {
   };
 
   return (
-    <HeroWrapper ref={ref} id="hero">
+    <HeroWrapper ref={ref} id="hero" tabIndex={-1}>
       <motion.div style={{ scale }}>
         <VideoBackground src={heroVideo} autoPlay loop muted playsInline />
       </motion.div>
@@ -312,7 +326,7 @@ const Hero = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              İlk hafta ücretsiz
+              First week free
             </span>
             <span>
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -324,7 +338,7 @@ const Hero = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              Taahhüt yok
+              No commitment
             </span>
             <span>
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -336,7 +350,7 @@ const Hero = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              İstediğin zaman iptal et
+              Cancel anytime
             </span>
           </TrustRow>
         </Content>

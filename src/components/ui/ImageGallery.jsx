@@ -145,7 +145,7 @@ const ImageCounter = styled.div`
   z-index: 9;
 `;
 
-const ImageGallery = ({ images = [], alt = "Gallery" }) => {
+const ImageGallery = ({ images = [] }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const handlePrevious = useCallback(() => {
@@ -185,8 +185,8 @@ const ImageGallery = ({ images = [], alt = "Gallery" }) => {
             viewport={{ once: true }}
           >
             <LazyImage
-              src={image}
-              alt={`${alt} ${index + 1}`}
+              src={image.src}
+              alt={image.alt}
               width="100%"
               height="100%"
             />
@@ -237,8 +237,8 @@ const ImageGallery = ({ images = [], alt = "Gallery" }) => {
               </NavigationButton>
 
               <LightboxImage
-                src={images[selectedIndex]}
-                alt={`${alt} ${selectedIndex + 1}`}
+                src={images[selectedIndex].src}
+                alt={images[selectedIndex].alt}
               />
 
               <NavigationButton

@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import { handleImgError } from "../../utils/imageFallback";
+import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -283,7 +284,7 @@ const testimonials = [
     id: 1,
     text: "I've been a member for over a year now, and the transformation in my fitness level is incredible. The trainers are knowledgeable and supportive, and the facilities are always clean and well-maintained. The mobile app makes booking classes so easy!",
     rating: 5,
-    date: "2 hafta önce",
+    date: "2 weeks ago",
     photo:
       "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
     author: {
@@ -296,7 +297,7 @@ const testimonials = [
     id: 2,
     text: "As someone who was intimidated by gyms, the welcoming atmosphere here made all the difference. The staff took time to create a personalized plan for me, and the community is so supportive. I've lost 30 pounds and gained confidence I never thought possible!",
     rating: 5,
-    date: "1 ay önce",
+    date: "1 month ago",
     author: {
       name: "Marcus Johnson",
       image:
@@ -307,7 +308,7 @@ const testimonials = [
     id: 3,
     text: "The spa and wellness services are exceptional. After intense workouts, being able to recover with professional massage therapy and wellness treatments has improved my performance and overall well-being. This isn't just a gym, it's a complete fitness experience.",
     rating: 4,
-    date: "1 ay önce",
+    date: "1 month ago",
     photo:
       "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
     author: {
@@ -330,12 +331,21 @@ const TestimonialsSection = () => {
     threshold: 0.1,
   });
   const sectionRef = useRef(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const circle1Y = useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const circle2Y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const circle1Y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [-40, 40]
+  );
+  const circle2Y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [40, -40]
+  );
 
   useEffect(() => {
     if (paused) return;
@@ -367,7 +377,7 @@ const TestimonialsSection = () => {
               <GoogleLogo />
               <RatingScore>{AVERAGE_RATING}</RatingScore>
               <StarRow rating={Math.round(AVERAGE_RATING)} />
-              <RatingMeta>· {testimonials.length} Google değerlendirmesi</RatingMeta>
+              <RatingMeta>· {testimonials.length} Google reviews</RatingMeta>
             </RatingSummary>
           </motion.div>
         </SectionHeader>

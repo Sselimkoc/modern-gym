@@ -7,6 +7,29 @@ import { motion, AnimatePresence } from "framer-motion";
 import siteConfig from "../../data/siteConfig";
 import { useJoinModal } from "../../context/JoinModalContext";
 
+const SkipLink = styled.a`
+  ${({ theme }) => theme.utilities.visibleHidden}
+
+  &:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: auto;
+    height: auto;
+    padding: 0.75rem 1.25rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.dark};
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+    z-index: ${({ theme }) => theme.zIndices.tooltip};
+    ${({ theme }) => theme.utilities.focusRing}
+  }
+`;
+
 const NavbarWrapper = styled.nav`
   position: fixed;
   top: 0;
@@ -363,6 +386,7 @@ const Navbar = () => {
 
   return (
     <NavbarWrapper scrolled={scrolled}>
+      <SkipLink href="#hero">Skip to content</SkipLink>
       <NavContainer>
         <Logo
           href="#hero"

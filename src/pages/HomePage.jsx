@@ -150,7 +150,7 @@ const HomePage = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <ImageGallery images={siteConfig.images} alt={siteConfig.name} />
+            <ImageGallery images={siteConfig.images} />
           </motion.div>
         </Container>
       </GallerySection>
