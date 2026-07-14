@@ -66,7 +66,7 @@ const StickyJoinButton = () => {
         >
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"
+              d="M4 6v12M7 9v6M17 9v6M20 6v12M7 12h10"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
