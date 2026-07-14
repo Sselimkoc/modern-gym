@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
+import CountUp from "../ui/CountUp";
 import siteConfig from "../../data/siteConfig";
 import { handleImgError } from "../../utils/imageFallback";
 
@@ -559,10 +560,10 @@ const bannerFeature = {
 };
 
 const stats = [
-  { icon: <UsersIcon />, number: "1,200+", label: "Active members" },
-  { icon: <MedalIcon />, number: "15+", label: "Certified coaches" },
-  { icon: <CalendarIcon />, number: "50+", label: "Weekly classes" },
-  { icon: <FlameIcon />, number: "10", label: "Years strong" },
+  { icon: <UsersIcon />, value: 1200, suffix: "+", label: "Active members" },
+  { icon: <MedalIcon />, value: 15, suffix: "+", label: "Certified coaches" },
+  { icon: <CalendarIcon />, value: 50, suffix: "+", label: "Weekly classes" },
+  { icon: <FlameIcon />, value: 10, suffix: "", label: "Years strong" },
 ];
 
 const containerVariants = {
@@ -652,7 +653,9 @@ const FeaturesSection = () => {
               <StatCard key={stat.label} variants={itemVariants}>
                 <StatIcon>{stat.icon}</StatIcon>
                 <div>
-                  <StatNumber>{stat.number}</StatNumber>
+                  <StatNumber>
+                    <CountUp value={stat.value} suffix={stat.suffix} start={inView} />
+                  </StatNumber>
                   <StatLabel>{stat.label}</StatLabel>
                 </div>
               </StatCard>
