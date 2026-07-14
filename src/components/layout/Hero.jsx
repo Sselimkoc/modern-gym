@@ -10,6 +10,7 @@ import Button from "../ui/Button";
 import Container from "../ui/Container";
 import heroVideo from "../../assets/videos/hero.mp4";
 import siteConfig from "../../data/siteConfig";
+import { useJoinModal } from "../../context/JoinModalContext";
 
 const HeroWrapper = styled.section`
   position: relative;
@@ -189,8 +190,44 @@ const SubmitButton = styled(Button)`
   width: 100%;
 `;
 
+const SuccessState = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 0;
+`;
+
+const SuccessIcon = styled(motion.div)`
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.gradientPrimary};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+
+  svg {
+    width: 30px;
+    height: 30px;
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
+const SuccessTitle = styled.h3`
+  color: ${({ theme }) => theme.colors.secondary};
+  margin-bottom: 0.5rem;
+`;
+
+const SuccessText = styled.p`
+  color: ${({ theme }) => theme.colors.gray};
+  margin-bottom: 0;
+`;
+
 const Hero = () => {
-  const [showModal, setShowModal] = useState(false);
+  const { isOpen: showModal, openJoinModal, closeJoinModal } = useJoinModal();
+  const [submitted, setSubmitted] = useState(false);
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -210,9 +247,16 @@ const Hero = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form işleme mantığı buraya gelecek
-    alert("Thank you for joining! We'll contact you shortly.");
-    setShowModal(false);
+    setSubmitted(true);
+    setTimeout(() => {
+      closeJoinModal();
+      setSubmitted(false);
+    }, 2500);
+  };
+
+  const handleCloseModal = () => {
+    closeJoinModal();
+    setSubmitted(false);
   };
 
   return (
@@ -242,7 +286,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Button size="lg" onClick={() => setShowModal(true)}>
+            <Button size="lg" onClick={openJoinModal}>
               Join Now
             </Button>
             <Button
@@ -311,38 +355,67 @@ const Hero = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20, stiffness: 300 }}
             >
-              <CloseButton onClick={() => setShowModal(false)}>×</CloseButton>
-              <FormTitle>Join {siteConfig.name} Today</FormTitle>
-              <Form onSubmit={handleSubmit}>
-                <FormGroup>
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    required
-                  />
-                </FormGroup>
-                <SubmitButton type="submit">Start Your Journey</SubmitButton>
-              </Form>
+              <CloseButton onClick={handleCloseModal}>×</CloseButton>
+              {submitted ? (
+                <SuccessState
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <SuccessIcon
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </SuccessIcon>
+                  <SuccessTitle>You're in!</SuccessTitle>
+                  <SuccessText>
+                    Thanks for joining {siteConfig.name} — we'll reach out shortly.
+                  </SuccessText>
+                </SuccessState>
+              ) : (
+                <>
+                  <FormTitle>Join {siteConfig.name} Today</FormTitle>
+                  <Form onSubmit={handleSubmit}>
+                    <FormGroup>
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input
+                        id="name"
+                        type="text"
+                        placeholder="Enter your full name"
+                        required
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Enter your email address"
+                        required
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        required
+                      />
+                    </FormGroup>
+                    <SubmitButton type="submit">Start Your Journey</SubmitButton>
+                  </Form>
+                </>
+              )}
             </ModalContent>
           </ModalOverlay>
         )}

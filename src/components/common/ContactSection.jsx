@@ -119,6 +119,11 @@ const MapLink = styled.a`
   box-shadow: ${({ theme }) => theme.shadows.md};
   text-decoration: none;
 
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;

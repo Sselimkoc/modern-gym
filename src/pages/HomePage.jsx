@@ -17,6 +17,7 @@ import Container from "../components/ui/Container";
 import ImageGallery from "../components/ui/ImageGallery";
 import siteConfig from "../data/siteConfig";
 import useSEO from "../hooks/useSEO";
+import { useJoinModal } from "../context/JoinModalContext";
 
 const GallerySection = styled.section`
   padding: ${({ theme }) => `${theme.space.xl} 0`};
@@ -104,6 +105,7 @@ const scrollToSection = (sectionId) => {
 
 const HomePage = () => {
   const theme = useTheme();
+  const { openJoinModal } = useJoinModal();
 
   useSEO({
     title: `${siteConfig.name} - ${siteConfig.tagline}`,
@@ -180,7 +182,7 @@ const HomePage = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <Button size="lg" onClick={() => scrollToSection("hero")}>
+            <Button size="lg" onClick={openJoinModal}>
               Join Now
             </Button>
             <Button

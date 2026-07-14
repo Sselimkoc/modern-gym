@@ -7,19 +7,22 @@ import GlobalStyles from "./styles/GlobalStyles";
 import StickyJoinButton from "./components/ui/StickyJoinButton";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import { JoinModalProvider } from "./context/JoinModalContext";
 
 function App() {
   return (
     <HelmetProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <Router>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Router>
-        <StickyJoinButton />
+        <JoinModalProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Router>
+          <StickyJoinButton />
+        </JoinModalProvider>
       </ThemeProvider>
     </HelmetProvider>
   );

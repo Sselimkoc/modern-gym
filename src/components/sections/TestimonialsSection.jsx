@@ -324,6 +324,7 @@ const AVERAGE_RATING = (
 
 const TestimonialsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -337,12 +338,14 @@ const TestimonialsSection = () => {
   const circle2Y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   useEffect(() => {
+    if (paused) return;
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % testimonials.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [paused]);
 
   return (
     <SectionWrapper id="testimonials" ref={sectionRef}>
@@ -369,7 +372,13 @@ const TestimonialsSection = () => {
           </motion.div>
         </SectionHeader>
 
-        <TestimonialsContainer ref={ref}>
+        <TestimonialsContainer
+          ref={ref}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+        >
           <TestimonialSlider>
             <AnimatePresence mode="wait">
               {testimonials.map(

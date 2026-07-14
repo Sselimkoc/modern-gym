@@ -5,6 +5,7 @@ import Container from "../ui/Container";
 import ScrollProgressBar from "../ui/ScrollProgressBar";
 import { motion, AnimatePresence } from "framer-motion";
 import siteConfig from "../../data/siteConfig";
+import { useJoinModal } from "../../context/JoinModalContext";
 
 const NavbarWrapper = styled.nav`
   position: fixed;
@@ -252,6 +253,7 @@ const SocialLink = styled(motion.a)`
 `;
 
 const Navbar = () => {
+  const { openJoinModal } = useJoinModal();
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -514,7 +516,7 @@ const Navbar = () => {
           <Button
             small
             style={{ marginLeft: "0.75rem" }}
-            onClick={() => scrollToSection("hero")}
+            onClick={openJoinModal}
           >
             Join Now
           </Button>
@@ -682,7 +684,13 @@ const Navbar = () => {
               </MobileNavContent>
 
               <MobileNavFooter>
-                <Button fullWidth onClick={() => scrollToSection("hero")}>
+                <Button
+                  fullWidth
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    openJoinModal();
+                  }}
+                >
                   Join Now
                 </Button>
                 <SocialLinks>
