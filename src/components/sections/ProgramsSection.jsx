@@ -51,7 +51,7 @@ const Tab = styled.button`
 
   &:hover {
     background: ${({ active, theme }) =>
-      active ? theme.colors.primary : "rgba(124,58,237,0.08)"};
+      active ? theme.colors.primary : "rgba(22,163,74,0.1)"};
     border-color: ${({ theme }) => theme.colors.primary};
     color: ${({ active, theme }) =>
       active ? theme.colors.white : theme.colors.primary};
@@ -69,7 +69,7 @@ const levelColor = (level, theme) =>
     ? theme.colors.accent
     : level === "Intermediate"
     ? theme.colors.primary
-    : theme.colors.secondary;
+    : theme.colors.neon;
 
 const ProgramCard = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.white};
@@ -95,7 +95,7 @@ const ProgramCard = styled(motion.div)`
   }
 
   &:hover {
-    box-shadow: 0 20px 40px rgba(42, 27, 61, 0.18);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
     transform: translateY(-6px);
   }
 `;
@@ -128,9 +128,9 @@ const ProgramImage = styled.div`
     inset: 0;
     background: linear-gradient(
       to top,
-      rgba(20, 12, 30, 0.92) 0%,
-      rgba(20, 12, 30, 0.35) 55%,
-      rgba(20, 12, 30, 0.05) 100%
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.4) 55%,
+      rgba(0, 0, 0, 0.05) 100%
     );
     z-index: 1;
   }
@@ -149,7 +149,7 @@ const ProgramLevel = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(20, 12, 30, 0.55);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(6px);
   border: 1px solid ${({ level, theme }) => levelColor(level, theme)};
   color: white;
@@ -207,7 +207,7 @@ const ProgramDetail = styled.div`
   gap: 0.4rem;
   padding: 0.4rem 0.75rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(124, 58, 237, 0.08);
+  background: rgba(22, 163, 74, 0.1);
   color: ${({ theme }) => theme.colors.secondary};
   font-size: 0.85rem;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};

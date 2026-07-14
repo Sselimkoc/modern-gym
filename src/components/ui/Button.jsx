@@ -51,13 +51,13 @@ const StyledButton = styled(motion.button)`
   &:hover {
     background: ${({ theme, variant }) =>
       variant === "outline"
-        ? "rgba(124,58,237,0.12)"
+        ? "rgba(22,163,74,0.12)"
         : variant === "secondary"
         ? theme.colors.secondary
         : theme.colors.primaryDark};
     transform: translateY(-3px);
     box-shadow: ${({ theme, variant }) =>
-      variant === "outline" ? "none" : `0 8px 20px rgba(124,58,237,0.4)`};
+      variant === "outline" ? "none" : `0 8px 24px rgba(57,255,20,0.45)`};
   }
 
   &:hover::after {
@@ -68,7 +68,7 @@ const StyledButton = styled(motion.button)`
   &:active {
     transform: translateY(-1px);
     box-shadow: ${({ theme, variant }) =>
-      variant === "outline" ? "none" : `0 4px 10px rgba(124,58,237,0.3)`};
+      variant === "outline" ? "none" : `0 4px 14px rgba(57,255,20,0.35)`};
   }
 `;
 

@@ -24,7 +24,7 @@ const Eyebrow = styled.span`
   gap: 0.4rem;
   padding: 0.35rem 0.9rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(22, 163, 74, 0.14);
   color: ${({ theme }) => theme.colors.primary};
   font-size: 0.8rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
@@ -95,7 +95,7 @@ const HeroTile = styled(motion.div)`
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 24px 48px rgba(42, 27, 61, 0.28);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
   }
 
   img {
@@ -117,8 +117,8 @@ const HeroTile = styled(motion.div)`
     inset: 0;
     background: linear-gradient(
       190deg,
-      rgba(42, 27, 61, 0.05) 20%,
-      rgba(42, 27, 61, 0.92) 100%
+      rgba(0, 0, 0, 0.1) 20%,
+      rgba(0, 0, 0, 0.95) 100%
     );
     z-index: 1;
   }
@@ -142,14 +142,15 @@ const HeroBadge = styled.span`
   gap: 0.4rem;
   padding: 0.35rem 0.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(255, 217, 61, 0.16);
-  border: 1px solid rgba(255, 217, 61, 0.4);
-  color: ${({ theme }) => theme.colors.accent};
+  background: rgba(57, 255, 20, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: ${({ theme }) => theme.colors.neon};
   font-size: 0.75rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-shadow: 0 0 12px rgba(57, 255, 20, 0.6);
 `;
 
 const HeroTitle = styled.h3`
@@ -177,15 +178,15 @@ const IconTile = styled(motion.div)`
   padding: 1.75rem;
   border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
   background: ${({ theme }) => theme.colors.white};
-  border: 1px solid rgba(42, 27, 61, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     box-shadow 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 36px rgba(124, 58, 237, 0.16);
-    border-color: rgba(124, 58, 237, 0.25);
+    box-shadow: 0 18px 36px rgba(22, 163, 74, 0.2);
+    border-color: rgba(57, 255, 20, 0.4);
   }
 `;
 
@@ -219,8 +220,8 @@ const IconBadge = styled.div`
     $alt ? theme.colors.accent : theme.colors.gradientPrimary};
   box-shadow: ${({ $alt }) =>
     $alt
-      ? "0 8px 16px rgba(255, 217, 61, 0.35)"
-      : "0 8px 16px rgba(124, 58, 237, 0.3)"};
+      ? "0 8px 20px rgba(255, 255, 255, 0.5)"
+      : "0 8px 16px rgba(57, 255, 20, 0.4)"};
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   svg {
@@ -267,7 +268,7 @@ const BannerTile = styled(motion.div)`
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(42, 27, 61, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   }
 
   &::before {
@@ -278,9 +279,9 @@ const BannerTile = styled(motion.div)`
     width: 260px;
     height: 260px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.colors.accent};
-    opacity: 0.12;
-    filter: blur(10px);
+    background: ${({ theme }) => theme.colors.neon};
+    opacity: 0.16;
+    filter: blur(30px);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
@@ -293,8 +294,8 @@ const BannerIcon = styled.div`
   width: 60px;
   height: 60px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background: rgba(255, 217, 61, 0.14);
-  border: 1px solid rgba(255, 217, 61, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -347,7 +348,7 @@ const StatCard = styled(motion.div)`
   padding: 1.25rem 1.4rem;
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   background: ${({ theme }) => theme.colors.white};
-  border: 1px solid rgba(42, 27, 61, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
@@ -360,7 +361,7 @@ const StatIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(22, 163, 74, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;

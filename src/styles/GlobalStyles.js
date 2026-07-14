@@ -75,7 +75,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     &:focus {
-      outline: 2px solid ${({ theme }) => theme.colors.accent};
+      outline: 2px solid ${({ theme }) => theme.colors.primary};
       outline-offset: 2px;
     }
   }
@@ -103,7 +103,7 @@ const GlobalStyles = createGlobalStyle`
     &:focus {
       outline: none;
       border-color: ${({ theme }) => theme.colors.primary};
-      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
     }
 
     &:disabled {

@@ -43,8 +43,8 @@ const Overlay = styled.div`
   height: 100%;
   background: linear-gradient(
     120deg,
-    rgba(42, 27, 61, 0.75) 60%,
-    rgba(124, 58, 237, 0.45) 100%
+    rgba(4, 8, 5, 0.8) 60%,
+    rgba(22, 163, 74, 0.45) 100%
   );
   z-index: 2;
 `;
@@ -182,7 +182,7 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25);
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
   }
 `;
 

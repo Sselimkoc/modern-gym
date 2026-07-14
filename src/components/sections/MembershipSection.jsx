@@ -53,9 +53,9 @@ const TrialBadge = styled.span`
   margin-top: 1rem;
   padding: 0.4rem 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(255, 217, 61, 0.14);
-  border: 1px solid rgba(255, 217, 61, 0.4);
-  color: ${({ theme }) => theme.colors.accent};
+  background: rgba(57, 255, 20, 0.12);
+  border: 1px solid rgba(57, 255, 20, 0.4);
+  color: ${({ theme }) => theme.colors.neon};
   font-size: 0.85rem;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 
@@ -90,13 +90,13 @@ const PlanCard = styled(motion.div)`
   position: relative;
   transform: ${({ popular }) => (popular ? "scale(1.05)" : "scale(1)")};
   box-shadow: ${({ popular }) =>
-    popular ? "0 20px 50px rgba(255, 217, 61, 0.18)" : "none"};
+    popular ? "0 20px 50px rgba(255, 255, 255, 0.16)" : "none"};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     transform: none;
     border-width: ${({ popular }) => (popular ? "2px" : "1px")};
     box-shadow: ${({ popular }) =>
-      popular ? "0 10px 30px rgba(255, 217, 61, 0.22)" : "none"};
+      popular ? "0 10px 30px rgba(255, 255, 255, 0.2)" : "none"};
   }
 `;
 
