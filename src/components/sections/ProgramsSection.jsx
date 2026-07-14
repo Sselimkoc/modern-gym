@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
+import { handleImgError } from "../../utils/imageFallback";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -413,7 +414,11 @@ const ProgramsSection = () => {
                 <motion.div key={program.id} variants={itemVariants}>
                   <ProgramCard>
                     <ProgramImage>
-                      <img src={program.image} alt={program.title} />
+                      <img
+                        src={program.image}
+                        alt={program.title}
+                        onError={handleImgError}
+                      />
                       <ProgramLevel level={program.level}>
                         {program.level}
                       </ProgramLevel>

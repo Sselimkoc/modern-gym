@@ -88,6 +88,7 @@ const ContentRow = styled.div`
 `;
 
 const MapWrapper = styled(motion.div)`
+  position: relative;
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.lg};
@@ -99,6 +100,28 @@ const MapWrapper = styled(motion.div)`
     min-height: 420px;
     border: 0;
     display: block;
+  }
+`;
+
+const MapLink = styled.a`
+  position: absolute;
+  bottom: ${({ theme }) => theme.space.sm};
+  left: ${({ theme }) => theme.space.sm};
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.dark};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    text-decoration: none;
   }
 `;
 
@@ -188,6 +211,14 @@ const ContactSection = ({ email, phone, address, hours }) => {
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
               />
+              <MapLink
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LocationIcon />
+                Open in Google Maps
+              </MapLink>
             </MapWrapper>
           )}
 

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
+import { handleImgError } from "../../utils/imageFallback";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -340,6 +341,7 @@ const WellnessSection = () => {
             <MainImage
               src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80"
               alt="Spa and wellness center"
+              onError={handleImgError}
             />
             <SmallImage
               initial={{ opacity: 0, y: 50 }}
@@ -349,6 +351,7 @@ const WellnessSection = () => {
               <img
                 src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80"
                 alt="Massage therapy"
+                onError={handleImgError}
               />
             </SmallImage>
           </ImageWrapper>

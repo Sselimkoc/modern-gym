@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
+import { handleImgError } from "../../utils/imageFallback";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -387,6 +388,7 @@ const TestimonialsSection = () => {
                             <img
                               src={testimonial.author.image}
                               alt={testimonial.author.name}
+                              onError={handleImgError}
                             />
                           </AuthorImage>
                           <AuthorInfo>
@@ -404,7 +406,8 @@ const TestimonialsSection = () => {
                         {testimonial.photo && (
                           <ReviewPhoto
                             src={testimonial.photo}
-                            alt={`${testimonial.author.name} tarafından paylaşılan fotoğraf`}
+                            alt={`Photo shared by ${testimonial.author.name}`}
+                            onError={handleImgError}
                           />
                         )}
                       </TestimonialContent>

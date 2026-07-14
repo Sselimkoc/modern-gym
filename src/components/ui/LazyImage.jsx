@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { handleImgError } from "../../utils/imageFallback";
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -68,6 +69,11 @@ const LazyImage = ({ src, alt, objectFit, onLoad }) => {
     if (onLoad) onLoad();
   };
 
+  const handleError = (e) => {
+    handleImgError(e);
+    setLoaded(true);
+  };
+
   return (
     <ImageWrapper ref={ref}>
       {!loaded && <Placeholder />}
@@ -76,6 +82,7 @@ const LazyImage = ({ src, alt, objectFit, onLoad }) => {
           src={src}
           alt={alt}
           onLoad={handleLoad}
+          onError={handleError}
           loaded={loaded}
           objectFit={objectFit}
           loading="lazy"
