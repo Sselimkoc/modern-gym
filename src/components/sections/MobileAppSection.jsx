@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
+import { barbellPattern } from "../../utils/patterns";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -18,11 +19,7 @@ const BackgroundPattern = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(
-    rgba(255, 255, 255, 0.05) 1px,
-    transparent 1px
-  );
-  background-size: 20px 20px;
+  ${barbellPattern("%2339FF14", 0.06)}
   z-index: 1;
 `;
 

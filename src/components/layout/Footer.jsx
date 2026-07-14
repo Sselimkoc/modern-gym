@@ -2,17 +2,31 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import Container from "../ui/Container";
 import siteConfig from "../../data/siteConfig";
+import { barbellPattern } from "../../utils/patterns";
 
 const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
   padding: 5rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    ${barbellPattern("%2316A34A", 0.06)}
+    pointer-events: none;
+  }
 `;
 
 const FooterContainer = styled(Container)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 3rem;
+  position: relative;
+  z-index: 1;
 `;
 
 const FooterColumn = styled(motion.div)`

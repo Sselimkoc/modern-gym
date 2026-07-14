@@ -5,12 +5,22 @@ import Container from "../ui/Container";
 import Button from "../ui/Button";
 import siteConfig from "../../data/siteConfig";
 import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
+import { barbellPattern } from "../../utils/patterns";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
   background: ${({ theme }) => theme.colors.gradientDark};
   position: relative;
   overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    ${barbellPattern("%2339FF14", 0.05)}
+    pointer-events: none;
+  }
 `;
 
 const Blob = styled(motion.div)`
