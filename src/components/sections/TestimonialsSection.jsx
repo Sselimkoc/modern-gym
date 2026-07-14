@@ -169,7 +169,7 @@ const TestimonialSlide = styled(motion.div)`
 const TestimonialContent = styled.div`
   background-color: white;
   border: 1px solid ${({ theme }) => theme.colors.lightGray};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: 2rem;
   box-shadow: ${({ theme }) => theme.shadows.md};
   text-align: left;
@@ -177,6 +177,21 @@ const TestimonialContent = styled.div`
   max-width: 800px;
   margin: 0 auto;
   width: 100%;
+  overflow: hidden;
+
+  &::before {
+    content: "\\201C";
+    position: absolute;
+    top: -1.5rem;
+    right: 1rem;
+    font-size: 9rem;
+    font-family: Georgia, serif;
+    font-weight: 700;
+    line-height: 1;
+    color: ${({ theme }) => theme.colors.primary};
+    opacity: 0.06;
+    pointer-events: none;
+  }
 `;
 
 const CardHeader = styled.div`

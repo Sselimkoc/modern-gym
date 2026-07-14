@@ -64,67 +64,116 @@ const ProgramsGrid = styled.div`
   gap: 2rem;
 `;
 
+const levelColor = (level, theme) =>
+  level === "Beginner"
+    ? theme.colors.accent
+    : level === "Intermediate"
+    ? theme.colors.primary
+    : theme.colors.secondary;
+
 const ProgramCard = styled(motion.div)`
   background-color: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.md};
-  transition: ${({ theme }) => theme.transitions.default};
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.35s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: ${({ level, theme }) => levelColor(level, theme)};
+    z-index: 2;
+  }
 
   &:hover {
-    box-shadow: ${({ theme }) => theme.shadows.lg};
-    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(42, 27, 61, 0.18);
+    transform: translateY(-6px);
   }
 `;
 
 const ProgramImage = styled.div`
-  height: 220px;
+  height: 260px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem;
 
   img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
+    z-index: 0;
   }
 
-  &:hover img {
-    transform: scale(1.05);
+  ${ProgramCard}:hover & img {
+    transform: scale(1.08);
   }
 
   &::after {
     content: "";
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(20, 12, 30, 0.92) 0%,
+      rgba(20, 12, 30, 0.35) 55%,
+      rgba(20, 12, 30, 0.05) 100%
+    );
     z-index: 1;
   }
 `;
 
+const ProgramImageContent = styled.div`
+  position: relative;
+  z-index: 2;
+  width: 100%;
+`;
+
 const ProgramLevel = styled.span`
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: ${({ level, theme }) =>
-    level === "Beginner"
-      ? theme.colors.accent
-      : level === "Intermediate"
-      ? theme.colors.primary
-      : theme.colors.secondary};
-  color: ${({ level, theme }) =>
-    level === "Beginner" ? theme.colors.secondary : theme.colors.white};
-  padding: 0.4rem 0.8rem;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(20, 12, 30, 0.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid ${({ level, theme }) => levelColor(level, theme)};
+  color: white;
+  padding: 0.35rem 0.8rem 0.35rem 0.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  z-index: 1;
+  z-index: 2;
+
+  &::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${({ level, theme }) => levelColor(level, theme)};
+    box-shadow: 0 0 8px ${({ level, theme }) => levelColor(level, theme)};
+  }
+`;
+
+const ProgramTitle = styled.h3`
+  margin-bottom: 0;
+  color: white;
+  font-size: 1.25rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 `;
 
 const ProgramContent = styled.div`
@@ -139,38 +188,35 @@ const ProgramInfo = styled.div`
   flex: 1;
 `;
 
-const ProgramTitle = styled.h3`
-  margin-bottom: 0.5rem;
-  color: ${({ theme }) => theme.colors.secondary};
-`;
-
 const ProgramDescription = styled.p`
   color: ${({ theme }) => theme.colors.gray};
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   line-height: 1.6;
 `;
 
 const ProgramDetails = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 0.6rem;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 `;
 
 const ProgramDetail = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  background: rgba(124, 58, 237, 0.08);
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 0.85rem;
+  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 
-  span:first-child {
-    font-size: 0.9rem;
-    color: ${({ theme }) => theme.colors.gray};
-    margin-bottom: 0.2rem;
-  }
-
-  span:last-child {
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
-    color: ${({ theme }) => theme.colors.secondary};
+  svg {
+    width: 15px;
+    height: 15px;
+    color: ${({ theme }) => theme.colors.primary};
+    flex-shrink: 0;
   }
 `;
 
@@ -323,6 +369,31 @@ const programs = {
   ],
 };
 
+const ClockIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <path
+      d="M12 7v5l3.5 2"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const RepeatIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId);
   if (section) {
@@ -412,7 +483,7 @@ const ProgramsSection = () => {
             <ProgramsGrid key={activeTab}>
               {filteredPrograms.map((program) => (
                 <motion.div key={program.id} variants={itemVariants}>
-                  <ProgramCard>
+                  <ProgramCard level={program.level}>
                     <ProgramImage>
                       <img
                         src={program.image}
@@ -422,10 +493,12 @@ const ProgramsSection = () => {
                       <ProgramLevel level={program.level}>
                         {program.level}
                       </ProgramLevel>
+                      <ProgramImageContent>
+                        <ProgramTitle>{program.title}</ProgramTitle>
+                      </ProgramImageContent>
                     </ProgramImage>
                     <ProgramContent>
                       <ProgramInfo>
-                        <ProgramTitle>{program.title}</ProgramTitle>
                         <ProgramDescription>
                           {program.description}
                         </ProgramDescription>
@@ -433,12 +506,12 @@ const ProgramsSection = () => {
                       <div>
                         <ProgramDetails>
                           <ProgramDetail>
-                            <span>Duration</span>
-                            <span>{program.duration}</span>
+                            <ClockIcon />
+                            {program.duration}
                           </ProgramDetail>
                           <ProgramDetail>
-                            <span>Sessions</span>
-                            <span>{program.sessions}</span>
+                            <RepeatIcon />
+                            {program.sessions}
                           </ProgramDetail>
                         </ProgramDetails>
                         <Button fullWidth onClick={() => scrollToSection("contact")}>
