@@ -87,7 +87,7 @@ const GlobalStyles = createGlobalStyle`
     transition: ${({ theme }) => theme.transitions.default};
 
     &:focus-visible {
-      outline: 2px solid ${({ theme }) => theme.colors.accent};
+      outline: 2px solid ${({ theme }) => theme.colors.primary};
       outline-offset: 2px;
     }
   }

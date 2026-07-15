@@ -8,7 +8,7 @@ import FeaturesSection from "../components/sections/FeaturesSection";
 import ProgramsSection from "../components/sections/ProgramsSection";
 import TrainersSection from "../components/sections/TrainersSection";
 import MembershipSection from "../components/sections/MembershipSection";
-import WellnessSection from "../components/sections/WellnessSection";
+// import WellnessSection from "../components/sections/WellnessSection";
 import TestimonialsSection from "../components/sections/TestimonialsSection";
 import MobileAppSection from "../components/sections/MobileAppSection";
 import ContactSection from "../components/common/ContactSection";
@@ -119,20 +119,48 @@ const HomePage = () => {
       <Navbar />
       <Hero />
       <MarqueeTicker />
-      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={0} />
+      <SectionWave
+        bgColor={theme.colors.secondary}
+        fillColor={theme.colors.light}
+        variant={0}
+      />
       <FeaturesSection />
-      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.white} variant={1} />
+      <SectionWave
+        bgColor={theme.colors.light}
+        fillColor={theme.colors.white}
+        variant={1}
+      />
       <ProgramsSection />
-      <SectionWave bgColor={theme.colors.white} fillColor={theme.colors.light} variant={1} />
+      <SectionWave
+        bgColor={theme.colors.white}
+        fillColor={theme.colors.light}
+        variant={1}
+      />
       <TrainersSection />
-      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
+      <SectionWave
+        bgColor={theme.colors.light}
+        fillColor={theme.colors.secondary}
+        variant={0}
+      />
       <MembershipSection />
-      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
-      <WellnessSection />
+      <SectionWave
+        bgColor={theme.colors.secondary}
+        fillColor={theme.colors.light}
+        variant={1}
+      />
+      {/* <WellnessSection /> */}
       <TestimonialsSection />
-      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
+      <SectionWave
+        bgColor={theme.colors.light}
+        fillColor={theme.colors.secondary}
+        variant={0}
+      />
       <MobileAppSection />
-      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
+      <SectionWave
+        bgColor={theme.colors.secondary}
+        fillColor={theme.colors.light}
+        variant={1}
+      />
 
       {/* Facility Gallery */}
       <GallerySection id="gallery">
@@ -156,7 +184,11 @@ const HomePage = () => {
           </motion.div>
         </Container>
       </GallerySection>
-      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
+      <SectionWave
+        bgColor={theme.colors.light}
+        fillColor={theme.colors.secondary}
+        variant={0}
+      />
 
       {/* CTA Section */}
       <CTASection>
@@ -197,7 +229,11 @@ const HomePage = () => {
           </ButtonGroup>
         </Container>
       </CTASection>
-      <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
+      <SectionWave
+        bgColor={theme.colors.secondary}
+        fillColor={theme.colors.light}
+        variant={1}
+      />
 
       {/* Contact */}
       <div id="contact">
@@ -208,7 +244,11 @@ const HomePage = () => {
           hours={siteConfig.hours}
         />
       </div>
-      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
+      <SectionWave
+        bgColor={theme.colors.light}
+        fillColor={theme.colors.secondary}
+        variant={0}
+      />
 
       <Footer />
     </div>

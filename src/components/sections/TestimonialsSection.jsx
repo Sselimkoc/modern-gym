@@ -273,15 +273,17 @@ const SliderDot = styled.button`
   height: 12px;
   border-radius: 50%;
   background-color: ${({ active, theme }) =>
-    active ? theme.colors.accent : "rgba(0, 0, 0, 0.1)"};
+    active ? theme.colors.primary : "rgba(0, 0, 0, 0.15)"};
+  box-shadow: ${({ active }) =>
+    active ? "0 0 8px rgba(22, 163, 74, 0.6)" : "none"};
   border: none;
   margin: 0 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     background-color: ${({ active, theme }) =>
-      active ? theme.colors.accent : "rgba(0, 0, 0, 0.2)"};
+      active ? theme.colors.primary : "rgba(0, 0, 0, 0.3)"};
     transform: scale(1.2);
   }
 

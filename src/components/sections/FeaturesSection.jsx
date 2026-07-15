@@ -218,10 +218,10 @@ const IconBadge = styled.div`
   justify-content: center;
   flex-shrink: 0;
   background: ${({ $alt, theme }) =>
-    $alt ? theme.colors.accent : theme.colors.gradientPrimary};
+    $alt ? theme.colors.secondary : theme.colors.gradientPrimary};
   box-shadow: ${({ $alt }) =>
     $alt
-      ? "0 8px 20px rgba(255, 255, 255, 0.5)"
+      ? "0 8px 16px rgba(0, 0, 0, 0.3)"
       : "0 8px 16px rgba(57, 255, 20, 0.4)"};
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 
@@ -229,7 +229,7 @@ const IconBadge = styled.div`
     width: 24px;
     height: 24px;
     color: ${({ $alt, theme }) =>
-      $alt ? theme.colors.secondary : theme.colors.white};
+      $alt ? theme.colors.neon : theme.colors.white};
   }
 
   ${IconTile}:hover & {

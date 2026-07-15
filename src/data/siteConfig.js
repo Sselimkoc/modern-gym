@@ -43,10 +43,6 @@ const siteConfig = {
       src: "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       alt: "Group fitness class in session",
     },
-    {
-      src: "https://images.unsplash.com/photo-1552821554-5fefe8c9ef14?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      alt: "Member stretching on a mat in the studio",
-    },
   ],
   freeTrialText: "First week free, no commitment",
   membershipPlans: [
