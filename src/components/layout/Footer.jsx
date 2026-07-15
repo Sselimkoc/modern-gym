@@ -249,9 +249,9 @@ const Footer = () => {
             {siteConfig.name}
           </FooterLogo>
           <FooterDescription>
-            Transform your body and mind with our fitness experience.
-            Our expert trainers and quality facilities are here to
-            help you reach your fitness goals.
+            Transform your body and mind with our fitness experience. Our expert
+            trainers and quality facilities are here to help you reach your
+            fitness goals.
           </FooterDescription>
           <SocialLinks>
             <SocialLink
@@ -292,22 +292,7 @@ const Footer = () => {
                 <path d="M17.5 6.5H17.51" />
               </svg>
             </SocialLink>
-            <SocialLink
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Twitter"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M22 4.01C21.0424 4.68547 19.9821 5.20197 18.86 5.54C18.2577 4.84751 17.4573 4.35464 16.567 4.13473C15.6767 3.91482 14.7395 3.97908 13.8821 4.31849C13.0247 4.65789 12.2884 5.2575 11.773 6.02927C11.2575 6.80104 10.9877 7.7067 11 8.63V9.63C9.24561 9.67866 7.50606 9.29359 5.93095 8.51153C4.35584 7.72948 3.00164 6.57536 2 5.15C2 5.15 -2 13.15 8 17.15C5.94053 18.5208 3.48716 19.1657 1 19C11 24 23 19 23 8.6C22.9991 8.31782 22.9723 8.03644 22.92 7.76C23.9406 6.74943 24.6608 5.45651 25 4.01H22Z" />
-              </svg>
-            </SocialLink>
+
             <SocialLink
               href="https://youtube.com"
               target="_blank"
@@ -326,25 +311,10 @@ const Footer = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M22.54 6.42C22.4212 5.94541 22.1793 5.51057 21.8387 5.15941C21.498 4.80824 21.0708 4.55318 20.6 4.42C18.88 4 12 4 12 4C12 4 5.12 4 3.4 4.46C2.92925 4.59318 2.50198 4.84824 2.16135 5.19941C1.82072 5.55057 1.57879 5.98541 1.46 6.46C1.14521 8.20556 0.991235 9.97631 1 11.75C0.988743 13.537 1.14273 15.3213 1.46 17.08C1.59096 17.5398 1.83831 17.9581 2.17814 18.2945C2.51798 18.6308 2.93882 18.8738 3.4 19C5.12 19.46 12 19.46 12 19.46C12 19.46 18.88 19.46 20.6 19C21.0708 18.8668 21.498 18.6118 21.8387 18.2606C22.1793 17.9094 22.4212 17.4746 22.54 17C22.8524 15.2676 22.9965 13.5103 23 11.75C23.0113 9.96295 22.8572 8.1787 22.54 6.42Z" />
-                <path d="M9.75 15.02L15.5 11.75L9.75 8.48001V15.02Z" fill="currentColor" />
-              </svg>
-            </SocialLink>
-            <SocialLink
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="LinkedIn"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" />
-                <path d="M6 9H2V21H6V9Z" />
-                <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" />
+                <path
+                  d="M9.75 15.02L15.5 11.75L9.75 8.48001V15.02Z"
+                  fill="currentColor"
+                />
               </svg>
             </SocialLink>
           </SocialLinks>
@@ -413,7 +383,7 @@ const Footer = () => {
                 Trainers
               </a>
             </FooterLink>
-            <FooterLink>
+            {/* <FooterLink>
               <a
                 href="#wellness"
                 onClick={(e) => {
@@ -423,7 +393,7 @@ const Footer = () => {
               >
                 Wellness
               </a>
-            </FooterLink>
+            </FooterLink> */}
             <FooterLink>
               <a
                 href="#testimonials"
