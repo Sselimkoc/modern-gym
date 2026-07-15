@@ -402,6 +402,17 @@ const Footer = () => {
             </FooterLink>
             <FooterLink>
               <a
+                href="#trainers"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("trainers");
+                }}
+              >
+                Trainers
+              </a>
+            </FooterLink>
+            <FooterLink>
+              <a
                 href="#wellness"
                 onClick={(e) => {
                   e.preventDefault();

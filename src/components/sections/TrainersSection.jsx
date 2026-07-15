@@ -225,7 +225,7 @@ const trainers = [
     tags: ["Strength", "Form Coaching"],
     experience: "10 yrs experience",
     image:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1567013127542-490d757e51fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 4,
@@ -234,7 +234,7 @@ const trainers = [
     tags: ["Yoga", "Recovery"],
     experience: "6 yrs experience",
     image:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
 ];
 

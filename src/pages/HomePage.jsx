@@ -6,6 +6,7 @@ import Navbar from "../components/layout/Navbar";
 import Hero from "../components/layout/Hero";
 import FeaturesSection from "../components/sections/FeaturesSection";
 import ProgramsSection from "../components/sections/ProgramsSection";
+import TrainersSection from "../components/sections/TrainersSection";
 import MembershipSection from "../components/sections/MembershipSection";
 import WellnessSection from "../components/sections/WellnessSection";
 import TestimonialsSection from "../components/sections/TestimonialsSection";
@@ -15,6 +16,7 @@ import Footer from "../components/layout/Footer";
 import Button from "../components/ui/Button";
 import Container from "../components/ui/Container";
 import ImageGallery from "../components/ui/ImageGallery";
+import MarqueeTicker from "../components/ui/MarqueeTicker";
 import siteConfig from "../data/siteConfig";
 import useSEO from "../hooks/useSEO";
 import { useJoinModal } from "../context/JoinModalContext";
@@ -116,11 +118,14 @@ const HomePage = () => {
     <div>
       <Navbar />
       <Hero />
+      <MarqueeTicker />
       <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={0} />
       <FeaturesSection />
       <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.white} variant={1} />
       <ProgramsSection />
-      <SectionWave bgColor={theme.colors.white} fillColor={theme.colors.secondary} variant={0} />
+      <SectionWave bgColor={theme.colors.white} fillColor={theme.colors.light} variant={1} />
+      <TrainersSection />
+      <SectionWave bgColor={theme.colors.light} fillColor={theme.colors.secondary} variant={0} />
       <MembershipSection />
       <SectionWave bgColor={theme.colors.secondary} fillColor={theme.colors.light} variant={1} />
       <WellnessSection />
