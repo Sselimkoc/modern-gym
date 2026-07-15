@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
+import CursorSpotlight from "../ui/CursorSpotlight";
 import siteConfig from "../../data/siteConfig";
 import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
 import { barbellPattern } from "../../utils/patterns";
@@ -225,6 +226,7 @@ const MembershipSection = () => {
   return (
     <SectionWrapper id="membership" ref={ref}>
       <Blob style={{ y: blobY }} />
+      <CursorSpotlight />
       <Container>
         <SectionHeader>
           <motion.div

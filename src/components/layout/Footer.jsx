@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Container from "../ui/Container";
+import CursorSpotlight from "../ui/CursorSpotlight";
 import siteConfig from "../../data/siteConfig";
 import { barbellPattern } from "../../utils/patterns";
 
@@ -174,6 +175,7 @@ const Footer = () => {
 
   return (
     <FooterWrapper>
+      <CursorSpotlight />
       <FooterContainer>
         <FooterColumn
           initial={{ opacity: 0, y: 20 }}

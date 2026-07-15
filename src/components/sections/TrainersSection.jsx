@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import { handleImgError } from "../../utils/imageFallback";
+import useTilt from "../../hooks/useTilt";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -234,7 +235,7 @@ const trainers = [
     tags: ["Yoga", "Recovery"],
     experience: "6 yrs experience",
     image:
-      "https://images.unsplash.com/photo-1518310383802-640c2de311b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
   },
 ];
 
@@ -246,6 +247,49 @@ const containerVariants = {
 const itemVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const TrainerCardItem = ({ trainer }) => {
+  const tilt = useTilt(6);
+
+  return (
+    <motion.div
+      ref={tilt.ref}
+      variants={itemVariants}
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={tilt.onMouseLeave}
+      style={tilt.style}
+    >
+      <TrainerCard>
+        <TrainerImage>
+          <img
+            src={trainer.image}
+            alt={`${trainer.name}, ${trainer.role}`}
+            onError={handleImgError}
+          />
+          <CertifiedBadge>
+            <CheckIcon />
+            Certified
+          </CertifiedBadge>
+          <NameOverlay>
+            <TrainerName>{trainer.name}</TrainerName>
+            <TrainerRole>{trainer.role}</TrainerRole>
+          </NameOverlay>
+        </TrainerImage>
+        <TrainerContent>
+          <TagRow>
+            {trainer.tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </TagRow>
+          <ExperienceRow>
+            <MedalIcon />
+            {trainer.experience}
+          </ExperienceRow>
+        </TrainerContent>
+      </TrainerCard>
+    </motion.div>
+  );
 };
 
 const TrainersSection = () => {
@@ -277,36 +321,7 @@ const TrainersSection = () => {
         >
           <TrainersGrid>
             {trainers.map((trainer) => (
-              <motion.div key={trainer.id} variants={itemVariants}>
-                <TrainerCard>
-                  <TrainerImage>
-                    <img
-                      src={trainer.image}
-                      alt={`${trainer.name}, ${trainer.role}`}
-                      onError={handleImgError}
-                    />
-                    <CertifiedBadge>
-                      <CheckIcon />
-                      Certified
-                    </CertifiedBadge>
-                    <NameOverlay>
-                      <TrainerName>{trainer.name}</TrainerName>
-                      <TrainerRole>{trainer.role}</TrainerRole>
-                    </NameOverlay>
-                  </TrainerImage>
-                  <TrainerContent>
-                    <TagRow>
-                      {trainer.tags.map((tag) => (
-                        <Tag key={tag}>{tag}</Tag>
-                      ))}
-                    </TagRow>
-                    <ExperienceRow>
-                      <MedalIcon />
-                      {trainer.experience}
-                    </ExperienceRow>
-                  </TrainerContent>
-                </TrainerCard>
-              </motion.div>
+              <TrainerCardItem key={trainer.id} trainer={trainer} />
             ))}
           </TrainersGrid>
         </motion.div>

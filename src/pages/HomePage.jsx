@@ -17,6 +17,7 @@ import Button from "../components/ui/Button";
 import Container from "../components/ui/Container";
 import ImageGallery from "../components/ui/ImageGallery";
 import MarqueeTicker from "../components/ui/MarqueeTicker";
+import CursorSpotlight from "../components/ui/CursorSpotlight";
 import siteConfig from "../data/siteConfig";
 import useSEO from "../hooks/useSEO";
 import { useJoinModal } from "../context/JoinModalContext";
@@ -192,6 +193,7 @@ const HomePage = () => {
 
       {/* CTA Section */}
       <CTASection>
+        <CursorSpotlight />
         <Container>
           <CTATitle
             initial={{ opacity: 0, y: 20 }}

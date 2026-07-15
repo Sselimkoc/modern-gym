@@ -25,9 +25,14 @@ const Placeholder = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.lightGray} 25%,
+    rgba(57, 255, 20, 0.14) 50%,
+    ${({ theme }) => theme.colors.lightGray} 75%
+  );
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+  animation: shimmer 1.8s infinite;
 
   @keyframes shimmer {
     0% {

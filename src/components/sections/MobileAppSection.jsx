@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
+import CursorSpotlight from "../ui/CursorSpotlight";
 import { barbellPattern } from "../../utils/patterns";
 
 const SectionWrapper = styled.section`
@@ -295,6 +296,7 @@ const MobileAppSection = () => {
   return (
     <SectionWrapper id="mobile-app">
       <BackgroundPattern />
+      <CursorSpotlight />
       <Container>
         <ContentWrapper ref={ref}>
           <TextContent>

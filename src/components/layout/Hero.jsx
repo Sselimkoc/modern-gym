@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
+import CursorSpotlight from "../ui/CursorSpotlight";
 import heroVideo from "../../assets/videos/hero.mp4";
 import siteConfig from "../../data/siteConfig";
 import { useJoinModal } from "../../context/JoinModalContext";
@@ -279,6 +280,7 @@ const Hero = () => {
         <VideoBackground src={heroVideo} autoPlay loop muted playsInline />
       </motion.div>
       <Overlay />
+      <CursorSpotlight zIndex={2} />
       <Container>
         <Content style={{ opacity, y }}>
           <Title

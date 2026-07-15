@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
 import { handleImgError } from "../../utils/imageFallback";
+import useTilt from "../../hooks/useTilt";
 
 const SectionWrapper = styled.section`
   padding: 6rem 0;
@@ -401,6 +402,72 @@ const scrollToSection = (sectionId) => {
   }
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const ProgramCardItem = ({ program }) => {
+  const tilt = useTilt(6);
+
+  return (
+    <motion.div
+      ref={tilt.ref}
+      variants={itemVariants}
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={tilt.onMouseLeave}
+      style={tilt.style}
+    >
+      <ProgramCard level={program.level}>
+        <ProgramImage>
+          <img src={program.image} alt={program.title} onError={handleImgError} />
+          <ProgramLevel level={program.level}>{program.level}</ProgramLevel>
+          <ProgramImageContent>
+            <ProgramTitle>{program.title}</ProgramTitle>
+          </ProgramImageContent>
+        </ProgramImage>
+        <ProgramContent>
+          <ProgramInfo>
+            <ProgramDescription>{program.description}</ProgramDescription>
+          </ProgramInfo>
+          <div>
+            <ProgramDetails>
+              <ProgramDetail>
+                <ClockIcon />
+                {program.duration}
+              </ProgramDetail>
+              <ProgramDetail>
+                <RepeatIcon />
+                {program.sessions}
+              </ProgramDetail>
+            </ProgramDetails>
+            <Button fullWidth onClick={() => scrollToSection("contact")}>
+              Learn More
+            </Button>
+          </div>
+        </ProgramContent>
+      </ProgramCard>
+    </motion.div>
+  );
+};
+
 const ProgramsSection = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [ref, inView] = useInView({
@@ -409,28 +476,6 @@ const ProgramsSection = () => {
   });
 
   const filteredPrograms = programs[activeTab] || programs.all;
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
 
   return (
     <SectionWrapper id="programs" ref={ref}>
@@ -482,45 +527,7 @@ const ProgramsSection = () => {
           <AnimatePresence mode="wait">
             <ProgramsGrid key={activeTab}>
               {filteredPrograms.map((program) => (
-                <motion.div key={program.id} variants={itemVariants}>
-                  <ProgramCard level={program.level}>
-                    <ProgramImage>
-                      <img
-                        src={program.image}
-                        alt={program.title}
-                        onError={handleImgError}
-                      />
-                      <ProgramLevel level={program.level}>
-                        {program.level}
-                      </ProgramLevel>
-                      <ProgramImageContent>
-                        <ProgramTitle>{program.title}</ProgramTitle>
-                      </ProgramImageContent>
-                    </ProgramImage>
-                    <ProgramContent>
-                      <ProgramInfo>
-                        <ProgramDescription>
-                          {program.description}
-                        </ProgramDescription>
-                      </ProgramInfo>
-                      <div>
-                        <ProgramDetails>
-                          <ProgramDetail>
-                            <ClockIcon />
-                            {program.duration}
-                          </ProgramDetail>
-                          <ProgramDetail>
-                            <RepeatIcon />
-                            {program.sessions}
-                          </ProgramDetail>
-                        </ProgramDetails>
-                        <Button fullWidth onClick={() => scrollToSection("contact")}>
-                          Learn More
-                        </Button>
-                      </div>
-                    </ProgramContent>
-                  </ProgramCard>
-                </motion.div>
+                <ProgramCardItem key={program.id} program={program} />
               ))}
             </ProgramsGrid>
           </AnimatePresence>
