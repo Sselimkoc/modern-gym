@@ -57,7 +57,6 @@ const TrainerCard = styled(motion.div)`
     box-shadow 0.35s ease;
 
   &:hover {
-    transform: translateY(-6px);
     box-shadow: 0 20px 40px rgba(22, 163, 74, 0.2);
   }
 `;
@@ -250,7 +249,7 @@ const itemVariants = {
 };
 
 const TrainerCardItem = ({ trainer }) => {
-  const tilt = useTilt(6);
+  const tilt = useTilt(3);
 
   return (
     <motion.div

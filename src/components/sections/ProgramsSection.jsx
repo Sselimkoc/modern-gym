@@ -97,7 +97,6 @@ const ProgramCard = styled(motion.div)`
 
   &:hover {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-    transform: translateY(-6px);
   }
 `;
 
@@ -425,7 +424,7 @@ const itemVariants = {
 };
 
 const ProgramCardItem = ({ program }) => {
-  const tilt = useTilt(6);
+  const tilt = useTilt(3);
 
   return (
     <motion.div
