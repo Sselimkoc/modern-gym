@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
 import {
   motion,
@@ -153,12 +153,33 @@ const ModalOverlay = styled(motion.div)`
 
 const ModalContent = styled(motion.div)`
   background: white;
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
   width: 100%;
-  max-width: 500px;
-  padding: 2rem;
+  max-width: 460px;
+  padding: 2.25rem 2rem;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+`;
+
+const VisitEyebrow = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+  margin: 0 auto 1rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  background: rgba(22, 163, 74, 0.12);
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.75rem;
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -183,85 +204,107 @@ const CloseButton = styled.button`
   }
 `;
 
-const FormTitle = styled.h2`
+const VisitTitle = styled.h2`
+  font-size: clamp(1.4rem, 3vw, 1.6rem);
   color: ${({ theme }) => theme.colors.secondary};
+  margin-bottom: 0.6rem;
+  text-align: center;
+`;
+
+const VisitIntro = styled.p`
+  color: ${({ theme }) => theme.colors.gray};
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
   margin-bottom: 1.5rem;
-  text-align: center;
 `;
 
-const Form = styled.form`
+const VisitInfoList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.6rem;
+  margin-bottom: 1.75rem;
 `;
 
-const FormGroup = styled.div`
+const VisitInfoRow = styled.div`
   display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  margin-bottom: 0.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.medium};
-  color: ${({ theme }) => theme.colors.secondary};
-`;
-
-const Input = styled.input`
-  padding: 0.8rem;
-  border: 1px solid ${({ theme }) => theme.colors.lightGray};
-  border-radius: 5px;
-  font-size: 1rem;
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
-  }
-`;
-
-const SubmitButton = styled(Button)`
-  margin-top: 1rem;
-  width: 100%;
-`;
-
-const SuccessState = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding: 1.5rem 0;
+  gap: 0.85rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  background: ${({ theme }) => theme.colors.light};
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 0.9rem;
+  line-height: 1.4;
 `;
 
-const SuccessIcon = styled(motion.div)`
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.gradientPrimary};
+const VisitIcon = styled.span`
+  width: 36px;
+  height: 36px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  background: rgba(22, 163, 74, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  flex-shrink: 0;
 
   svg {
-    width: 30px;
-    height: 30px;
-    color: ${({ theme }) => theme.colors.white};
+    width: 17px;
+    height: 17px;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
-const SuccessTitle = styled.h3`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: 0.5rem;
+const VisitActions = styled.div`
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+
+  > * {
+    flex: 1;
+  }
 `;
 
-const SuccessText = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  margin-bottom: 0;
-`;
+const LocationIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="2" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <path
+      d="M12 7v5l3 3"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const Hero = () => {
   const { isOpen: showModal, openJoinModal, closeJoinModal } = useJoinModal();
-  const [submitted, setSubmitted] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -292,19 +335,9 @@ const Hero = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      closeJoinModal();
-      setSubmitted(false);
-    }, 2500);
-  };
-
-  const handleCloseModal = () => {
-    closeJoinModal();
-    setSubmitted(false);
-  };
+  const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    siteConfig.address
+  )}`;
 
   return (
     <HeroWrapper ref={ref} id="hero" tabIndex={-1}>
@@ -405,67 +438,54 @@ const Hero = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20, stiffness: 300 }}
             >
-              <CloseButton onClick={handleCloseModal}>×</CloseButton>
-              {submitted ? (
-                <SuccessState
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+              <CloseButton onClick={closeJoinModal}>×</CloseButton>
+              <VisitEyebrow>
+                <LocationIcon />
+                Visit Us
+              </VisitEyebrow>
+              <VisitTitle>Join {siteConfig.name} In Person</VisitTitle>
+              <VisitIntro>
+                We keep membership sign-ups simple — no forms, no waiting on a
+                callback. Walk in during opening hours and our team will get
+                you started the same day.
+              </VisitIntro>
+              <VisitInfoList>
+                <VisitInfoRow>
+                  <VisitIcon>
+                    <LocationIcon />
+                  </VisitIcon>
+                  <span>{siteConfig.address}</span>
+                </VisitInfoRow>
+                <VisitInfoRow>
+                  <VisitIcon>
+                    <PhoneIcon />
+                  </VisitIcon>
+                  <span>{siteConfig.phone}</span>
+                </VisitInfoRow>
+                <VisitInfoRow>
+                  <VisitIcon>
+                    <ClockIcon />
+                  </VisitIcon>
+                  <span>Mon–Thu {siteConfig.hours.monday}</span>
+                </VisitInfoRow>
+              </VisitInfoList>
+              <VisitActions>
+                <Button
+                  onClick={() =>
+                    window.open(directionsUrl, "_blank", "noopener,noreferrer")
+                  }
                 >
-                  <SuccessIcon
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M20 6L9 17l-5-5"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </SuccessIcon>
-                  <SuccessTitle>You're in!</SuccessTitle>
-                  <SuccessText>
-                    Thanks for joining {siteConfig.name} — we'll reach out shortly.
-                  </SuccessText>
-                </SuccessState>
-              ) : (
-                <>
-                  <FormTitle>Join {siteConfig.name} Today</FormTitle>
-                  <Form onSubmit={handleSubmit}>
-                    <FormGroup>
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input
-                        id="name"
-                        type="text"
-                        placeholder="Enter your full name"
-                        required
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="Enter your email address"
-                        required
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="Enter your phone number"
-                        required
-                      />
-                    </FormGroup>
-                    <SubmitButton type="submit">Start Your Journey</SubmitButton>
-                  </Form>
-                </>
-              )}
+                  Get Directions
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    window.location.href = `tel:${siteConfig.phone}`;
+                  }}
+                >
+                  Call Us
+                </Button>
+              </VisitActions>
             </ModalContent>
           </ModalOverlay>
         )}
