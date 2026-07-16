@@ -77,9 +77,41 @@ const Subtitle = styled(motion.p)`
 
 const ButtonContainer = styled(motion.div)`
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+`;
+
+const PrimaryCtaWrap = styled.div`
+  position: relative;
+  display: inline-flex;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    background: ${({ theme }) => theme.colors.gradientPrimary};
+    filter: blur(18px);
+    opacity: 0.6;
+    border-radius: ${({ theme }) => theme.borderRadius.full};
+    z-index: -1;
+  }
+`;
+
+const SecondaryButton = styled(Button)`
+  && {
+    border-width: 1.5px;
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  &&:hover {
+    color: ${({ theme }) => theme.colors.white};
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+  }
 `;
 
 const TrustRow = styled(motion.div)`
@@ -302,16 +334,18 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Button size="lg" onClick={openJoinModal}>
-              Join Now
-            </Button>
-            <Button
+            <PrimaryCtaWrap>
+              <Button size="lg" onClick={openJoinModal}>
+                Join Now
+              </Button>
+            </PrimaryCtaWrap>
+            <SecondaryButton
               variant="outline"
-              size="lg"
+              size="md"
               onClick={() => scrollToSection("programs")}
             >
               View Programs
-            </Button>
+            </SecondaryButton>
           </ButtonContainer>
           <TrustRow
             initial={{ opacity: 0, y: 20 }}

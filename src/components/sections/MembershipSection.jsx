@@ -88,12 +88,12 @@ const PlansGrid = styled.div`
 
 const PlanCard = styled(motion.div)`
   background: ${({ popular }) =>
-    popular ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.04)"};
+    popular ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.05)"};
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid
     ${({ popular, theme }) =>
-      popular ? theme.colors.accent : "rgba(255, 255, 255, 0.1)"};
+      popular ? theme.colors.accent : "rgba(255, 255, 255, 0.14)"};
   border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
   padding: 2.5rem 2rem;
   display: flex;
@@ -101,13 +101,34 @@ const PlanCard = styled(motion.div)`
   position: relative;
   transform: ${({ popular }) => (popular ? "scale(1.05)" : "scale(1)")};
   box-shadow: ${({ popular }) =>
-    popular ? "0 20px 50px rgba(255, 255, 255, 0.16)" : "none"};
+    popular
+      ? "0 20px 50px rgba(255, 255, 255, 0.16)"
+      : "0 14px 34px rgba(0, 0, 0, 0.35)"};
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    transform: ${({ popular }) =>
+      popular ? "scale(1.05) translateY(-6px)" : "translateY(-6px)"};
+    box-shadow: ${({ popular }) =>
+      popular
+        ? "0 28px 60px rgba(255, 255, 255, 0.22)"
+        : "0 22px 46px rgba(0, 0, 0, 0.45)"};
+    border-color: ${({ popular, theme }) =>
+      popular ? theme.colors.accent : "rgba(255, 255, 255, 0.32)"};
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     transform: none;
     border-width: ${({ popular }) => (popular ? "2px" : "1px")};
     box-shadow: ${({ popular }) =>
-      popular ? "0 10px 30px rgba(255, 255, 255, 0.2)" : "none"};
+      popular
+        ? "0 10px 30px rgba(255, 255, 255, 0.2)"
+        : "0 10px 26px rgba(0, 0, 0, 0.35)"};
+
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
 `;
 

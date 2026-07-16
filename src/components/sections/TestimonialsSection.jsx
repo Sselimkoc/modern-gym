@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import { handleImgError } from "../../utils/imageFallback";
@@ -137,36 +137,26 @@ const GoogleLogo = ({ size = 18 }) => (
 const TestimonialsContainer = styled.div`
   position: relative;
   z-index: 2;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
-const TestimonialSlider = styled.div`
-  position: relative;
-  overflow: hidden;
-  height: 540px; /* Tall enough to fit cards that include an attached photo */
+const TestimonialsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  align-items: stretch;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 600px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    grid-template-columns: 1fr 1fr;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    height: 660px;
+    grid-template-columns: 1fr;
   }
 `;
 
-const TestimonialSlide = styled(motion.div)`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1rem;
-`;
-
-const TestimonialContent = styled.div`
+const TestimonialContent = styled(motion.div)`
   background-color: white;
   border: 1px solid ${({ theme }) => theme.colors.lightGray};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
@@ -174,10 +164,18 @@ const TestimonialContent = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.md};
   text-align: left;
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: ${({ theme }) => theme.shadows.hover};
+  }
 
   &::before {
     content: "\\201C";
@@ -249,47 +247,17 @@ const TestimonialText = styled.p`
   font-size: 1.05rem;
   line-height: 1.7;
   margin: 0;
+  flex: 1;
 `;
 
 const ReviewPhoto = styled.img`
   display: block;
   margin-top: 1.25rem;
   width: 100%;
-  max-width: 220px;
   height: 140px;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   box-shadow: ${({ theme }) => theme.shadows.sm};
-`;
-
-const SliderControls = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-`;
-
-const SliderDot = styled.button`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: ${({ active, theme }) =>
-    active ? theme.colors.primary : "rgba(0, 0, 0, 0.15)"};
-  box-shadow: ${({ active }) =>
-    active ? "0 0 8px rgba(22, 163, 74, 0.6)" : "none"};
-  border: none;
-  margin: 0 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    background-color: ${({ active, theme }) =>
-      active ? theme.colors.primary : "rgba(0, 0, 0, 0.3)"};
-    transform: scale(1.2);
-  }
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 // Placeholder review data styled to look like a Google Business Profile
@@ -340,9 +308,16 @@ const AVERAGE_RATING = (
   testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
 ).toFixed(1);
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (index) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: index * 0.12 },
+  }),
+};
+
 const TestimonialsSection = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -363,16 +338,6 @@ const TestimonialsSection = () => {
     [0, 1],
     prefersReducedMotion ? [0, 0] : [40, -40]
   );
-
-  useEffect(() => {
-    if (paused) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [paused]);
 
   return (
     <SectionWrapper id="testimonials" ref={sectionRef}>
@@ -399,70 +364,46 @@ const TestimonialsSection = () => {
           </motion.div>
         </SectionHeader>
 
-        <TestimonialsContainer
-          ref={ref}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocus={() => setPaused(true)}
-          onBlur={() => setPaused(false)}
-        >
-          <TestimonialSlider>
-            <AnimatePresence mode="wait">
-              {testimonials.map(
-                (testimonial, index) =>
-                  currentSlide === index && (
-                    <TestimonialSlide
-                      key={testimonial.id}
-                      initial={{ opacity: 0, x: 100 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -100 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <TestimonialContent>
-                        <CardHeader>
-                          <AuthorImage>
-                            <img
-                              src={testimonial.author.image}
-                              alt={testimonial.author.name}
-                              onError={handleImgError}
-                            />
-                          </AuthorImage>
-                          <AuthorInfo>
-                            <AuthorTopRow>
-                              <AuthorName>{testimonial.author.name}</AuthorName>
-                              <GoogleLogo size={16} />
-                            </AuthorTopRow>
-                            <MetaRow>
-                              <StarRow rating={testimonial.rating} />
-                              <DateText>{testimonial.date}</DateText>
-                            </MetaRow>
-                          </AuthorInfo>
-                        </CardHeader>
-                        <TestimonialText>{testimonial.text}</TestimonialText>
-                        {testimonial.photo && (
-                          <ReviewPhoto
-                            src={testimonial.photo}
-                            alt={`Photo shared by ${testimonial.author.name}`}
-                            onError={handleImgError}
-                          />
-                        )}
-                      </TestimonialContent>
-                    </TestimonialSlide>
-                  )
-              )}
-            </AnimatePresence>
-          </TestimonialSlider>
-
-          <SliderControls>
-            {testimonials.map((_, index) => (
-              <SliderDot
-                key={index}
-                active={currentSlide === index}
-                onClick={() => setCurrentSlide(index)}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+        <TestimonialsContainer ref={ref}>
+          <TestimonialsGrid>
+            {testimonials.map((testimonial, index) => (
+              <TestimonialContent
+                key={testimonial.id}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
+              >
+                <CardHeader>
+                  <AuthorImage>
+                    <img
+                      src={testimonial.author.image}
+                      alt={testimonial.author.name}
+                      onError={handleImgError}
+                    />
+                  </AuthorImage>
+                  <AuthorInfo>
+                    <AuthorTopRow>
+                      <AuthorName>{testimonial.author.name}</AuthorName>
+                      <GoogleLogo size={16} />
+                    </AuthorTopRow>
+                    <MetaRow>
+                      <StarRow rating={testimonial.rating} />
+                      <DateText>{testimonial.date}</DateText>
+                    </MetaRow>
+                  </AuthorInfo>
+                </CardHeader>
+                <TestimonialText>{testimonial.text}</TestimonialText>
+                {testimonial.photo && (
+                  <ReviewPhoto
+                    src={testimonial.photo}
+                    alt={`Photo shared by ${testimonial.author.name}`}
+                    onError={handleImgError}
+                  />
+                )}
+              </TestimonialContent>
             ))}
-          </SliderControls>
+          </TestimonialsGrid>
         </TestimonialsContainer>
       </Container>
     </SectionWrapper>
