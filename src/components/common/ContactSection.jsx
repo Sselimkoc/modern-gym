@@ -187,6 +187,9 @@ const ContactSection = ({ email, phone, address, hours }) => {
   const mapSrc = address
     ? `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`
     : null;
+  const directionsUrl = address
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
+    : null;
 
   return (
     <Section>
@@ -269,7 +272,13 @@ const ContactSection = ({ email, phone, address, hours }) => {
                 transition={{ duration: 0.3, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <InfoCard icon={<LocationIcon />} title="Location" value={address} color="primary" />
+                <InfoCard
+                  icon={<LocationIcon />}
+                  title="Location"
+                  value={address}
+                  link={directionsUrl ? { href: directionsUrl } : undefined}
+                  color="primary"
+                />
               </motion.div>
             )}
 
