@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import ScrollProgressBar from "../ui/ScrollProgressBar";
@@ -285,6 +286,8 @@ const SocialLink = styled(motion.a)`
 
 const Navbar = ({ forceSolid = false }) => {
   const { openJoinModal } = useJoinModal();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -354,6 +357,12 @@ const Navbar = ({ forceSolid = false }) => {
   };
 
   const scrollToSection = (sectionId) => {
+    if (location.pathname !== "/") {
+      setIsMenuOpen(false);
+      navigate(`/#${sectionId}`);
+      return;
+    }
+
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });

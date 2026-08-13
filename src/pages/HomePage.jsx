@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
 import SectionWave from "../components/ui/SectionWave";
@@ -106,6 +107,17 @@ const scrollToSection = (sectionId) => {
 const HomePage = () => {
   const theme = useTheme();
   const { openJoinModal } = useJoinModal();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const sectionId = location.hash.replace("#", "");
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location.hash]);
 
   useSEO({
     title: `${siteConfig.name} - ${siteConfig.tagline}`,
