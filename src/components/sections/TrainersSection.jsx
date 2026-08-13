@@ -102,7 +102,7 @@ const CertifiedBadge = styled.div`
   gap: 0.35rem;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(57, 255, 20, 0.5);
+  border: 1px solid rgba(74, 222, 128, 0.5);
   color: ${({ theme }) => theme.colors.neon};
   padding: 0.3rem 0.7rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};

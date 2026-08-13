@@ -12,8 +12,8 @@ const Glow = styled.div`
   mix-blend-mode: screen;
   background: radial-gradient(
     220px circle at var(--x, 50%) var(--y, 50%),
-    rgba(57, 255, 20, 0.09) 0%,
-    rgba(57, 255, 20, 0.03) 45%,
+    rgba(74, 222, 128, 0.09) 0%,
+    rgba(74, 222, 128, 0.03) 45%,
     transparent 70%
   );
 `;

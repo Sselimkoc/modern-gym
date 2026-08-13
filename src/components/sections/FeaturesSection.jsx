@@ -143,7 +143,7 @@ const HeroBadge = styled.span`
   gap: 0.4rem;
   padding: 0.35rem 0.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(57, 255, 20, 0.14);
+  background: rgba(74, 222, 128, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: ${({ theme }) => theme.colors.neon};
   font-size: 0.75rem;
@@ -151,7 +151,7 @@ const HeroBadge = styled.span`
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  text-shadow: 0 0 12px rgba(57, 255, 20, 0.6);
+  text-shadow: 0 0 12px rgba(74, 222, 128, 0.45);
 `;
 
 const HeroTitle = styled.h3`
@@ -187,7 +187,7 @@ const IconTile = styled(motion.div)`
   &:hover {
     transform: translateY(-6px);
     box-shadow: 0 18px 36px rgba(22, 163, 74, 0.2);
-    border-color: rgba(57, 255, 20, 0.4);
+    border-color: rgba(74, 222, 128, 0.4);
   }
 `;
 
@@ -222,7 +222,7 @@ const IconBadge = styled.div`
   box-shadow: ${({ $alt }) =>
     $alt
       ? "0 8px 16px rgba(0, 0, 0, 0.3)"
-      : "0 8px 16px rgba(57, 255, 20, 0.4)"};
+      : "0 8px 16px rgba(74, 222, 128, 0.4)"};
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   svg {

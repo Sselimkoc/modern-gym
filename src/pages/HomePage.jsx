@@ -63,7 +63,7 @@ const CTASection = styled.section`
     position: absolute;
     inset: 0;
     z-index: 0;
-    ${barbellPattern("%2339FF14", 0.07)}
+    ${barbellPattern("%2316A34A", 0.07)}
   }
 `;
 

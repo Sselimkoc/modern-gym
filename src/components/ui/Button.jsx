@@ -57,7 +57,7 @@ const StyledButton = styled(motion.button)`
         : theme.colors.primaryDark};
     transform: translateY(-3px);
     box-shadow: ${({ theme, variant }) =>
-      variant === "outline" ? "none" : `0 8px 24px rgba(57,255,20,0.45)`};
+      variant === "outline" ? "none" : `0 8px 24px rgba(74,222,128,0.4)`};
   }
 
   &:hover::after {
@@ -68,7 +68,7 @@ const StyledButton = styled(motion.button)`
   &:active {
     transform: translateY(-1px);
     box-shadow: ${({ theme, variant }) =>
-      variant === "outline" ? "none" : `0 4px 14px rgba(57,255,20,0.35)`};
+      variant === "outline" ? "none" : `0 4px 14px rgba(74,222,128,0.3)`};
   }
 `;
 

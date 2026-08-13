@@ -20,7 +20,7 @@ const BackgroundPattern = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  ${barbellPattern("%2339FF14", 0.06)}
+  ${barbellPattern("%2316A34A", 0.06)}
   z-index: 1;
 `;
 

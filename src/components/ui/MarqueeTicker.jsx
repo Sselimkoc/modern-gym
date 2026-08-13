@@ -11,8 +11,8 @@ const items = [
 
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.colors.secondary};
-  border-top: 1px solid rgba(57, 255, 20, 0.15);
-  border-bottom: 1px solid rgba(57, 255, 20, 0.15);
+  border-top: 1px solid rgba(74, 222, 128, 0.15);
+  border-bottom: 1px solid rgba(74, 222, 128, 0.15);
   overflow: hidden;
   padding: 0.9rem 0;
   position: relative;
@@ -53,7 +53,7 @@ const Item = styled.span`
   text-transform: uppercase;
   white-space: nowrap;
   padding: 0 1.5rem;
-  text-shadow: 0 0 14px rgba(57, 255, 20, 0.45);
+  text-shadow: 0 0 14px rgba(74, 222, 128, 0.35);
 
   &::after {
     content: "\\2726";

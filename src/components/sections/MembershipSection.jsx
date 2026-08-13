@@ -19,7 +19,7 @@ const SectionWrapper = styled.section`
     position: absolute;
     inset: 0;
     z-index: 0;
-    ${barbellPattern("%2339FF14", 0.05)}
+    ${barbellPattern("%2316A34A", 0.05)}
     pointer-events: none;
   }
 `;
@@ -64,8 +64,8 @@ const TrialBadge = styled.span`
   margin-top: 1rem;
   padding: 0.4rem 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(57, 255, 20, 0.12);
-  border: 1px solid rgba(57, 255, 20, 0.4);
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.4);
   color: ${({ theme }) => theme.colors.neon};
   font-size: 0.85rem;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};

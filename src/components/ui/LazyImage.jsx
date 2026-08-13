@@ -28,7 +28,7 @@ const Placeholder = styled.div`
   background: linear-gradient(
     90deg,
     ${({ theme }) => theme.colors.lightGray} 25%,
-    rgba(57, 255, 20, 0.14) 50%,
+    rgba(74, 222, 128, 0.14) 50%,
     ${({ theme }) => theme.colors.lightGray} 75%
   );
   background-size: 200% 100%;

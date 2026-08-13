@@ -431,7 +431,7 @@ const Navbar = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop stopColor="#15803D" />
-                <stop offset="1" stopColor="#39FF14" />
+                <stop offset="1" stopColor="#4ADE80" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear"
@@ -442,7 +442,7 @@ const Navbar = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop stopColor="#15803D" />
-                <stop offset="1" stopColor="#39FF14" />
+                <stop offset="1" stopColor="#4ADE80" />
               </linearGradient>
               <linearGradient
                 id="paint2_linear"
@@ -453,7 +453,7 @@ const Navbar = () => {
                 gradientUnits="userSpaceOnUse"
               >
                 <stop stopColor="#15803D" />
-                <stop offset="1" stopColor="#39FF14" />
+                <stop offset="1" stopColor="#4ADE80" />
               </linearGradient>
             </defs>
           </svg>

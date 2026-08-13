@@ -9,14 +9,14 @@ const theme = {
     dark: "#050805",
     gray: "#5B655F",
     lightGray: "#DDE3DF",
-    neon: "#39FF14",
+    neon: "#4ADE80",
     gradientPrimary: "linear-gradient(135deg, #15803D 0%, #4ADE80 100%)",
     gradientDark: "linear-gradient(135deg, #050805 0%, #0F1F14 100%)",
     overlay: "rgba(5, 8, 5, 0.72)",
   },
   fonts: {
-    heading: "'Montserrat', sans-serif",
-    body: "'Open Sans', sans-serif",
+    heading: "'Outfit', sans-serif",
+    body: "'Plus Jakarta Sans', sans-serif",
   },
   fontSizes: {
     xs: "0.75rem",
@@ -50,7 +50,7 @@ const theme = {
     md: "0 4px 6px rgba(0,0,0,0.1)",
     lg: "0 10px 15px rgba(0,0,0,0.1)",
     xl: "0 20px 25px rgba(0,0,0,0.1)",
-    primary: "0 4px 20px rgba(57, 255, 20, 0.35)",
+    primary: "0 4px 20px rgba(74, 222, 128, 0.35)",
     hover: "0 8px 30px rgba(0,0,0,0.12)",
   },
   space: {
@@ -92,7 +92,7 @@ const theme = {
   },
   utilities: {
     focusRing: `
-      outline: 2px solid #39FF14;
+      outline: 2px solid #4ADE80;
       outline-offset: 2px;
     `,
     visibleHidden: `
