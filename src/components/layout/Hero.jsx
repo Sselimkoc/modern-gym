@@ -197,10 +197,14 @@ const CloseButton = styled.button`
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  transition: all 0.2s;
+  transition: background-color 0.2s ease, transform 160ms ease-out;
 
   &:hover {
     background: rgba(0, 0, 0, 0.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 

@@ -53,7 +53,7 @@ const TrainerCard = styled(motion.div)`
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.md};
-  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  transition: transform 0.35s ${({ theme }) => theme.easings.pop},
     box-shadow 0.35s ease;
 
   &:hover {
@@ -75,8 +75,10 @@ const TrainerImage = styled.div`
     transition: transform 0.5s ease;
   }
 
-  ${TrainerCard}:hover & img {
-    transform: scale(1.08);
+  @media (hover: hover) and (pointer: fine) {
+    ${TrainerCard}:hover & img {
+      transform: scale(1.08);
+    }
   }
 
   &::after {

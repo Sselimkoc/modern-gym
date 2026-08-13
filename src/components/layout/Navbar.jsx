@@ -92,8 +92,14 @@ const MenuToggle = styled.button`
   transition: transform 0.3s ease;
   z-index: 1002;
 
-  &:hover {
-    transform: scale(1.1);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -262,7 +268,7 @@ const SocialLink = styled(motion.a)`
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   color: ${({ theme }) => theme.colors.white};
-  transition: ${({ theme }) => theme.transitions.fast};
+  transition: background-color ${({ theme }) => theme.transitions.fast}, transform ${({ theme }) => theme.transitions.fast};
 
   &:hover {
     background: ${({ theme }) => theme.colors.primary};

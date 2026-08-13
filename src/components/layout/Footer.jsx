@@ -90,15 +90,17 @@ const FooterLink = styled.li`
     color: ${({ theme }) => theme.colors.white};
     opacity: 0.7;
     text-decoration: none;
-    transition: ${({ theme }) => theme.transitions.fast};
+    transition: opacity ${({ theme }) => theme.transitions.fast}, color ${({ theme }) => theme.transitions.fast}, transform ${({ theme }) => theme.transitions.fast};
     display: flex;
     align-items: center;
     cursor: pointer;
 
-    &:hover {
-      opacity: 1;
-      color: ${({ theme }) => theme.colors.primary};
-      transform: translateX(5px);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 1;
+        color: ${({ theme }) => theme.colors.primary};
+        transform: translateX(5px);
+      }
     }
   }
 `;
@@ -118,7 +120,7 @@ const SocialLink = styled(motion.a)`
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   color: ${({ theme }) => theme.colors.white};
-  transition: ${({ theme }) => theme.transitions.fast};
+  transition: background-color ${({ theme }) => theme.transitions.fast}, transform ${({ theme }) => theme.transitions.fast};
 
   &:hover {
     background: ${({ theme }) => theme.colors.primary};

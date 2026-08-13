@@ -169,12 +169,14 @@ const TestimonialContent = styled(motion.div)`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  transition: transform 0.3s ${({ theme }) => theme.easings.pop},
     box-shadow 0.3s ease;
 
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: ${({ theme }) => theme.shadows.hover};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: ${({ theme }) => theme.shadows.hover};
+    }
   }
 
   &::before {

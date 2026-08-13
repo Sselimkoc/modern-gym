@@ -104,18 +104,20 @@ const PlanCard = styled(motion.div)`
     popular
       ? "0 20px 50px rgba(255, 255, 255, 0.16)"
       : "0 14px 34px rgba(0, 0, 0, 0.35)"};
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  transition: transform 0.3s ${({ theme }) => theme.easings.pop},
     box-shadow 0.3s ease, border-color 0.3s ease;
 
-  &:hover {
-    transform: ${({ popular }) =>
-      popular ? "scale(1.05) translateY(-6px)" : "translateY(-6px)"};
-    box-shadow: ${({ popular }) =>
-      popular
-        ? "0 28px 60px rgba(255, 255, 255, 0.22)"
-        : "0 22px 46px rgba(0, 0, 0, 0.45)"};
-    border-color: ${({ popular, theme }) =>
-      popular ? theme.colors.accent : "rgba(255, 255, 255, 0.32)"};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: ${({ popular }) =>
+        popular ? "scale(1.05) translateY(-6px)" : "translateY(-6px)"};
+      box-shadow: ${({ popular }) =>
+        popular
+          ? "0 28px 60px rgba(255, 255, 255, 0.22)"
+          : "0 22px 46px rgba(0, 0, 0, 0.45)"};
+      border-color: ${({ popular, theme }) =>
+        popular ? theme.colors.accent : "rgba(255, 255, 255, 0.32)"};
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -126,8 +128,10 @@ const PlanCard = styled(motion.div)`
         ? "0 10px 30px rgba(255, 255, 255, 0.2)"
         : "0 10px 26px rgba(0, 0, 0, 0.35)"};
 
-    &:hover {
-      transform: translateY(-4px);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-4px);
+      }
     }
   }
 `;

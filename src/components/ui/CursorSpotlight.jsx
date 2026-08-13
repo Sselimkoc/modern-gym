@@ -31,14 +31,26 @@ const CursorSpotlight = ({ zIndex = 0 }) => {
     const parent = el?.parentElement;
     if (!parent) return undefined;
 
+    let rafId = null;
+    let latestEvent = null;
+    let rect = null;
+
+    const applyPosition = () => {
+      rafId = null;
+      if (!latestEvent || !rect) return;
+      el.style.setProperty("--x", `${latestEvent.clientX - rect.left}px`);
+      el.style.setProperty("--y", `${latestEvent.clientY - rect.top}px`);
+    };
+
     const handleMove = (e) => {
-      const rect = parent.getBoundingClientRect();
-      el.style.setProperty("--x", `${e.clientX - rect.left}px`);
-      el.style.setProperty("--y", `${e.clientY - rect.top}px`);
+      if (!rect) rect = parent.getBoundingClientRect();
+      latestEvent = e;
       el.style.opacity = "1";
+      if (rafId === null) rafId = requestAnimationFrame(applyPosition);
     };
     const handleLeave = () => {
       el.style.opacity = "0";
+      rect = null;
     };
 
     parent.addEventListener("mousemove", handleMove);
@@ -46,6 +58,7 @@ const CursorSpotlight = ({ zIndex = 0 }) => {
     return () => {
       parent.removeEventListener("mousemove", handleMove);
       parent.removeEventListener("mouseleave", handleLeave);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, [prefersReducedMotion]);
 

@@ -90,13 +90,15 @@ const HeroTile = styled(motion.div)`
   overflow: hidden;
   min-height: 320px;
   isolation: isolate;
-  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  transition: transform 0.35s ${({ theme }) => theme.easings.pop},
     box-shadow 0.35s ease;
   box-shadow: ${({ theme }) => theme.shadows.lg};
 
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    }
   }
 
   img {
@@ -108,8 +110,10 @@ const HeroTile = styled(motion.div)`
     transition: transform 0.6s ease;
   }
 
-  &:hover img {
-    transform: scale(1.06);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover img {
+      transform: scale(1.06);
+    }
   }
 
   &::after {
@@ -181,13 +185,15 @@ const IconTile = styled(motion.div)`
   background: ${({ theme }) => theme.colors.white};
   border: 1px solid rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  transition: transform 0.3s ${({ theme }) => theme.easings.pop},
     box-shadow 0.3s ease, border-color 0.3s ease;
 
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 36px rgba(22, 163, 74, 0.2);
-    border-color: rgba(74, 222, 128, 0.4);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 36px rgba(22, 163, 74, 0.2);
+      border-color: rgba(74, 222, 128, 0.4);
+    }
   }
 `;
 
@@ -223,7 +229,7 @@ const IconBadge = styled.div`
     $alt
       ? "0 8px 16px rgba(0, 0, 0, 0.3)"
       : "0 8px 16px rgba(74, 222, 128, 0.4)"};
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.35s ${({ theme }) => theme.easings.pop};
 
   svg {
     width: 24px;
@@ -267,9 +273,11 @@ const BannerTile = styled(motion.div)`
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
   }
 
   &::before {
@@ -352,9 +360,11 @@ const StatCard = styled(motion.div)`
   border: 1px solid rgba(0, 0, 0, 0.06);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: ${({ theme }) => theme.shadows.hover};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: ${({ theme }) => theme.shadows.hover};
+    }
   }
 `;
 

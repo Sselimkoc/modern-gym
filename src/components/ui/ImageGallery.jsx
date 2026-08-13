@@ -24,13 +24,15 @@ const ImageItem = styled(motion.div)`
   height: 250px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   cursor: pointer;
-  transition: ${({ theme }) => theme.transitions.default};
+  transition: transform ${({ theme }) => theme.transitions.base}, box-shadow ${({ theme }) => theme.transitions.base};
   box-shadow: ${({ theme }) => theme.shadows.md};
   overflow: hidden;
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: ${({ theme }) => theme.shadows.lg};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: ${({ theme }) => theme.shadows.lg};
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -81,7 +83,7 @@ const CloseButton = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: ${({ theme }) => theme.transitions.fast};
+  transition: transform ${({ theme }) => theme.transitions.fast};
   z-index: 10;
 
   svg {
@@ -89,8 +91,14 @@ const CloseButton = styled.button`
     height: 24px;
   }
 
-  &:hover {
-    transform: scale(1.1);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
 
@@ -108,7 +116,7 @@ const NavigationButton = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: ${({ theme }) => theme.transitions.fast};
+  transition: background-color ${({ theme }) => theme.transitions.fast}, transform 160ms ease-out;
   z-index: 10;
 
   svg {
@@ -118,6 +126,10 @@ const NavigationButton = styled.button`
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -204,9 +216,9 @@ const ImageGallery = ({ images = [] }) => {
           >
             <LightboxContent
               onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
+              exit={{ scale: 0.92, opacity: 0 }}
             >
               <CloseButton onClick={() => setSelectedIndex(null)} aria-label="Close">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

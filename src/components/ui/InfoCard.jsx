@@ -10,11 +10,13 @@ const Container = styled(motion.div)`
   background: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: ${({ theme }) => theme.shadows.md};
-  transition: ${({ theme }) => theme.transitions.default};
+  transition: box-shadow ${({ theme }) => theme.transitions.base}, transform ${({ theme }) => theme.transitions.base};
 
-  &:hover {
-    box-shadow: ${({ theme }) => theme.shadows.lg};
-    transform: translateY(-2px);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: ${({ theme }) => theme.shadows.lg};
+      transform: translateY(-2px);
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {

@@ -67,7 +67,7 @@ const GlobalStyles = createGlobalStyle`
   a {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
-    transition: ${({ theme }) => theme.transitions.default};
+    transition: color ${({ theme }) => theme.transitions.base};
 
     &:hover {
       color: ${({ theme }) => theme.colors.primaryDark};
@@ -84,7 +84,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${({ theme }) => theme.fonts.body};
     cursor: pointer;
     border: none;
-    transition: ${({ theme }) => theme.transitions.default};
+    transition: outline-color ${({ theme }) => theme.transitions.base};
 
     &:focus-visible {
       outline: 2px solid ${({ theme }) => theme.colors.primary};
@@ -98,7 +98,7 @@ const GlobalStyles = createGlobalStyle`
     border-radius: ${({ theme }) => theme.borderRadius.md};
     padding: ${({ theme }) => theme.space.sm};
     font-size: ${({ theme }) => theme.fontSizes.md};
-    transition: ${({ theme }) => theme.transitions.fast};
+    transition: border-color ${({ theme }) => theme.transitions.fast}, box-shadow ${({ theme }) => theme.transitions.fast};
 
     &:focus {
       outline: none;

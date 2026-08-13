@@ -48,7 +48,7 @@ const Tab = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   cursor: pointer;
-  transition: ${({ theme }) => theme.transitions.fast};
+  transition: background-color ${({ theme }) => theme.transitions.fast}, color ${({ theme }) => theme.transitions.fast}, border-color ${({ theme }) => theme.transitions.fast}, transform 160ms ease-out;
 
   &:hover {
     background: ${({ active, theme }) =>
@@ -56,6 +56,10 @@ const Tab = styled.button`
     border-color: ${({ theme }) => theme.colors.primary};
     color: ${({ active, theme }) =>
       active ? theme.colors.white : theme.colors.primary};
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 `;
 
@@ -77,7 +81,7 @@ const ProgramCard = styled(motion.div)`
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.md};
-  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  transition: transform 0.35s ${({ theme }) => theme.easings.pop},
     box-shadow 0.35s ease;
   height: 100%;
   display: flex;
@@ -118,8 +122,10 @@ const ProgramImage = styled.div`
     z-index: 0;
   }
 
-  ${ProgramCard}:hover & img {
-    transform: scale(1.08);
+  @media (hover: hover) and (pointer: fine) {
+    ${ProgramCard}:hover & img {
+      transform: scale(1.08);
+    }
   }
 
   &::after {

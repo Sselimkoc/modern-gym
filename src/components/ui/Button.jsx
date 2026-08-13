@@ -28,7 +28,7 @@ const StyledButton = styled(motion.button)`
   text-align: center;
   box-shadow: ${({ theme, variant }) =>
     variant === "outline" ? "none" : theme.shadows.primary};
-  transition: ${({ theme }) => theme.transitions.default};
+  transition: background-color ${({ theme }) => theme.transitions.base}, transform ${({ theme }) => theme.transitions.base}, box-shadow ${({ theme }) => theme.transitions.base};
   position: relative;
   overflow: hidden;
   z-index: 1;

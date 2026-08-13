@@ -72,9 +72,12 @@ const theme = {
     full: "9999px",
   },
   transitions: {
-    default: "all 0.3s ease",
-    fast: "all 0.15s ease",
-    slow: "all 0.5s ease",
+    base: "0.3s ease",
+    fast: "0.15s ease",
+    slow: "0.5s ease",
+  },
+  easings: {
+    pop: "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
   },
   zIndices: {
     hide: -1,
