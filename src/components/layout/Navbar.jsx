@@ -36,17 +36,19 @@ const NavbarWrapper = styled.nav`
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: ${({ scrolled, theme }) =>
-    scrolled ? `${theme.colors.secondary}b3` : "transparent"};
-  backdrop-filter: ${({ scrolled }) => (scrolled ? "blur(16px) saturate(180%)" : "none")};
-  -webkit-backdrop-filter: ${({ scrolled }) =>
-    scrolled ? "blur(16px) saturate(180%)" : "none"};
+  background-color: ${({ scrolled, forceSolid, theme }) =>
+    scrolled || forceSolid ? `${theme.colors.secondary}b3` : "transparent"};
+  backdrop-filter: ${({ scrolled, forceSolid }) =>
+    scrolled || forceSolid ? "blur(16px) saturate(180%)" : "none"};
+  -webkit-backdrop-filter: ${({ scrolled, forceSolid }) =>
+    scrolled || forceSolid ? "blur(16px) saturate(180%)" : "none"};
   border-bottom: 1px solid
-    ${({ scrolled }) => (scrolled ? "rgba(255, 255, 255, 0.08)" : "transparent")};
+    ${({ scrolled, forceSolid }) =>
+      scrolled || forceSolid ? "rgba(255, 255, 255, 0.08)" : "transparent"};
   transition: background-color 0.3s ease, box-shadow 0.3s ease,
     backdrop-filter 0.3s ease, border-color 0.3s ease;
-  box-shadow: ${({ scrolled, theme }) =>
-    scrolled ? theme.shadows.md : "none"};
+  box-shadow: ${({ scrolled, forceSolid, theme }) =>
+    scrolled || forceSolid ? theme.shadows.md : "none"};
 `;
 
 const NavContainer = styled(Container)`
@@ -281,7 +283,7 @@ const SocialLink = styled(motion.a)`
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ forceSolid = false }) => {
   const { openJoinModal } = useJoinModal();
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -391,7 +393,7 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarWrapper scrolled={scrolled}>
+    <NavbarWrapper scrolled={scrolled} forceSolid={forceSolid}>
       <SkipLink href="#hero">Skip to content</SkipLink>
       <NavContainer>
         <Logo

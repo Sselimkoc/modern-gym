@@ -20,6 +20,7 @@ const Section = styled.section`
 const Content = styled(motion.div)`
   text-align: center;
   max-width: 600px;
+  margin: 0 auto;
 `;
 
 const ErrorCode = styled.div`
@@ -61,7 +62,7 @@ const NotFoundPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar forceSolid />
 
       <Section>
         <Container>
