@@ -33,24 +33,22 @@ const CursorSpotlight = ({ zIndex = 0 }) => {
 
     let rafId = null;
     let latestEvent = null;
-    let rect = null;
 
     const applyPosition = () => {
       rafId = null;
-      if (!latestEvent || !rect) return;
+      if (!latestEvent) return;
+      const rect = parent.getBoundingClientRect();
       el.style.setProperty("--x", `${latestEvent.clientX - rect.left}px`);
       el.style.setProperty("--y", `${latestEvent.clientY - rect.top}px`);
     };
 
     const handleMove = (e) => {
-      if (!rect) rect = parent.getBoundingClientRect();
       latestEvent = e;
       el.style.opacity = "1";
       if (rafId === null) rafId = requestAnimationFrame(applyPosition);
     };
     const handleLeave = () => {
       el.style.opacity = "0";
-      rect = null;
     };
 
     parent.addEventListener("mousemove", handleMove);
