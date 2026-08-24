@@ -1,6 +1,6 @@
 {
-  "short_name": "PowerFit",
-  "name": "PowerFit - Your Fitness Journey Starts Here",
+  "short_name": "Black-Fit",
+  "name": "Black-Fit Spor Merkezi",
   "icons": [
     {
       "src": "favicon.svg",
@@ -25,6 +25,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#090D0A",
-  "background_color": "#F3F6F4"
+  "theme_color": "#1a1a1a",
+  "background_color": "#1a1a1a"
 }

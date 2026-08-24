@@ -3,61 +3,49 @@ import styled from "styled-components";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
-import { handleImgError } from "../../utils/imageFallback";
-import usePrefersReducedMotion from "../../hooks/usePrefersReducedMotion";
+import RatingBadge from "../ui/RatingBadge";
+import { ScribbleUnderline } from "../decor/Scribble";
 
 const SectionWrapper = styled.section`
-  padding: 6rem 0;
-  background-color: ${({ theme }) => theme.colors.light};
+  background: ${({ theme }) => theme.colors.bgElevated};
   position: relative;
-  overflow: hidden;
-`;
-
-const CircleTopLeft = styled(motion.div)`
-  position: absolute;
-  top: -150px;
-  left: -150px;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.accent};
-  opacity: 0.08;
-  pointer-events: none;
-`;
-
-const CircleBottomRight = styled(motion.div)`
-  position: absolute;
-  bottom: -100px;
-  right: -100px;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.primary};
-  opacity: 0.08;
-  pointer-events: none;
 `;
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 3rem;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 3.5rem;
 `;
 
-const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.secondary};
+const EyebrowGroup = styled.div`
   margin-bottom: 1.5rem;
-  font-size: clamp(2rem, 4vw, 2.5rem);
+`;
+
+const Eyebrow = styled.div`
+  display: inline-block;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  display: block;
+  width: 105px;
+  height: 13px;
+  margin: -6px auto 0;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  margin-bottom: 0;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 1.5rem;
+  max-width: 600px;
+`;
+
+const RatingRow = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const RatingSummary = styled.div`
@@ -135,58 +123,45 @@ const GoogleLogo = ({ size = 18 }) => (
 );
 
 const TestimonialsContainer = styled.div`
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
 `;
 
-const TestimonialsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
-  align-items: stretch;
+const TestimonialSlider = styled.div`
+  position: relative;
+  min-height: 320px;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    grid-template-columns: 1fr;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    min-height: 380px;
   }
 `;
 
-const TestimonialContent = styled(motion.div)`
-  background-color: white;
-  border: 1px solid ${({ theme }) => theme.colors.lightGray};
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  padding: 2rem;
-  box-shadow: ${({ theme }) => theme.shadows.md};
-  text-align: left;
+const TestimonialSlide = styled(motion.div)`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TestimonialContent = styled.div`
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: 2.5rem;
+  text-align: center;
   position: relative;
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: transform 0.3s ${({ theme }) => theme.easings.pop},
-    box-shadow 0.3s ease;
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: ${({ theme }) => theme.shadows.hover};
-    }
-  }
 
   &::before {
     content: "\\201C";
     position: absolute;
-    top: -1.5rem;
-    right: 1rem;
-    font-size: 9rem;
-    font-family: Georgia, serif;
-    font-weight: 700;
+    top: 0.5rem;
+    left: 1.5rem;
+    font-size: 4rem;
+    color: ${({ theme }) => theme.colors.accent};
+    opacity: 0.3;
+    font-family: ${({ theme }) => theme.fonts.display};
     line-height: 1;
     color: ${({ theme }) => theme.colors.primary};
     opacity: 0.06;
@@ -194,7 +169,13 @@ const TestimonialContent = styled(motion.div)`
   }
 `;
 
-const CardHeader = styled.div`
+const TestimonialText = styled.p`
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+`;
+
+const TestimonialAuthor = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 1rem;
@@ -206,7 +187,8 @@ const AuthorImage = styled.div`
   height: 52px;
   border-radius: 50%;
   overflow: hidden;
-  flex-shrink: 0;
+  margin-right: 1rem;
+  border: 2px solid ${({ theme }) => theme.colors.accent};
 
   img {
     width: 100%;
@@ -227,9 +209,14 @@ const AuthorTopRow = styled.div`
 `;
 
 const AuthorName = styled.h4`
-  margin: 0;
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: 1.05rem;
+  margin: 0 0 0.15rem 0 !important;
+`;
+
+const AuthorTitle = styled.p`
+  margin: 0 !important;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.colors.textFaint};
 `;
 
 const MetaRow = styled.div`
@@ -239,9 +226,20 @@ const MetaRow = styled.div`
   margin-top: 0.3rem;
 `;
 
-const DateText = styled.span`
-  color: ${({ theme }) => theme.colors.gray};
-  font-size: 0.85rem;
+const SliderDot = styled.button`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.colors.accent : theme.colors.border};
+  border: none;
+  margin: 0 0.4rem;
+  cursor: pointer;
+  transition: ${({ theme }) => theme.transitions.fast};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 const TestimonialText = styled.p`
@@ -269,39 +267,42 @@ const ReviewPhoto = styled.img`
 const testimonials = [
   {
     id: 1,
-    text: "I've been a member for over a year now, and the transformation in my fitness level is incredible. The trainers are knowledgeable and supportive, and the facilities are always clean and well-maintained. The mobile app makes booking classes so easy!",
-    rating: 5,
-    date: "2 weeks ago",
-    photo:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    text: "Black-Fit'e katıldıktan sonra hayatım tamamen değişti. Profesyonel eğitmenler sayesinde 6 ayda 20 kilo verdim ve kas kütlem arttı. Artık kendimi çok daha güçlü ve enerjik hissediyorum. Herkese tavsiye ederim!",
     author: {
-      name: "Emily Rodriguez",
+      name: "Ahmet Yılmaz",
+      title: "2022'den beri üye",
       image:
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
     },
   },
   {
     id: 2,
-    text: "As someone who was intimidated by gyms, the welcoming atmosphere here made all the difference. The staff took time to create a personalized plan for me, and the community is so supportive. I've lost 30 pounds and gained confidence I never thought possible!",
-    rating: 5,
-    date: "1 month ago",
+    text: "Spor salonlarından korkan biri olarak, buradaki sıcak atmosfer her şeyi değiştirdi. Personel benim için kişiselleştirilmiş bir plan oluşturmak için zaman ayırdı ve topluluk çok destekleyici. 30 kilo verdim ve hiç düşünmediğim bir güven kazandım!",
     author: {
-      name: "Marcus Johnson",
+      name: "Mehmet Kaya",
+      title: "2021'den beri üye",
       image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
     },
   },
   {
     id: 3,
-    text: "The spa and wellness services are exceptional. After intense workouts, being able to recover with professional massage therapy and wellness treatments has improved my performance and overall well-being. This isn't just a gym, it's a complete fitness experience.",
-    rating: 4,
-    date: "1 month ago",
-    photo:
-      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    text: "CrossFit antrenmanları ve grup dersleri harika! Muzaffer hocam sayesinde hem güçlendim hem de eğlenceli vakit geçirdim. Artık her gün spor yapmak için sabırsızlanıyorum. Black-Fit ailesine teşekkürler!",
     author: {
-      name: "Sophia Chen",
+      name: "Fatma Özkan",
+      title: "Premium üye",
       image:
-        "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+    },
+  },
+  {
+    id: 4,
+    text: "Sefa hocamın beslenme danışmanlığı sayesinde hedeflerime ulaştım. Hem antrenman hem de beslenme konusunda çok bilgilendim. Artık sağlıklı yaşam tarzımı sürdürüyorum. Black-Fit gerçekten fark yaratıyor!",
+    author: {
+      name: "Zeynep Demir",
+      title: "2023'ten beri üye",
+      image:
+        "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
     },
   },
 ];
@@ -320,26 +321,15 @@ const cardVariants = {
 };
 
 const TestimonialsSection = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  const sectionRef = useRef(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const circle1Y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    prefersReducedMotion ? [0, 0] : [-40, 40]
-  );
-  const circle2Y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    prefersReducedMotion ? [0, 0] : [40, -40]
-  );
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <SectionWrapper id="testimonials" ref={sectionRef}>
@@ -352,58 +342,63 @@ const TestimonialsSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
           >
-            <Title>What Our Members Say</Title>
+            <EyebrowGroup>
+              <Eyebrow>— Yorumlar</Eyebrow>
+              <EyebrowUnderline inView={inView} delay={0.3} />
+            </EyebrowGroup>
+            <h2>Üyelerimiz ne diyor</h2>
             <Subtitle>
-              Don't just take our word for it. Hear from our community of
-              members who have transformed their lives with us.
+              Sadece bizim sözümüze güvenmeyin. Bizimle hayatlarını değiştiren
+              üyelerimizin topluluğundan dinleyin.
             </Subtitle>
-            <RatingSummary>
-              <GoogleLogo />
-              <RatingScore>{AVERAGE_RATING}</RatingScore>
-              <StarRow rating={Math.round(AVERAGE_RATING)} />
-              <RatingMeta>· {testimonials.length} Google reviews</RatingMeta>
-            </RatingSummary>
+            <RatingRow>
+              <RatingBadge rating="4.9" reviews="49" />
+            </RatingRow>
           </motion.div>
         </SectionHeader>
 
         <TestimonialsContainer ref={ref}>
-          <TestimonialsGrid>
-            {testimonials.map((testimonial, index) => (
-              <TestimonialContent
-                key={testimonial.id}
-                custom={index}
-                variants={cardVariants}
-                initial="hidden"
-                animate={inView ? "visible" : "hidden"}
-              >
-                <CardHeader>
-                  <AuthorImage>
-                    <img
-                      src={testimonial.author.image}
-                      alt={testimonial.author.name}
-                      onError={handleImgError}
-                    />
-                  </AuthorImage>
-                  <AuthorInfo>
-                    <AuthorTopRow>
-                      <AuthorName>{testimonial.author.name}</AuthorName>
-                      <GoogleLogo size={16} />
-                    </AuthorTopRow>
-                    <MetaRow>
-                      <StarRow rating={testimonial.rating} />
-                      <DateText>{testimonial.date}</DateText>
-                    </MetaRow>
-                  </AuthorInfo>
-                </CardHeader>
-                <TestimonialText>{testimonial.text}</TestimonialText>
-                {testimonial.photo && (
-                  <ReviewPhoto
-                    src={testimonial.photo}
-                    alt={`Photo shared by ${testimonial.author.name}`}
-                    onError={handleImgError}
-                  />
-                )}
-              </TestimonialContent>
+          <TestimonialSlider>
+            <AnimatePresence mode="wait">
+              {testimonials.map(
+                (testimonial, index) =>
+                  currentSlide === index && (
+                    <TestimonialSlide
+                      key={testimonial.id}
+                      initial={{ opacity: 0, x: 60 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -60 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <TestimonialContent>
+                        <TestimonialText>{testimonial.text}</TestimonialText>
+                        <TestimonialAuthor>
+                          <AuthorImage>
+                            <img
+                              src={testimonial.author.image}
+                              alt={testimonial.author.name}
+                            />
+                          </AuthorImage>
+                          <AuthorInfo>
+                            <AuthorName>{testimonial.author.name}</AuthorName>
+                            <AuthorTitle>{testimonial.author.title}</AuthorTitle>
+                          </AuthorInfo>
+                        </TestimonialAuthor>
+                      </TestimonialContent>
+                    </TestimonialSlide>
+                  )
+              )}
+            </AnimatePresence>
+          </TestimonialSlider>
+
+          <SliderControls>
+            {testimonials.map((_, index) => (
+              <SliderDot
+                key={index}
+                $active={currentSlide === index}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`${index + 1}. yoruma git`}
+              />
             ))}
           </TestimonialsGrid>
         </TestimonialsContainer>

@@ -1,30 +1,27 @@
-# Modern Gym - Premium Fitness Experience
+# Black-Fit Spor Merkezi - Sivas
 
-A modern, responsive React application for a premium fitness center, featuring a sleek design, scroll-driven animations, and an intuitive user interface. Built as a marketing/landing site for a fictional gym brand ("PowerFit").
+Sivas'taki Black-Fit Spor Merkezi için modern, responsive React uygulaması. Şık tasarım, animasyonlar ve sezgisel kullanıcı arayüzü ile premium fitness deneyimi sunar.
 
-![Modern Gym Website](public/logo192.png)
+![Black-Fit Gym Website](public/logo192.png)
 
-## Features
+## Özellikler
 
-- **Stunning UI/UX**: Video hero section, animated components, and smooth transitions
-- **Responsive Design**: Fully optimized for all device sizes
-- **Modern Architecture**: Built with React 19 and styled-components
-- **Interactive Elements**: Join modal form, cursor spotlight/tilt effects, animated count-up stats, sticky join button
-- **Performance Optimized**: Lazy-loaded images, `prefers-reduced-motion` support, and scroll-linked animations via Framer Motion
+- **Etkileyici UI/UX**: Video hero bölümü, animasyonlu bileşenler ve yumuşak geçişler
+- **Responsive Tasarım**: Tüm cihaz boyutları için tam optimize edilmiş
+- **Modern Mimari**: React 19 ve styled-components ile inşa edilmiş
+- **İnteraktif Elementler**: Modal formlar, animasyonlu kartlar ve kaydırma efektleri
+- **Performans Optimizasyonu**: Hızlı yükleme ve yumuşak animasyonlar
 
-## Key Sections
+## Ana Bölümler
 
-- Hero with video background and lead-capture modal
-- Feature highlights ("Why Choose PowerFit")
-- Fitness programs with category filtering
-- Trainers/coaches showcase
-- Membership plans (Basic / Premium / Elite)
-- Testimonials (Google-review-style carousel)
-- Mobile app promotion
-- Facility photo gallery
-- Contact section with map and working hours
+- Video arka planlı hero bölümü
+- Özellikler vitrini
+- Fitness programları
+- Profesyonel eğitmenler
+- Wellness hizmetleri
+- Müşteri yorumları
 
-## Technologies
+## Teknolojiler
 
 - React 19
 - Styled Components
@@ -33,51 +30,51 @@ A modern, responsive React application for a premium fitness center, featuring a
 - React Intersection Observer
 - react-helmet-async (SEO/meta tags)
 
-## Getting Started
+## Başlangıç
 
-### Prerequisites
+### Gereksinimler
 
-- Node.js (v16 or higher)
-- npm or yarn
+- Node.js (v16 veya üzeri)
+- npm veya yarn
 
-### Installation
+### Kurulum
 
-1. Clone the repository
+1. Repository'yi klonlayın
 ```bash
-git clone https://github.com/yourusername/modern-gym.git
-cd modern-gym
+git clone https://github.com/yourusername/black-fit-gym.git
+cd black-fit-gym
 ```
 
-2. Install dependencies
+2. Bağımlılıkları yükleyin
 ```bash
 npm install
-# or
+# veya
 yarn install
 ```
 
-3. Start the development server
+3. Geliştirme sunucusunu başlatın
 ```bash
 npm start
-# or
+# veya
 yarn start
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser
+4. Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın
 
-## Building for Production
+## Production için Build
 
 ```bash
 npm run build
-# or
+# veya
 yarn build
 ```
 
-The build files will be in the `build` folder, ready for deployment.
+Build dosyaları `build` klasöründe, deployment için hazır olacaktır.
 
-## Project Structure
+## Proje Yapısı
 
 ```
-modern-gym/
+black-fit-gym/
 ├── public/
 ├── src/
 │   ├── assets/
@@ -94,10 +91,10 @@ modern-gym/
 └── package.json
 ```
 
-## License
+## Lisans
 
 MIT
 
-## Author
+## Yazar
 
 Selim Koc

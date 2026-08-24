@@ -4,12 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
-import { handleImgError } from "../../utils/imageFallback";
-import useTilt from "../../hooks/useTilt";
+import { ScribbleUnderline } from "../decor/Scribble";
 
 const SectionWrapper = styled.section`
-  padding: 6rem 0;
-  background-color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.bgElevated};
 `;
 
 const SectionHeader = styled.div`
@@ -17,13 +15,29 @@ const SectionHeader = styled.div`
   margin-bottom: 3rem;
 `;
 
-const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: 1rem;
+const EyebrowGroup = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
+const Eyebrow = styled.div`
+  display: inline-block;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  display: block;
+  width: 150px;
+  height: 18px;
+  margin: -6px auto 0;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
   max-width: 600px;
   margin: 0 auto;
 `;
@@ -37,25 +51,24 @@ const TabsContainer = styled.div`
 `;
 
 const Tab = styled.button`
-  padding: 0.8rem 1.5rem;
-  background: ${({ active, theme }) =>
-    active ? theme.colors.primary : "transparent"};
-  color: ${({ active, theme }) =>
-    active ? theme.colors.white : theme.colors.secondary};
-  border: 2px solid
-    ${({ active, theme }) =>
-      active ? theme.colors.primary : theme.colors.lightGray};
+  padding: 0.7rem 1.4rem;
+  background: ${({ $active, theme }) =>
+    $active ? theme.colors.accent : "transparent"};
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.onAccent : theme.colors.textMuted};
+  border: 1px solid
+    ${({ $active, theme }) =>
+      $active ? theme.colors.accent : theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background-color ${({ theme }) => theme.transitions.fast}, color ${({ theme }) => theme.transitions.fast}, border-color ${({ theme }) => theme.transitions.fast}, transform 160ms ease-out;
 
   &:hover {
-    background: ${({ active, theme }) =>
-      active ? theme.colors.primary : "rgba(22,163,74,0.1)"};
-    border-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ active, theme }) =>
-      active ? theme.colors.white : theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.accent};
+    color: ${({ $active, theme }) =>
+      $active ? theme.colors.onAccent : theme.colors.accent};
   }
 
   &:active {
@@ -77,12 +90,11 @@ const levelColor = (level, theme) =>
     : theme.colors.neon;
 
 const ProgramCard = styled(motion.div)`
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
-  box-shadow: ${({ theme }) => theme.shadows.md};
-  transition: transform 0.35s ${({ theme }) => theme.easings.pop},
-    box-shadow 0.35s ease;
+  transition: ${({ theme }) => theme.transitions.default};
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -100,12 +112,14 @@ const ProgramCard = styled(motion.div)`
   }
 
   &:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    border-color: ${({ theme }) => theme.colors.borderStrong};
+    transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
   }
 `;
 
 const ProgramImage = styled.div`
-  height: 260px;
+  height: 200px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -118,8 +132,7 @@ const ProgramImage = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
-    z-index: 0;
+    transition: ${({ theme }) => theme.transitions.slow};
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -131,14 +144,11 @@ const ProgramImage = styled.div`
   &::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.94) 0%,
-      rgba(0, 0, 0, 0.4) 55%,
-      rgba(0, 0, 0, 0.05) 100%
-    );
-    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(10, 10, 11, 0.8), transparent);
   }
 `;
 
@@ -150,36 +160,18 @@ const ProgramImageContent = styled.div`
 
 const ProgramLevel = styled.span`
   position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  border: 1px solid ${({ level, theme }) => levelColor(level, theme)};
-  color: white;
-  padding: 0.35rem 0.8rem 0.35rem 0.6rem;
+  top: 1rem;
+  right: 1rem;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  background: ${({ theme }) => theme.colors.overlayStrong};
+  border: 1px solid ${({ theme }) => theme.colors.borderStrong};
+  color: ${({ theme }) => theme.colors.accent};
+  padding: 0.3rem 0.7rem;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: 0.75rem;
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-  z-index: 2;
-
-  &::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: ${({ level, theme }) => levelColor(level, theme)};
-    box-shadow: 0 0 8px ${({ level, theme }) => levelColor(level, theme)};
-  }
-`;
-
-const ProgramTitle = styled.h3`
-  margin-bottom: 0;
-  color: white;
-  font-size: 1.25rem;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 1;
 `;
 
 const ProgramContent = styled.div`
@@ -190,21 +182,20 @@ const ProgramContent = styled.div`
   justify-content: space-between;
 `;
 
-const ProgramInfo = styled.div`
-  flex: 1;
+const ProgramTitle = styled.h3`
+  margin-bottom: 0.5rem;
 `;
 
 const ProgramDescription = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  margin-bottom: 1.25rem;
-  line-height: 1.6;
+  margin-bottom: 1.5rem;
 `;
 
 const ProgramDetails = styled.div`
   display: flex;
   gap: 0.6rem;
   margin-bottom: 1.5rem;
-  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const ProgramDetail = styled.div`
@@ -218,11 +209,18 @@ const ProgramDetail = styled.div`
   font-size: 0.85rem;
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 
-  svg {
-    width: 15px;
-    height: 15px;
-    color: ${({ theme }) => theme.colors.primary};
-    flex-shrink: 0;
+  span:first-child {
+    font-family: ${({ theme }) => theme.fonts.mono};
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: ${({ theme }) => theme.colors.textFaint};
+    margin-bottom: 0.3rem;
+  }
+
+  span:last-child {
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -236,141 +234,131 @@ const programs = {
   all: [
     {
       id: 1,
-      title: "Strength Foundations",
+      title: "Vücut Geliştirme Temelleri",
       description:
-        "Build core strength and proper form with this foundational program.",
+        "Temel güç ve doğru form geliştirmek için bu temel program ile başlayın.",
       image:
         "https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Beginner",
-      duration: "8 weeks",
-      sessions: "3x per week",
+      level: "Başlangıç",
+      duration: "8 hafta",
+      sessions: "Haftada 3x",
     },
+    // {
+    //   id: 2,
+    //   title: "HIIT Dönüşüm",
+    //   description:
+    //     "Maksimum kalori yakımı ve kondisyon için yüksek yoğunluklu interval antrenman.",
+    //   image:
+    //     "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    //   level: "Orta",
+    //   duration: "6 hafta",
+    //   sessions: "Haftada 4x",
+    // },
+    // {
+    //   id: 3,
+    //   title: "Yoga & Farkındalık",
+    //   description:
+    //     "Rehberli yoga seansları ile esnekliği, dengeyi ve zihinsel odaklanmayı geliştirin.",
+    //   image:
+    //     "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    //   level: "Başlangıç",
+    //   duration: "Sürekli",
+    //   sessions: "Haftada 2-5x",
+    // },
+
     {
-      id: 2,
-      title: "HIIT Transformation",
+      id: 6,
+      title: "Vücut Dönüşümü",
       description:
-        "High intensity interval training for maximum calorie burn and conditioning.",
+        "Toplam vücut değişimi için güç, kardiyo ve beslenmeyi birleştiren tam program.",
       image:
-        "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Intermediate",
-      duration: "6 weeks",
-      sessions: "4x per week",
-    },
-    {
-      id: 3,
-      title: "Yoga & Mindfulness",
-      description:
-        "Improve flexibility, balance and mental focus with guided yoga sessions.",
-      image:
-        "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Beginner",
-      duration: "Ongoing",
-      sessions: "2-5x per week",
+        "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      level: "Orta",
+      duration: "12 hafta",
+      sessions: "Haftada 5x",
     },
     {
       id: 4,
-      title: "Advanced Powerlifting",
+      title: "İleri Seviye Powerlifting",
       description:
-        "Take your strength to elite levels with this advanced powerlifting program.",
+        "Bu ileri seviye powerlifting programı ile gücünüzü elit seviyelere çıkarın.",
       image:
-        "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Advanced",
-      duration: "12 weeks",
-      sessions: "4x per week",
-    },
-    {
-      id: 5,
-      title: "Cardio Kickboxing",
-      description:
-        "Burn fat and learn self-defense with high-energy kickboxing workouts.",
-      image:
-        "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
-      level: "Intermediate",
-      duration: "8 weeks",
-      sessions: "3x per week",
-    },
-    {
-      id: 6,
-      title: "Body Transformation",
-      description:
-        "Complete program combining strength, cardio and nutrition for total body change.",
-      image:
-        "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Intermediate",
-      duration: "12 weeks",
-      sessions: "5x per week",
+        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      level: "İleri",
+      duration: "12 hafta",
+      sessions: "Haftada 4x",
     },
   ],
   beginner: [
     {
       id: 1,
-      title: "Strength Foundations",
+      title: "Vücut Geliştirme Temelleri",
       description:
-        "Build core strength and proper form with this foundational program.",
+        "Temel güç ve doğru form geliştirmek için bu temel program ile başlayın.",
       image:
         "https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Beginner",
-      duration: "8 weeks",
-      sessions: "3x per week",
+      level: "Başlangıç",
+      duration: "8 hafta",
+      sessions: "Haftada 3x",
     },
     {
       id: 3,
-      title: "Yoga & Mindfulness",
+      title: "Yoga & Farkındalık",
       description:
-        "Improve flexibility, balance and mental focus with guided yoga sessions.",
+        "Rehberli yoga seansları ile esnekliği, dengeyi ve zihinsel odaklanmayı geliştirin.",
       image:
         "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Beginner",
-      duration: "Ongoing",
-      sessions: "2-5x per week",
+      level: "Başlangıç",
+      duration: "Sürekli",
+      sessions: "Haftada 2-5x",
     },
   ],
   intermediate: [
     {
       id: 2,
-      title: "HIIT Transformation",
+      title: "HIIT Dönüşüm",
       description:
-        "High intensity interval training for maximum calorie burn and conditioning.",
+        "Maksimum kalori yakımı ve kondisyon için yüksek yoğunluklu interval antrenman.",
       image:
         "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Intermediate",
-      duration: "6 weeks",
-      sessions: "4x per week",
+      level: "Orta",
+      duration: "6 hafta",
+      sessions: "Haftada 4x",
     },
     {
       id: 5,
-      title: "Cardio Kickboxing",
+      title: "Kardiyo Kickboxing",
       description:
-        "Burn fat and learn self-defense with high-energy kickboxing workouts.",
+        "Yüksek enerjili kickboxing antrenmanları ile yağ yakın ve kendini savunma öğrenin. Uzman eğitmenlerimiz size doğru tekniği öğretirken güç ve güven oluşturan yoğun bir kardiyo antrenmanı sağlayacak.",
       image:
-        "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
-      level: "Intermediate",
-      duration: "8 weeks",
-      sessions: "3x per week",
+        "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      level: "Orta",
+      duration: "8 hafta",
+      sessions: "Haftada 3x",
     },
     {
       id: 6,
-      title: "Body Transformation",
+      title: "Vücut Dönüşümü",
       description:
-        "Complete program combining strength, cardio and nutrition for total body change.",
+        "Toplam vücut değişimi için güç, kardiyo ve beslenmeyi birleştiren tam program.",
       image:
         "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Intermediate",
-      duration: "12 weeks",
-      sessions: "5x per week",
+      level: "Orta",
+      duration: "12 hafta",
+      sessions: "Haftada 5x",
     },
   ],
   advanced: [
     {
       id: 4,
-      title: "Advanced Powerlifting",
+      title: "İleri Seviye Powerlifting",
       description:
-        "Take your strength to elite levels with this advanced powerlifting program.",
+        "Bu ileri seviye powerlifting programı ile gücünüzü elit seviyelere çıkarın.",
       image:
-        "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Advanced",
-      duration: "12 weeks",
-      sessions: "4x per week",
+        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      level: "İleri",
+      duration: "12 hafta",
+      sessions: "Haftada 4x",
     },
   ],
 };
@@ -475,56 +463,69 @@ const ProgramCardItem = ({ program }) => {
 
 const ProgramsSection = () => {
   const [activeTab, setActiveTab] = useState("all");
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
 
   const filteredPrograms = programs[activeTab] || programs.all;
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
 
   return (
     <SectionWrapper id="programs" ref={ref}>
       <Container>
-        <SectionHeader
-          as={motion.div}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <Title>Our Fitness Programs</Title>
+        <SectionHeader>
+          <EyebrowGroup>
+            <Eyebrow>— Programlar</Eyebrow>
+            <EyebrowUnderline inView={inView} delay={0.3} />
+          </EyebrowGroup>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            Fitness programlarımız
+          </motion.h2>
           <Subtitle>
-            Discover programs tailored to your fitness level and goals. From
-            beginners to advanced athletes, we have something for everyone.
+            Her seviyeye uygun programlarımızla hedeflerinize ulaşın
           </Subtitle>
         </SectionHeader>
 
         <TabsContainer>
-          <Tab active={activeTab === "all"} onClick={() => setActiveTab("all")}>
-            All Programs
+          <Tab $active={activeTab === "all"} onClick={() => setActiveTab("all")}>
+            Tümü
           </Tab>
           <Tab
-            active={activeTab === "beginner"}
+            $active={activeTab === "beginner"}
             onClick={() => setActiveTab("beginner")}
           >
-            Beginner
+            Başlangıç
           </Tab>
           <Tab
-            active={activeTab === "intermediate"}
+            $active={activeTab === "intermediate"}
             onClick={() => setActiveTab("intermediate")}
           >
-            Intermediate
+            Orta
           </Tab>
           <Tab
-            active={activeTab === "advanced"}
+            $active={activeTab === "advanced"}
             onClick={() => setActiveTab("advanced")}
           >
-            Advanced
+            İleri
           </Tab>
         </TabsContainer>
 
         <motion.div
-          ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -532,19 +533,45 @@ const ProgramsSection = () => {
           <AnimatePresence mode="wait">
             <ProgramsGrid key={activeTab}>
               {filteredPrograms.map((program) => (
-                <ProgramCardItem key={program.id} program={program} />
+                <motion.div key={program.id} variants={itemVariants}>
+                  <ProgramCard>
+                    <ProgramImage>
+                      <img src={program.image} alt={program.title} />
+                      <ProgramLevel>{program.level}</ProgramLevel>
+                    </ProgramImage>
+                    <ProgramContent>
+                      <div>
+                        <ProgramTitle>{program.title}</ProgramTitle>
+                        <ProgramDescription>
+                          {program.description}
+                        </ProgramDescription>
+                      </div>
+                      <div>
+                        <ProgramDetails>
+                          <ProgramDetail>
+                            <span>Süre</span>
+                            <span>{program.duration}</span>
+                          </ProgramDetail>
+                          <ProgramDetail>
+                            <span>Seans</span>
+                            <span>{program.sessions}</span>
+                          </ProgramDetail>
+                        </ProgramDetails>
+                        <Button fullWidth variant="outline">
+                          Daha Fazla Bilgi
+                        </Button>
+                      </div>
+                    </ProgramContent>
+                  </ProgramCard>
+                </motion.div>
               ))}
             </ProgramsGrid>
           </AnimatePresence>
         </motion.div>
 
         <ButtonContainer>
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={() => scrollToSection("membership")}
-          >
-            View Membership Plans
+          <Button variant="outline" size="lg">
+            Tüm Programları Görüntüle
           </Button>
         </ButtonContainer>
       </Container>

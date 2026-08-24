@@ -3,20 +3,40 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
-import CountUp from "../ui/CountUp";
-import siteConfig from "../../data/siteConfig";
-import { handleImgError } from "../../utils/imageFallback";
+import { ScribbleUnderline } from "../decor/Scribble";
 
 const SectionWrapper = styled.section`
-  padding: 6rem 0;
-  background-color: ${({ theme }) => theme.colors.light};
-  position: relative;
-  overflow: hidden;
+  background: ${({ theme }) => theme.colors.bg};
 `;
 
-const SectionHeader = styled.div`
-  text-align: center;
-  margin-bottom: 3rem;
+const Header = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  max-width: 640px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    max-width: 720px;
+  }
+`;
+
+const EyebrowGroup = styled.div``;
+
+const Eyebrow = styled.div`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  width: 175px;
+  height: 20px;
+  margin: -4px 0 0;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Eyebrow = styled.span`
@@ -35,229 +55,76 @@ const Eyebrow = styled.span`
 `;
 
 const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: 1rem;
-`;
-
-const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-/* ---------------------------------- Bento grid ---------------------------------- */
-
-const BentoGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(190px, auto);
-  grid-template-areas:
-    "hero hero a b"
-    "hero hero c d"
-    "banner banner banner banner";
-  gap: 1.5rem;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "hero hero"
-      "a b"
-      "c d"
-      "banner banner";
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "hero"
-      "a"
-      "b"
-      "c"
-      "d"
-      "banner";
-  }
-`;
-
-const tileArea = (name) => `
-  grid-area: ${name};
-`;
-
-/* Hero tile — real training photo, not another icon box */
-const HeroTile = styled(motion.div)`
-  ${tileArea("hero")}
-  position: relative;
-  border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
-  overflow: hidden;
-  min-height: 320px;
-  isolation: isolate;
-  transition: transform 0.35s ${({ theme }) => theme.easings.pop},
-    box-shadow 0.35s ease;
-  box-shadow: ${({ theme }) => theme.shadows.lg};
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
-    }
-  }
-
-  img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover img {
-      transform: scale(1.06);
-    }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      190deg,
-      rgba(0, 0, 0, 0.1) 20%,
-      rgba(0, 0, 0, 0.95) 100%
-    );
-    z-index: 1;
-  }
-`;
-
-const HeroContent = styled.div`
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
-  color: white;
-`;
-
-const HeroBadge = styled.span`
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.8rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(74, 222, 128, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: ${({ theme }) => theme.colors.neon};
-  font-size: 0.75rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 12px rgba(74, 222, 128, 0.45);
-`;
-
-const HeroTitle = styled.h3`
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  margin-bottom: 0.5rem;
-  color: white;
-`;
-
-const HeroText = styled.p`
-  color: rgba(255, 255, 255, 0.78);
-  line-height: 1.6;
-  max-width: 420px;
   margin-bottom: 0;
 `;
 
-/* Small icon tiles */
-const IconTile = styled(motion.div)`
-  ${({ $area }) => tileArea($area)}
-  position: relative;
+const Subtitle = styled.p`
+  font-size: 1.1rem;
+  max-width: 560px;
+  margin-bottom: 0;
+`;
+
+const FeatureList = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
+const FeatureRow = styled(motion.div)`
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  transition: ${({ theme }) => theme.transitions.default};
+
+  &:hover {
+    padding-left: 0.5rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    grid-template-columns: 6rem 1fr 1fr;
+    align-items: baseline;
+  }
+`;
+
+const Index = styled.div`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.textFaint};
+  transition: ${({ theme }) => theme.transitions.default};
+
+  ${FeatureRow}:hover & {
+    color: ${({ theme }) => theme.colors.accent};
+  }
+`;
+
+const FeatureTitleRow = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 0.85rem;
-  padding: 1.75rem;
-  border-radius: ${({ theme }) => theme.borderRadius["2xl"]};
-  background: ${({ theme }) => theme.colors.white};
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  transition: transform 0.3s ${({ theme }) => theme.easings.pop},
-    box-shadow 0.3s ease, border-color 0.3s ease;
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 36px rgba(22, 163, 74, 0.2);
-      border-color: rgba(74, 222, 128, 0.4);
-    }
-  }
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 `;
 
-const GhostIndex = styled.span`
-  position: absolute;
-  top: -0.5rem;
-  right: 0.5rem;
-  font-size: 4.5rem;
-  font-weight: ${({ theme }) => theme.fontWeights.extraBold};
-  color: ${({ theme }) => theme.colors.secondary};
-  opacity: 0.05;
-  line-height: 1;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-
-  ${IconTile}:hover & {
-    opacity: 0.09;
-    transform: scale(1.08);
-  }
+const FeatureTitle = styled.h3`
+  margin-bottom: 0;
 `;
 
-const IconBadge = styled.div`
-  width: 52px;
-  height: 52px;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: ${({ $alt, theme }) =>
-    $alt ? theme.colors.secondary : theme.colors.gradientPrimary};
-  box-shadow: ${({ $alt }) =>
-    $alt
-      ? "0 8px 16px rgba(0, 0, 0, 0.3)"
-      : "0 8px 16px rgba(74, 222, 128, 0.4)"};
-  transition: transform 0.35s ${({ theme }) => theme.easings.pop};
-
-  svg {
-    width: 24px;
-    height: 24px;
-    color: ${({ $alt, theme }) =>
-      $alt ? theme.colors.neon : theme.colors.white};
-  }
-
-  ${IconTile}:hover & {
-    transform: rotate(-8deg) scale(1.08);
-  }
+const FeatureTag = styled.span`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textFaint};
 `;
 
-const TileTitle = styled.h4`
-  margin: 0;
-  font-size: 1.05rem;
-  color: ${({ theme }) => theme.colors.secondary};
-  position: relative;
-  z-index: 1;
-`;
+const FeatureDescription = styled.p`
+  grid-column: 1 / -1;
+  margin: 0.75rem 0 0;
+  max-width: 480px;
 
-const TileDescription = styled.p`
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: ${({ theme }) => theme.colors.gray};
-  position: relative;
-  z-index: 1;
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    grid-column: auto;
+    margin-top: 0;
+  }
 `;
 
 /* Wide banner tile */
@@ -580,97 +447,103 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12 },
+    transition: { staggerChildren: 0.08 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
+  hidden: { opacity: 0, x: -16 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
+const features = [
+  {
+    title: "Kadın ve erkeğe özel çalışma alanları",
+    description:
+      "Kadın ve erkek üyelerimiz için ayrı çalışma alanları sunuyoruz, herkes kendini rahat hissettiği ortamda antrenman yapar.",
+    tag: "Ayrı Alan",
+  },
+  {
+    title: "Son teknoloji ekipmanlar",
+    description:
+      "En son fitness teknolojisi ve premium ekipmanlarla optimal antrenman sonuçları elde edin. Her ekipman düzenli olarak bakımdan geçirilir.",
+    tag: "Premium",
+  },
+  {
+    title: "Uzman eğitmenler",
+    description:
+      "Sertifikalı fitness uzmanlarıyla kişiselleştirilmiş dikkatle yolculuğunuzu yönlendirin. Her eğitmen minimum 5 yıl deneyime sahiptir.",
+    tag: "Uzman",
+  },
+  {
+    title: "Çeşitli dersler",
+    description:
+      "Farklı seviyelerde ve tarzlarda çeşitli grup dersleriyle fitness deneyiminizi zenginleştirin. Günlük 20+ farklı ders seçeneği.",
+    tag: "Çeşitli",
+  },
+  {
+    title: "Kişisel antrenman",
+    description:
+      "Hedeflerinize özel tasarlanmış kişisel antrenman programlarıyla maksimum sonuç alın. İlk seans ücretsizdir.",
+    tag: "Kişisel",
+  },
+  {
+    title: "Beslenme danışmanlığı",
+    description:
+      "Uzman beslenme danışmanlarıyla sağlıklı yaşam hedeflerinize ulaşın. Kişiye özel beslenme planları hazırlanır.",
+    tag: "Sağlık",
+  },
+  {
+    title: "Geniş çalışma saatleri",
+    description:
+      "Hafta içi 06:00–23:00, hafta sonu 08:00–22:00 saatleri arasında açığız; erken sabah ya da akşam antrenmanı fark etmez.",
+    tag: "06–23",
+  },
+];
+
 const FeaturesSection = () => {
-  const [ref, inView] = useInView({
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [headerRef, headerInView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.3,
   });
 
   return (
     <SectionWrapper id="features">
       <Container>
-        <SectionHeader
-          as={motion.div}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <Eyebrow>Built for real training</Eyebrow>
-          <Title>Why Choose {siteConfig.name}</Title>
+        <Header ref={headerRef}>
+          <EyebrowGroup>
+            <Eyebrow>— Neden Black-Fit</Eyebrow>
+            <EyebrowUnderline inView={headerInView} />
+          </EyebrowGroup>
+          <Title>Bir dönüşüm için ihtiyacın olan her şey</Title>
           <Subtitle>
-            We offer more than just a place to work out. Experience a complete
-            fitness ecosystem designed for your success.
+            Sivas'ın en kapsamlı spor merkezinde hedeflerinize ulaşın. Modern
+            ekipmanlar, uzman eğitmenler ve kişiselleştirilmiş programlarla
+            fitness yolculuğunuzda yanınızdayız.
           </Subtitle>
-        </SectionHeader>
+        </Header>
 
         <motion.div
           ref={ref}
-          variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
+          variants={containerVariants}
         >
-          <BentoGrid>
-            <HeroTile variants={itemVariants}>
-              <img
-                src={heroFeature.image}
-                alt="Member training with free weights on the gym floor"
-                onError={handleImgError}
-              />
-              <HeroContent>
-                <HeroBadge>
-                  <FlameIcon />
-                  Since day one
-                </HeroBadge>
-                <HeroTitle>{heroFeature.title}</HeroTitle>
-                <HeroText>{heroFeature.description}</HeroText>
-              </HeroContent>
-            </HeroTile>
-
-            {tiles.map((tile, index) => (
-              <IconTile key={tile.area} $area={tile.area} variants={itemVariants}>
-                <GhostIndex>{String(index + 1).padStart(2, "0")}</GhostIndex>
-                <IconBadge $alt={tile.alt}>{tile.icon}</IconBadge>
-                <TileTitle>{tile.title}</TileTitle>
-                <TileDescription>{tile.description}</TileDescription>
-              </IconTile>
-            ))}
-
-            <BannerTile variants={itemVariants}>
-              <BannerIcon>{bannerFeature.icon}</BannerIcon>
-              <BannerText>
-                <h4>{bannerFeature.title}</h4>
-                <p>{bannerFeature.description}</p>
-              </BannerText>
-            </BannerTile>
-          </BentoGrid>
-
-          <StatsStrip variants={itemVariants}>
-            {stats.map((stat) => (
-              <StatCard key={stat.label} variants={itemVariants}>
-                <StatIcon>{stat.icon}</StatIcon>
+          <FeatureList>
+            {features.map((feature, index) => (
+              <FeatureRow key={feature.title} variants={itemVariants}>
+                <Index>{String(index + 1).padStart(2, "0")}</Index>
                 <div>
-                  <StatNumber>
-                    <CountUp value={stat.value} suffix={stat.suffix} start={inView} />
-                  </StatNumber>
-                  <StatLabel>{stat.label}</StatLabel>
+                  <FeatureTitleRow>
+                    <FeatureTitle>{feature.title}</FeatureTitle>
+                    <FeatureTag>— {feature.tag}</FeatureTag>
+                  </FeatureTitleRow>
                 </div>
-              </StatCard>
+                <FeatureDescription>{feature.description}</FeatureDescription>
+              </FeatureRow>
             ))}
-          </StatsStrip>
+          </FeatureList>
         </motion.div>
       </Container>
     </SectionWrapper>

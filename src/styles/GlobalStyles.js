@@ -1,10 +1,24 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root {
+    --scrollbar-width: 8px;
+    --scrollbar-track: rgba(255, 255, 255, 0.04);
+    --scrollbar-thumb: rgba(215, 255, 62, 0.35);
+    --scrollbar-thumb-hover: rgba(215, 255, 62, 0.6);
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 
   html {
@@ -12,36 +26,61 @@ const GlobalStyles = createGlobalStyle`
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
   }
 
   body {
     font-family: ${({ theme }) => theme.fonts.body};
-    background-color: ${({ theme }) => theme.colors.light};
-    color: ${({ theme }) => theme.colors.dark};
-    line-height: 1.6;
+    background: ${({ theme }) => theme.colors.bg};
+    color: ${({ theme }) => theme.colors.text};
+    line-height: 1.7;
     overflow-x: hidden;
+    min-height: 100vh;
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: ${({ theme }) => theme.fonts.heading};
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
-    line-height: 1.3;
-    margin-bottom: 1rem;
+  h1, h2 {
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    text-wrap: balance;
+  }
+
+  h3, h4, h5, h6 {
+    font-family: ${({ theme }) => theme.fonts.body};
+    font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
   }
 
   h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: ${({ theme }) => theme.fontWeights.extraBold};
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
   }
 
   h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-size: clamp(2rem, 5vw, 3.25rem);
   }
 
   h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-size: clamp(1.4rem, 3vw, 1.75rem);
+  }
+
+  h4 {
+    font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
   }
 
   h4 {
@@ -60,57 +99,16 @@ const GlobalStyles = createGlobalStyle`
   }
 
   p {
-    margin-bottom: ${({ theme }) => theme.space.md};
+    margin-bottom: 1.5rem;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     line-height: 1.7;
+    color: ${({ theme }) => theme.colors.textMuted};
   }
 
   a {
-    color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
-    transition: color ${({ theme }) => theme.transitions.base};
-
-    &:hover {
-      color: ${({ theme }) => theme.colors.primaryDark};
-      text-decoration: underline;
-    }
-
-    &:focus {
-      outline: 2px solid ${({ theme }) => theme.colors.primary};
-      outline-offset: 2px;
-    }
-  }
-
-  button {
-    font-family: ${({ theme }) => theme.fonts.body};
-    cursor: pointer;
-    border: none;
-    transition: outline-color ${({ theme }) => theme.transitions.base};
-
-    &:focus-visible {
-      outline: 2px solid ${({ theme }) => theme.colors.primary};
-      outline-offset: 2px;
-    }
-  }
-
-  input, textarea, select {
-    font-family: ${({ theme }) => theme.fonts.body};
-    border: 1px solid ${({ theme }) => theme.colors.lightGray};
-    border-radius: ${({ theme }) => theme.borderRadius.md};
-    padding: ${({ theme }) => theme.space.sm};
-    font-size: ${({ theme }) => theme.fontSizes.md};
-    transition: border-color ${({ theme }) => theme.transitions.fast}, box-shadow ${({ theme }) => theme.transitions.fast};
-
-    &:focus {
-      outline: none;
-      border-color: ${({ theme }) => theme.colors.primary};
-      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
-    }
-
-    &:disabled {
-      background-color: ${({ theme }) => theme.colors.lightGray};
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
+    color: ${({ theme }) => theme.colors.accent};
+    transition: ${({ theme }) => theme.transitions.fast};
   }
 
   img {
@@ -119,63 +117,65 @@ const GlobalStyles = createGlobalStyle`
     display: block;
   }
 
+  button {
+    cursor: pointer;
+    font-family: ${({ theme }) => theme.fonts.body};
+    border: none;
+    background: none;
+    font-size: inherit;
+    color: inherit;
+  }
+
   ul, ol {
     margin-left: 1.5rem;
     margin-bottom: ${({ theme }) => theme.space.md};
   }
 
-  li {
-    margin-bottom: 0.5rem;
+  section {
+    padding: 7rem 0 8rem;
+    position: relative;
   }
 
-  hr {
-    border: none;
-    border-top: 1px solid ${({ theme }) => theme.colors.lightGray};
-    margin: ${({ theme }) => theme.space.lg} 0;
-  }
-
-  /* Scrollbar styling */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: var(--scrollbar-width);
   }
 
   ::-webkit-scrollbar-track {
-    background: ${({ theme }) => theme.colors.light};
+    background: var(--scrollbar-track);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.gray};
-    border-radius: 5px;
-
-    &:hover {
-      background: ${({ theme }) => theme.colors.dark};
-    }
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    transition: background 0.3s ease;
   }
 
-  /* Selection styling */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
   ::selection {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.onAccent};
   }
 
-  ::-moz-selection {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.white};
+  :focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 2px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    section {
+      padding: 4.5rem 0 5.5rem;
     }
+  }
 
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+  @media print {
+    * {
+      background: transparent !important;
+      color: black !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
     }
   }
 `;

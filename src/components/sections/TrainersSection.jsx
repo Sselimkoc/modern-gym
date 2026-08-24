@@ -3,331 +3,265 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
-import { handleImgError } from "../../utils/imageFallback";
-import useTilt from "../../hooks/useTilt";
+import { ScribbleUnderline } from "../decor/Scribble";
 
-const SectionWrapper = styled.section`
-  padding: 6rem 0;
-  background-color: ${({ theme }) => theme.colors.light};
+const trainers = [
+  {
+    id: 1,
+    name: "Muzaffer Tutaş",
+    title: "Personal Trainer & Vücut Geliştirme Uzmanı",
+    description:
+      "Sivas'ın önde gelen fitness eğitmenlerinden. Vücut geliştirme, functional fitness ve kondisyon çalışmalarında uzman. Transformasyonlar ve günlük antrenman videolarıyla motivasyon sağlıyor.",
+    expertise: [
+      "Vücut Geliştirme",
+      "Functional Fitness",
+      "Kondisyon Çalışmaları",
+    ],
+    instagram: "muzaffertutas",
+    instagramUrl: "https://instagram.com/muzaffertutas",
+    image: "/trainers/muzaffer.jpg",
+  },
+  {
+    id: 2,
+    name: "Sefa Ersoy",
+    title: "Certified Personal Trainer",
+    description:
+      "Personal Trainer Sefa Ersoy olarak tanınan, eğitici içerikler ve pozitif motivasyon sözleriyle öne çıkan fitness uzmanı. Spor teknikleri ve online programlar konusunda uzman.",
+    expertise: ["Fitness & Kuvvet Antrenmanı", "Online Programlar", "Motivasyon Koçluğu"],
+    instagram: "sefaersoyofficiall",
+    instagramUrl: "https://instagram.com/sefaersoyofficiall",
+    image: "/trainers/sefa.jpg",
+  },
+];
+
+const cardVariants = {
+  rest: { borderColor: "rgba(255,255,255,0.08)", y: 0 },
+  hover: { borderColor: "rgba(215,255,62,0.4)", y: -4 },
+};
+
+const imageVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.05 },
+};
+
+const Section = styled.section`
+  background: ${({ theme }) => theme.colors.bg};
 `;
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 `;
 
-const Eyebrow = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.9rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(22, 163, 74, 0.14);
-  color: ${({ theme }) => theme.colors.primary};
+const EyebrowGroup = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
+const Eyebrow = styled.div`
+  display: inline-block;
+  font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.8rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  line-height: 1;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
-const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: 1rem;
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  display: block;
+  width: 115px;
+  height: 14px;
+  margin: -6px auto 0;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
   max-width: 600px;
   margin: 0 auto;
 `;
 
 const TrainersGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
 `;
 
 const TrainerCard = styled(motion.div)`
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  overflow: hidden;
-  box-shadow: ${({ theme }) => theme.shadows.md};
-  transition: transform 0.35s ${({ theme }) => theme.easings.pop},
-    box-shadow 0.35s ease;
-
-  &:hover {
-    box-shadow: 0 20px 40px rgba(22, 163, 74, 0.2);
-  }
-`;
-
-const TrainerImage = styled.div`
-  position: relative;
-  height: 300px;
+  display: flex;
+  align-items: stretch;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
 
-  img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    ${TrainerCard}:hover & img {
-      transform: scale(1.08);
-    }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.85) 0%,
-      rgba(0, 0, 0, 0.15) 60%,
-      rgba(0, 0, 0, 0.05) 100%
-    );
+  @media (max-width: 700px) {
+    flex-direction: column;
   }
 `;
 
-const CertifiedBadge = styled.div`
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(74, 222, 128, 0.5);
-  color: ${({ theme }) => theme.colors.neon};
-  padding: 0.3rem 0.7rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: 0.7rem;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+const ProfileImageArea = styled.div`
+  flex: 0 0 240px;
+  overflow: hidden;
 
-  svg {
-    width: 13px;
-    height: 13px;
+  @media (max-width: 700px) {
+    flex: none;
+    height: 260px;
   }
 `;
 
-const NameOverlay = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  padding: 1.25rem;
+const ProfileImage = styled(motion.img)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 `;
 
-const TrainerName = styled.h3`
-  margin-bottom: 0.15rem;
-  color: white;
-  font-size: 1.2rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+const InfoArea = styled.div`
+  flex: 1;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h3,
+  h4,
+  p {
+    margin: 0;
+  }
+
+  @media (max-width: 700px) {
+    padding: 1.75rem;
+  }
 `;
 
-const TrainerRole = styled.p`
-  margin: 0;
-  color: ${({ theme }) => theme.colors.neon};
-  font-size: 0.85rem;
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+const Name = styled.h3`
+  margin-bottom: 0.4rem !important;
 `;
 
-const TrainerContent = styled.div`
-  padding: 1.25rem 1.5rem 1.5rem;
+const Title = styled.h4`
+  color: ${({ theme }) => theme.colors.accent};
+  margin: 0 0 1rem 0 !important;
 `;
 
-const TagRow = styled.div`
+const Description = styled.p`
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem !important;
+  border-left: 2px solid ${({ theme }) => theme.colors.accent};
+  padding-left: 1rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+const ExpertiseTags = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.9rem;
+  gap: 0.4rem 1.1rem;
+  margin-bottom: 1.5rem;
 `;
 
-const Tag = styled.span`
-  padding: 0.3rem 0.7rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(22, 163, 74, 0.1);
-  color: ${({ theme }) => theme.colors.primaryDark};
-  font-size: 0.78rem;
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-`;
+const ExpertiseTag = styled.span`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textFaint};
 
-const ExperienceRow = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: ${({ theme }) => theme.colors.gray};
-  font-size: 0.85rem;
-
-  svg {
-    width: 15px;
-    height: 15px;
-    color: ${({ theme }) => theme.colors.primary};
+  &::before {
+    content: "— ";
+    color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
-const CheckIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M20 6L9 17L4 12"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+const InstaButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  background: ${({ theme }) => theme.colors.accent};
+  color: ${({ theme }) => theme.colors.onAccent};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-size: 0.85rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  text-decoration: none;
+  transition: ${({ theme }) => theme.transitions.fast};
 
-const MedalIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="15" r="6" stroke="currentColor" strokeWidth="2" />
-    <path
-      d="M9 10.5 6 3M15 10.5 18 3M9 15l1.8 1.8L15 13"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 
-const trainers = [
-  {
-    id: 1,
-    name: "Jordan Blake",
-    role: "Strength & Conditioning",
-    tags: ["Powerlifting", "Mobility"],
-    experience: "12 yrs experience",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 2,
-    name: "Maya Torres",
-    role: "HIIT & Nutrition Coach",
-    tags: ["HIIT", "Nutrition"],
-    experience: "8 yrs experience",
-    image:
-      "https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 3,
-    name: "Chris Adeyemi",
-    role: "Powerlifting Specialist",
-    tags: ["Strength", "Form Coaching"],
-    experience: "10 yrs experience",
-    image:
-      "https://images.unsplash.com/photo-1567013127542-490d757e51fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: 4,
-    name: "Sofia Reyes",
-    role: "Yoga & Mobility Coach",
-    tags: ["Yoga", "Recovery"],
-    experience: "6 yrs experience",
-    image:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-  },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-const TrainerCardItem = ({ trainer }) => {
-  const tilt = useTilt(3);
-
-  return (
-    <motion.div
-      ref={tilt.ref}
-      variants={itemVariants}
-      onMouseMove={tilt.onMouseMove}
-      onMouseLeave={tilt.onMouseLeave}
-      style={tilt.style}
-    >
-      <TrainerCard>
-        <TrainerImage>
-          <img
-            src={trainer.image}
-            alt={`${trainer.name}, ${trainer.role}`}
-            onError={handleImgError}
-          />
-          <CertifiedBadge>
-            <CheckIcon />
-            Certified
-          </CertifiedBadge>
-          <NameOverlay>
-            <TrainerName>{trainer.name}</TrainerName>
-            <TrainerRole>{trainer.role}</TrainerRole>
-          </NameOverlay>
-        </TrainerImage>
-        <TrainerContent>
-          <TagRow>
-            {trainer.tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
-          </TagRow>
-          <ExperienceRow>
-            <MedalIcon />
-            {trainer.experience}
-          </ExperienceRow>
-        </TrainerContent>
-      </TrainerCard>
-    </motion.div>
-  );
-};
+  &:hover {
+    background: ${({ theme }) => theme.colors.accentDim};
+    transform: translateY(-2px);
+  }
+`;
 
 const TrainersSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <SectionWrapper id="trainers">
+    <Section id="trainers" ref={ref}>
       <Container>
-        <SectionHeader
-          as={motion.div}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <Eyebrow>Meet the team</Eyebrow>
-          <Title>Coaches Who Push You Further</Title>
-          <Subtitle>
-            Certified professionals who bring real experience to every session
-            — not just a whistle and a stopwatch.
-          </Subtitle>
+        <SectionHeader>
+          <EyebrowGroup>
+            <Eyebrow>— Kadromuz</Eyebrow>
+            <EyebrowUnderline inView={inView} delay={0.3} />
+          </EyebrowGroup>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
+          >
+            Profesyonel eğitmenlerimiz
+          </motion.h2>
+          <Subtitle>Sivas Black-Fit Gym'in profesyonel eğitmen kadrosu</Subtitle>
         </SectionHeader>
 
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          <TrainersGrid>
-            {trainers.map((trainer) => (
-              <TrainerCardItem key={trainer.id} trainer={trainer} />
-            ))}
-          </TrainersGrid>
-        </motion.div>
+        <TrainersGrid>
+          {trainers.map((trainer) => (
+            <TrainerCard
+              key={trainer.id}
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
+              variants={cardVariants}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <ProfileImageArea>
+                <ProfileImage
+                  src={trainer.image}
+                  alt={trainer.name}
+                  variants={imageVariants}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                />
+              </ProfileImageArea>
+              <InfoArea>
+                <Name>{trainer.name}</Name>
+                <Title>{trainer.title}</Title>
+                <Description>{trainer.description}</Description>
+                <ExpertiseTags>
+                  {trainer.expertise.map((item) => (
+                    <ExpertiseTag key={item}>{item}</ExpertiseTag>
+                  ))}
+                </ExpertiseTags>
+                <InstaButton
+                  href={trainer.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17 2H7C4.23858 2 2 4.23858 2 7V17C2 19.7614 4.23858 22 7 22H17C19.7614 22 22 19.7614 22 17V7C22 4.23858 19.7614 2 17 2Z" />
+                    <path d="M16 11.37C16.1234 12.2022 15.9813 13.0522 15.5938 13.799C15.2063 14.5458 14.5931 15.1514 13.8416 15.5297C13.0901 15.9079 12.2384 16.0396 11.4078 15.9059C10.5771 15.7723 9.80976 15.3801 9.21484 14.7852C8.61992 14.1902 8.22773 13.4229 8.09407 12.5922C7.9604 11.7615 8.09207 10.9099 8.47033 10.1584C8.84859 9.40685 9.45419 8.79374 10.201 8.40624C10.9478 8.01874 11.7978 7.87659 12.63 8C13.4789 8.12588 14.2649 8.52146 14.8717 9.1283C15.4785 9.73515 15.8741 10.5211 16 11.37Z" />
+                    <path d="M17.5 6.5H17.51" />
+                  </svg>
+                  @{trainer.instagram}
+                </InstaButton>
+              </InfoArea>
+            </TrainerCard>
+          ))}
+        </TrainersGrid>
       </Container>
-    </SectionWrapper>
+    </Section>
   );
 };
 
