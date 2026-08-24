@@ -13,7 +13,8 @@ const NavbarWrapper = styled.nav`
   background-color: ${({ $scrolled, theme }) =>
     $scrolled ? theme.colors.bgElevated : "transparent"};
   border-bottom: 1px solid
-    ${({ $scrolled, theme }) => ($scrolled ? theme.colors.border : "transparent")};
+    ${({ $scrolled, theme }) =>
+      $scrolled ? theme.colors.border : "transparent"};
   transition: ${({ theme }) => theme.transitions.default};
 `;
 

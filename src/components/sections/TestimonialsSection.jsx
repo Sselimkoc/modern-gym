@@ -258,12 +258,14 @@ const TestimonialsSection = () => {
                           </AuthorImage>
                           <AuthorInfo>
                             <AuthorName>{testimonial.author.name}</AuthorName>
-                            <AuthorTitle>{testimonial.author.title}</AuthorTitle>
+                            <AuthorTitle>
+                              {testimonial.author.title}
+                            </AuthorTitle>
                           </AuthorInfo>
                         </TestimonialAuthor>
                       </TestimonialContent>
                     </TestimonialSlide>
-                  )
+                  ),
               )}
             </AnimatePresence>
           </TestimonialSlider>

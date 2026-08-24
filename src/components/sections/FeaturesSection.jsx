@@ -56,7 +56,7 @@ const FeatureList = styled.div`
 const FeatureRow = styled(motion.div)`
   display: grid;
   grid-template-columns: 4rem 1fr;
-  gap: 1.5rem;
+  gap: 0.3rem;
   padding: 2rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   transition: ${({ theme }) => theme.transitions.default};
