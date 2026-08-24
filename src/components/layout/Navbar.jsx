@@ -29,12 +29,31 @@ const NavContainer = styled(Container)`
 const Logo = styled.a`
   display: flex;
   align-items: center;
+  gap: 0.65rem;
   text-decoration: none;
 
   img {
-    height: 42px;
-    width: auto;
+    height: 56px;
+    width: 56px;
     display: block;
+    border-radius: 50%;
+  }
+`;
+
+const LogoWordmark = styled.span`
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: ${({ theme }) => theme.colors.text};
+  line-height: 1;
+
+  span {
+    color: ${({ theme }) => theme.colors.accent};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    display: none;
   }
 `;
 
@@ -326,6 +345,9 @@ const Navbar = () => {
           }}
         >
           <img src="/logo.PNG" alt="Black-Fit" />
+          <LogoWordmark>
+            BLACK<span>FIT</span>
+          </LogoWordmark>
         </Logo>
 
         <MenuToggle
@@ -405,7 +427,10 @@ const Navbar = () => {
                     scrollToSection("hero");
                   }}
                 >
-                  BLACK<span>FIT</span>
+                  <img src="/logo.PNG" alt="Black-Fit" />
+                  <LogoWordmark>
+                    BLACK<span>FIT</span>
+                  </LogoWordmark>
                 </Logo>
               </MobileNavHeader>
 

@@ -21,12 +21,29 @@ const FooterColumn = styled(motion.div)`
 `;
 
 const FooterLogo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   margin-bottom: 1.2rem;
 
   img {
-    height: 48px;
-    width: auto;
+    height: 64px;
+    width: 64px;
     display: block;
+    border-radius: 50%;
+  }
+
+  span {
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  em {
+    font-style: normal;
+    color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
@@ -186,6 +203,9 @@ const Footer = () => {
         >
           <FooterLogo>
             <img src="/logo.PNG" alt="Black-Fit" />
+            <span>
+              BLACK<em>FIT</em>
+            </span>
           </FooterLogo>
           <FooterDescription>
             Sivas'ın en kapsamlı spor merkezinde vücudunuzu ve zihninizi
