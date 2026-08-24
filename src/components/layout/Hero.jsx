@@ -1,8 +1,14 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
+import RatingBadge from "../ui/RatingBadge";
 import heroVideo from "../../assets/videos/hero.mp4";
 
 const HeroWrapper = styled.section`
@@ -71,9 +77,15 @@ const Title = styled(motion.h1)`
 
 const Subtitle = styled(motion.p)`
   font-size: clamp(1.05rem, 2vw, 1.25rem);
-  margin: 0 auto 2.5rem;
+  margin: 0 auto 2rem;
   max-width: 600px;
   color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+const RatingRow = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
 `;
 
 const ButtonContainer = styled(motion.div)`
@@ -85,34 +97,44 @@ const ButtonContainer = styled(motion.div)`
 `;
 
 const StatsContainer = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 480px;
+  margin: 0 auto;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    gap: 1rem;
+  }
 `;
 
 const StatItem = styled(motion.div)`
   text-align: center;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  padding: 1rem 2rem;
+  padding: 0.85rem 0.5rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: 1rem 2rem;
+  }
 `;
 
 const StatNumber = styled.div`
   font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: 1.75rem;
+  font-size: clamp(1.15rem, 4vw, 1.75rem);
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   color: ${({ theme }) => theme.colors.accent};
   margin-bottom: 0.35rem;
+  white-space: nowrap;
 `;
 
 const StatLabel = styled.div`
   font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: ${({ theme }) => theme.colors.textFaint};
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
 `;
 
 const ModalOverlay = styled(motion.div)`
@@ -282,6 +304,14 @@ const Hero = () => {
             hedeflerinize ulaşın.
           </Subtitle>
 
+          <RatingRow
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.35 }}
+          >
+            <RatingBadge rating="4.9" reviews="49" />
+          </RatingRow>
+
           <ButtonContainer
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -309,12 +339,12 @@ const Hero = () => {
               <StatLabel>Üye</StatLabel>
             </StatItem>
             <StatItem>
-              <StatNumber>50+</StatNumber>
-              <StatLabel>Program</StatLabel>
+              <StatNumber>7</StatNumber>
+              <StatLabel>Gün Açığız</StatLabel>
             </StatItem>
             <StatItem>
-              <StatNumber>24/7</StatNumber>
-              <StatLabel>Açık</StatLabel>
+              <StatNumber>2</StatNumber>
+              <StatLabel>Ayrı Alan</StatLabel>
             </StatItem>
           </StatsContainer>
         </Content>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
+import RatingBadge from "../ui/RatingBadge";
 
 const SectionWrapper = styled.section`
   background: ${({ theme }) => theme.colors.bgElevated};
@@ -24,8 +25,13 @@ const Eyebrow = styled.div`
 `;
 
 const Subtitle = styled.p`
-  margin: 0 auto;
+  margin: 0 auto 1.5rem;
   max-width: 600px;
+`;
+
+const RatingRow = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const TestimonialsContainer = styled.div`
@@ -205,6 +211,9 @@ const TestimonialsSection = () => {
               Sadece bizim sözümüze güvenmeyin. Bizimle hayatlarını değiştiren
               üyelerimizin topluluğundan dinleyin.
             </Subtitle>
+            <RatingRow>
+              <RatingBadge rating="4.9" reviews="49" />
+            </RatingRow>
           </motion.div>
         </SectionHeader>
 

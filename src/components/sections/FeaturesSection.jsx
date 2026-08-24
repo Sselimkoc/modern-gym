@@ -3,12 +3,31 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
+import { ScribbleUnderline, ScribbleScatter } from "../decor/Scribble";
 
 const SectionWrapper = styled.section`
+  position: relative;
+  overflow: hidden;
   background: ${({ theme }) => theme.colors.bg};
 `;
 
+const Scatter = styled(ScribbleScatter)`
+  position: absolute;
+  top: -30px;
+  right: -50px;
+  width: 380px;
+  height: auto;
+  color: ${({ theme }) => theme.colors.accent};
+  z-index: 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: none;
+  }
+`;
+
 const Header = styled.div`
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
@@ -20,11 +39,20 @@ const Header = styled.div`
   }
 `;
 
+const EyebrowGroup = styled.div``;
+
 const Eyebrow = styled.div`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  width: 160px;
+  height: 18px;
+  margin-top: -6px;
   color: ${({ theme }) => theme.colors.accent};
 `;
 
@@ -114,6 +142,12 @@ const itemVariants = {
 
 const features = [
   {
+    title: "Kadın ve erkeğe özel çalışma alanları",
+    description:
+      "Kadın ve erkek üyelerimiz için ayrı çalışma alanları sunuyoruz, herkes kendini rahat hissettiği ortamda antrenman yapar.",
+    tag: "Ayrı Alan",
+  },
+  {
     title: "Son teknoloji ekipmanlar",
     description:
       "En son fitness teknolojisi ve premium ekipmanlarla optimal antrenman sonuçları elde edin. Her ekipman düzenli olarak bakımdan geçirilir.",
@@ -144,21 +178,29 @@ const features = [
     tag: "Sağlık",
   },
   {
-    title: "7/24 erişim",
+    title: "Geniş çalışma saatleri",
     description:
-      "Salonumuz 7 gün 24 saat açık, antrenman programınızı istediğiniz zaman yapabilirsiniz. Hiçbir zaman kısıtlaması yok.",
-    tag: "24/7",
+      "Hafta içi 06:00–23:00, hafta sonu 08:00–22:00 saatleri arasında açığız; erken sabah ya da akşam antrenmanı fark etmez.",
+    tag: "06–23",
   },
 ];
 
 const FeaturesSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [headerRef, headerInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.3,
+  });
 
   return (
     <SectionWrapper id="features">
+      <Scatter inView={inView} />
       <Container>
-        <Header>
-          <Eyebrow>— Neden Black-Fit</Eyebrow>
+        <Header ref={headerRef}>
+          <EyebrowGroup>
+            <Eyebrow>— Neden Black-Fit</Eyebrow>
+            <EyebrowUnderline inView={headerInView} />
+          </EyebrowGroup>
           <Title>Bir dönüşüm için ihtiyacın olan her şey</Title>
           <Subtitle>
             Sivas'ın en kapsamlı spor merkezinde hedeflerinize ulaşın. Modern
