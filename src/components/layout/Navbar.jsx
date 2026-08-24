@@ -264,7 +264,9 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateScrollState = () => {
       setScrolled(window.scrollY > 50);
 
       const sections = ["hero", ...NAV_ITEMS.map((item) => item.id)];
@@ -286,9 +288,18 @@ const Navbar = () => {
       setActiveSection((prev) =>
         prev === currentSection ? prev : currentSection,
       );
+
+      ticking = false;
     };
 
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollState);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
 
     return () => {

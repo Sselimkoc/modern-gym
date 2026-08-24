@@ -265,8 +265,8 @@ const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 80]);
+  const opacity = useTransform(scrollYProgress, [0.2, 0.7], [1, 0]);
+  const y = useTransform(scrollYProgress, [0.2, 0.7], [0, 80]);
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
