@@ -1,34 +1,18 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Container from "../ui/Container";
-import CursorSpotlight from "../ui/CursorSpotlight";
-import siteConfig from "../../data/siteConfig";
-import { barbellPattern } from "../../utils/patterns";
 
 const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.colors.bgElevated};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.text};
   padding: 5rem 0 2rem;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    ${barbellPattern("%2316A34A", 0.06)}
-    pointer-events: none;
-  }
 `;
 
 const FooterContainer = styled(Container)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 3rem;
-  position: relative;
-  z-index: 1;
 `;
 
 const FooterColumn = styled(motion.div)`
@@ -84,7 +68,7 @@ const FooterLink = styled.li`
   a {
     color: ${({ theme }) => theme.colors.textMuted};
     text-decoration: none;
-    transition: opacity ${({ theme }) => theme.transitions.fast}, color ${({ theme }) => theme.transitions.fast}, transform ${({ theme }) => theme.transitions.fast};
+    transition: ${({ theme }) => theme.transitions.fast};
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -153,9 +137,14 @@ const BottomBar = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
 `;
 
 const Copyright = styled.p`
@@ -190,7 +179,6 @@ const Footer = () => {
 
   return (
     <FooterWrapper>
-      <CursorSpotlight />
       <FooterContainer>
         <FooterColumn
           initial={{ opacity: 0, y: 20 }}
@@ -314,28 +302,6 @@ const Footer = () => {
             <FooterLink>
               <a href="#testimonials" onClick={(e) => { e.preventDefault(); scrollToSection("testimonials"); }}>
                 Yorumlar
-              </a>
-            </FooterLink>
-            <FooterLink>
-              <a
-                href="#gallery"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("gallery");
-                }}
-              >
-                Gallery
-              </a>
-            </FooterLink>
-            <FooterLink>
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("contact");
-                }}
-              >
-                Contact
               </a>
             </FooterLink>
           </FooterLinks>

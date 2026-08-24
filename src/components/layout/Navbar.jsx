@@ -1,35 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
-import ScrollProgressBar from "../ui/ScrollProgressBar";
 import { motion, AnimatePresence } from "framer-motion";
-import siteConfig from "../../data/siteConfig";
-import { useJoinModal } from "../../context/JoinModalContext";
-
-const SkipLink = styled.a`
-  ${({ theme }) => theme.utilities.visibleHidden}
-
-  &:focus {
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    width: auto;
-    height: auto;
-    padding: 0.75rem 1.25rem;
-    margin: 0;
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
-    background: ${({ theme }) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.dark};
-    border-radius: ${({ theme }) => theme.borderRadius.md};
-    font-weight: ${({ theme }) => theme.fontWeights.semiBold};
-    z-index: ${({ theme }) => theme.zIndices.tooltip};
-    ${({ theme }) => theme.utilities.focusRing}
-  }
-`;
 
 const NavbarWrapper = styled.nav`
   position: fixed;
@@ -61,8 +34,6 @@ const Logo = styled.a`
   text-decoration: none;
   display: flex;
   align-items: center;
-  flex-shrink: 0;
-  letter-spacing: 0.01em;
 
   span {
     color: ${({ theme }) => theme.colors.accent};
@@ -141,17 +112,11 @@ const MobileNavOverlay = styled(motion.div)`
 const NavLink = styled(motion.a)`
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.01em;
+  font-weight: 500;
   position: relative;
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.9rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  background-color: ${({ active }) => (active ? "rgba(255, 255, 255, 0.14)" : "transparent")};
-  opacity: ${({ active }) => (active ? 1 : 0.85)};
 
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
@@ -184,7 +149,10 @@ const NavLink = styled(motion.a)`
     padding: 0.8rem 1.5rem;
     width: 100%;
     font-size: 1rem;
-    border-radius: ${({ theme }) => theme.borderRadius.lg};
+
+    &::after {
+      display: none;
+    }
   }
 `;
 
@@ -315,12 +283,6 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const scrollToSection = (sectionId) => {
-    if (location.pathname !== "/") {
-      setIsMenuOpen(false);
-      navigate(`/#${sectionId}`);
-      return;
-    }
-
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -522,8 +484,6 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </NavContainer>
-
-      <ScrollProgressBar />
     </NavbarWrapper>
   );
 };

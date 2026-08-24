@@ -63,16 +63,12 @@ const Tab = styled.button`
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color ${({ theme }) => theme.transitions.fast}, color ${({ theme }) => theme.transitions.fast}, border-color ${({ theme }) => theme.transitions.fast}, transform 160ms ease-out;
+  transition: ${({ theme }) => theme.transitions.fast};
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.accent};
     color: ${({ $active, theme }) =>
       $active ? theme.colors.onAccent : theme.colors.accent};
-  }
-
-  &:active {
-    transform: scale(0.97);
   }
 `;
 
@@ -81,13 +77,6 @@ const ProgramsGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
 `;
-
-const levelColor = (level, theme) =>
-  level === "Beginner"
-    ? theme.colors.accent
-    : level === "Intermediate"
-    ? theme.colors.primary
-    : theme.colors.neon;
 
 const ProgramCard = styled(motion.div)`
   background: ${({ theme }) => theme.colors.surface};
@@ -98,18 +87,6 @@ const ProgramCard = styled(motion.div)`
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: ${({ level, theme }) => levelColor(level, theme)};
-    z-index: 2;
-  }
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.borderStrong};
@@ -122,23 +99,16 @@ const ProgramImage = styled.div`
   height: 200px;
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  padding: 1.25rem;
 
   img {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: ${({ theme }) => theme.transitions.slow};
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    ${ProgramCard}:hover & img {
-      transform: scale(1.08);
-    }
+  &:hover img {
+    transform: scale(1.05);
   }
 
   &::after {
@@ -150,12 +120,6 @@ const ProgramImage = styled.div`
     height: 50%;
     background: linear-gradient(to top, rgba(10, 10, 11, 0.8), transparent);
   }
-`;
-
-const ProgramImageContent = styled.div`
-  position: relative;
-  z-index: 2;
-  width: 100%;
 `;
 
 const ProgramLevel = styled.span`
@@ -192,22 +156,17 @@ const ProgramDescription = styled.p`
 
 const ProgramDetails = styled.div`
   display: flex;
-  gap: 0.6rem;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
   padding-top: 1rem;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const ProgramDetail = styled.div`
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.75rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  background: rgba(22, 163, 74, 0.1);
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: 0.85rem;
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
 
   span:first-child {
     font-family: ${({ theme }) => theme.fonts.mono};
@@ -361,104 +320,6 @@ const programs = {
       sessions: "Haftada 4x",
     },
   ],
-};
-
-const ClockIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
-    <path
-      d="M12 7v5l3.5 2"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const RepeatIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const scrollToSection = (sectionId) => {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.scrollIntoView({ behavior: "smooth" });
-  }
-};
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
-};
-
-const ProgramCardItem = ({ program }) => {
-  const tilt = useTilt(3);
-
-  return (
-    <motion.div
-      ref={tilt.ref}
-      variants={itemVariants}
-      onMouseMove={tilt.onMouseMove}
-      onMouseLeave={tilt.onMouseLeave}
-      style={tilt.style}
-    >
-      <ProgramCard level={program.level}>
-        <ProgramImage>
-          <img src={program.image} alt={program.title} onError={handleImgError} />
-          <ProgramLevel level={program.level}>{program.level}</ProgramLevel>
-          <ProgramImageContent>
-            <ProgramTitle>{program.title}</ProgramTitle>
-          </ProgramImageContent>
-        </ProgramImage>
-        <ProgramContent>
-          <ProgramInfo>
-            <ProgramDescription>{program.description}</ProgramDescription>
-          </ProgramInfo>
-          <div>
-            <ProgramDetails>
-              <ProgramDetail>
-                <ClockIcon />
-                {program.duration}
-              </ProgramDetail>
-              <ProgramDetail>
-                <RepeatIcon />
-                {program.sessions}
-              </ProgramDetail>
-            </ProgramDetails>
-            <Button fullWidth onClick={() => scrollToSection("contact")}>
-              Learn More
-            </Button>
-          </div>
-        </ProgramContent>
-      </ProgramCard>
-    </motion.div>
-  );
 };
 
 const ProgramsSection = () => {
