@@ -23,7 +23,7 @@ const theme = {
   },
   fonts: {
     display: "'Anton', 'Arial Narrow', sans-serif",
-    body: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+    body: "'Outfit', -apple-system, BlinkMacSystemFont, sans-serif",
     mono: "'JetBrains Mono', 'Fira Code', monospace",
   },
   fontSizes: {
@@ -60,12 +60,13 @@ const theme = {
     "2xl": "1536px",
   },
   shadows: {
-    sm: "0 1px 3px rgba(0, 0, 0, 0.4)",
-    md: "0 4px 12px rgba(0, 0, 0, 0.45)",
-    lg: "0 12px 28px rgba(0, 0, 0, 0.5)",
-    xl: "0 24px 48px rgba(0, 0, 0, 0.55)",
+    sm: "0 1px 3px rgba(10, 10, 11, 0.4)",
+    md: "0 4px 12px rgba(10, 10, 11, 0.45)",
+    lg: "0 12px 28px rgba(10, 10, 11, 0.5)",
+    xl: "0 24px 48px rgba(10, 10, 11, 0.55)",
     accent: "0 8px 24px rgba(215, 255, 62, 0.18)",
   },
+
   space: {
     xs: "0.5rem",
     sm: "1rem",

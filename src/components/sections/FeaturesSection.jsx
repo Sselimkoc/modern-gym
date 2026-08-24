@@ -3,31 +3,13 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
-import { ScribbleUnderline, ScribbleScatter } from "../decor/Scribble";
+import { ScribbleUnderline } from "../decor/Scribble";
 
 const SectionWrapper = styled.section`
-  position: relative;
-  overflow: hidden;
   background: ${({ theme }) => theme.colors.bg};
 `;
 
-const Scatter = styled(ScribbleScatter)`
-  position: absolute;
-  top: -30px;
-  right: -50px;
-  width: 380px;
-  height: auto;
-  color: ${({ theme }) => theme.colors.accent};
-  z-index: 0;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: none;
-  }
-`;
-
 const Header = styled.div`
-  position: relative;
-  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
@@ -44,15 +26,16 @@ const EyebrowGroup = styled.div``;
 const Eyebrow = styled.div`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.8rem;
+  line-height: 1;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.accent};
 `;
 
 const EyebrowUnderline = styled(ScribbleUnderline)`
-  width: 160px;
-  height: 18px;
-  margin-top: -6px;
+  width: 175px;
+  height: 20px;
+  margin: -4px 0 0;
   color: ${({ theme }) => theme.colors.accent};
 `;
 
@@ -119,10 +102,12 @@ const FeatureTag = styled.span`
 `;
 
 const FeatureDescription = styled.p`
+  grid-column: 1 / -1;
   margin: 0.75rem 0 0;
   max-width: 480px;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    grid-column: auto;
     margin-top: 0;
   }
 `;
@@ -194,7 +179,6 @@ const FeaturesSection = () => {
 
   return (
     <SectionWrapper id="features">
-      <Scatter inView={inView} />
       <Container>
         <Header ref={headerRef}>
           <EyebrowGroup>

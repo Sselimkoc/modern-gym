@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
+import { ScribbleUnderline } from "../decor/Scribble";
 
 const trainers = [
   {
@@ -52,13 +53,26 @@ const SectionHeader = styled.div`
   margin-bottom: 3.5rem;
 `;
 
+const EyebrowGroup = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
 const Eyebrow = styled.div`
+  display: inline-block;
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.8rem;
+  line-height: 1;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.accent};
-  margin-bottom: 1rem;
+`;
+
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  display: block;
+  width: 115px;
+  height: 14px;
+  margin: -6px auto 0;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Subtitle = styled.p`
@@ -189,7 +203,10 @@ const TrainersSection = () => {
     <Section id="trainers" ref={ref}>
       <Container>
         <SectionHeader>
-          <Eyebrow>— Kadromuz</Eyebrow>
+          <EyebrowGroup>
+            <Eyebrow>— Kadromuz</Eyebrow>
+            <EyebrowUnderline inView={inView} delay={0.3} />
+          </EyebrowGroup>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}

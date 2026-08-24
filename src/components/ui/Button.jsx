@@ -45,7 +45,7 @@ const StyledButton = styled(motion.button)`
 
   &:hover {
     background: ${({ theme, variant }) => {
-      if (variant === "outline") return theme.colors.surface;
+      if (variant === "outline") return theme.colors.accent;
       if (variant === "text") return "transparent";
       return theme.colors.accentDim;
     }};

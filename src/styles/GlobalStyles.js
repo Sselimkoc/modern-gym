@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
   :root {
     --scrollbar-width: 8px;
@@ -120,13 +120,6 @@ const GlobalStyles = createGlobalStyle`
     position: relative;
   }
 
-  .container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
   ::-webkit-scrollbar {
     width: var(--scrollbar-width);
   }
@@ -158,18 +151,6 @@ const GlobalStyles = createGlobalStyle`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     section {
       padding: 4.5rem 0 5.5rem;
-    }
-
-    .container {
-      width: 95%;
-      padding: 0 1rem;
-    }
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    .container {
-      width: 100%;
-      padding: 0 1.5rem;
     }
   }
 

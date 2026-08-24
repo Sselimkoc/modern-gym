@@ -9,6 +9,7 @@ import {
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import RatingBadge from "../ui/RatingBadge";
+import { ScribbleUnderline } from "../decor/Scribble";
 import heroVideo from "../../assets/videos/hero.mp4";
 
 const HeroWrapper = styled.section`
@@ -69,10 +70,25 @@ const Content = styled(motion.div)`
 
 const Title = styled(motion.h1)`
   margin-bottom: 1.5rem;
+  line-height: 1.4;
 
   span {
+    position: relative;
+    display: inline-block;
+    line-height: 0.86;
     color: ${({ theme }) => theme.colors.accent};
+    white-space: nowrap;
   }
+`;
+
+const AccentUnderline = styled(ScribbleUnderline)`
+  position: absolute;
+  left: -3%;
+  top: 100%;
+  margin-top: 0.04em;
+  width: 106%;
+  height: 0.16em;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Subtitle = styled(motion.p)`
@@ -290,7 +306,11 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            Black-Fit ile <span>gücünü</span>
+            Black-Fit ile{" "}
+            <span>
+              gücünü
+              <AccentUnderline inView delay={0.9} opacity={0.9} />
+            </span>
             <br />
             keşfet
           </Title>

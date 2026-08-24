@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import RatingBadge from "../ui/RatingBadge";
+import { ScribbleUnderline } from "../decor/Scribble";
 
 const SectionWrapper = styled.section`
   background: ${({ theme }) => theme.colors.bgElevated};
@@ -15,13 +16,26 @@ const SectionHeader = styled.div`
   margin-bottom: 3.5rem;
 `;
 
+const EyebrowGroup = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
 const Eyebrow = styled.div`
+  display: inline-block;
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.8rem;
+  line-height: 1;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.accent};
-  margin-bottom: 1rem;
+`;
+
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  display: block;
+  width: 105px;
+  height: 13px;
+  margin: -6px auto 0;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Subtitle = styled.p`
@@ -73,7 +87,7 @@ const TestimonialContent = styled.div`
     font-size: 4rem;
     color: ${({ theme }) => theme.colors.accent};
     opacity: 0.3;
-    font-family: Georgia, serif;
+    font-family: ${({ theme }) => theme.fonts.display};
     line-height: 1;
   }
 `;
@@ -205,7 +219,10 @@ const TestimonialsSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
           >
-            <Eyebrow>— Yorumlar</Eyebrow>
+            <EyebrowGroup>
+              <Eyebrow>— Yorumlar</Eyebrow>
+              <EyebrowUnderline inView={inView} delay={0.3} />
+            </EyebrowGroup>
             <h2>Üyelerimiz ne diyor</h2>
             <Subtitle>
               Sadece bizim sözümüze güvenmeyin. Bizimle hayatlarını değiştiren

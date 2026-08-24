@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
+import { ScribbleUnderline } from "../decor/Scribble";
 
 const SectionWrapper = styled.section`
   background: ${({ theme }) => theme.colors.bgElevated};
@@ -14,13 +15,26 @@ const SectionHeader = styled.div`
   margin-bottom: 3rem;
 `;
 
+const EyebrowGroup = styled.div`
+  margin-bottom: 1.5rem;
+`;
+
 const Eyebrow = styled.div`
+  display: inline-block;
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.8rem;
+  line-height: 1;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.accent};
-  margin-bottom: 1rem;
+`;
+
+const EyebrowUnderline = styled(ScribbleUnderline)`
+  display: block;
+  width: 150px;
+  height: 18px;
+  margin: -6px auto 0;
+  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Subtitle = styled.p`
@@ -43,7 +57,8 @@ const Tab = styled.button`
   color: ${({ active, theme }) =>
     active ? theme.colors.onAccent : theme.colors.textMuted};
   border: 1px solid
-    ${({ active, theme }) => (active ? theme.colors.accent : theme.colors.border)};
+    ${({ active, theme }) =>
+      active ? theme.colors.accent : theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   font-size: 0.9rem;
@@ -187,27 +202,39 @@ const programs = {
       duration: "8 hafta",
       sessions: "Haftada 3x",
     },
+    // {
+    //   id: 2,
+    //   title: "HIIT Dönüşüm",
+    //   description:
+    //     "Maksimum kalori yakımı ve kondisyon için yüksek yoğunluklu interval antrenman.",
+    //   image:
+    //     "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    //   level: "Orta",
+    //   duration: "6 hafta",
+    //   sessions: "Haftada 4x",
+    // },
+    // {
+    //   id: 3,
+    //   title: "Yoga & Farkındalık",
+    //   description:
+    //     "Rehberli yoga seansları ile esnekliği, dengeyi ve zihinsel odaklanmayı geliştirin.",
+    //   image:
+    //     "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    //   level: "Başlangıç",
+    //   duration: "Sürekli",
+    //   sessions: "Haftada 2-5x",
+    // },
+
     {
-      id: 2,
-      title: "HIIT Dönüşüm",
+      id: 6,
+      title: "Vücut Dönüşümü",
       description:
-        "Maksimum kalori yakımı ve kondisyon için yüksek yoğunluklu interval antrenman.",
+        "Toplam vücut değişimi için güç, kardiyo ve beslenmeyi birleştiren tam program.",
       image:
-        "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       level: "Orta",
-      duration: "6 hafta",
-      sessions: "Haftada 4x",
-    },
-    {
-      id: 3,
-      title: "Yoga & Farkındalık",
-      description:
-        "Rehberli yoga seansları ile esnekliği, dengeyi ve zihinsel odaklanmayı geliştirin.",
-      image:
-        "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Başlangıç",
-      duration: "Sürekli",
-      sessions: "Haftada 2-5x",
+      duration: "12 hafta",
+      sessions: "Haftada 5x",
     },
     {
       id: 4,
@@ -219,17 +246,6 @@ const programs = {
       level: "İleri",
       duration: "12 hafta",
       sessions: "Haftada 4x",
-    },
-    {
-      id: 6,
-      title: "Vücut Dönüşümü",
-      description:
-        "Toplam vücut değişimi için güç, kardiyo ve beslenmeyi birleştiren tam program.",
-      image:
-        "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      level: "Orta",
-      duration: "12 hafta",
-      sessions: "Haftada 5x",
     },
   ],
   beginner: [
@@ -319,14 +335,21 @@ const ProgramsSection = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   return (
     <SectionWrapper id="programs" ref={ref}>
       <Container>
         <SectionHeader>
-          <Eyebrow>— Programlar</Eyebrow>
+          <EyebrowGroup>
+            <Eyebrow>— Programlar</Eyebrow>
+            <EyebrowUnderline inView={inView} delay={0.3} />
+          </EyebrowGroup>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
