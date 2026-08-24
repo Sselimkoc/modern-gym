@@ -27,17 +27,14 @@ const NavContainer = styled(Container)`
 `;
 
 const Logo = styled.a`
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: ${({ theme }) => theme.colors.text};
-  text-decoration: none;
   display: flex;
   align-items: center;
+  text-decoration: none;
 
-  span {
-    color: ${({ theme }) => theme.colors.accent};
+  img {
+    height: 42px;
+    width: auto;
+    display: block;
   }
 `;
 
@@ -328,7 +325,7 @@ const Navbar = () => {
             scrollToSection("hero");
           }}
         >
-          BLACK<span>FIT</span>
+          <img src="/logo.PNG" alt="Black-Fit" />
         </Logo>
 
         <MenuToggle
