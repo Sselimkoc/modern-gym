@@ -1,7 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-  /* Removed Google Fonts import as it should be in index.html */
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root {
+    --scrollbar-width: 8px;
+    --scrollbar-track: rgba(255, 255, 255, 0.04);
+    --scrollbar-thumb: rgba(215, 255, 62, 0.35);
+    --scrollbar-thumb-hover: rgba(215, 255, 62, 0.6);
+  }
 
   * {
     box-sizing: border-box;
@@ -9,56 +16,90 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
   }
 
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
   }
 
   body {
     font-family: ${({ theme }) => theme.fonts.body};
-    background-color: ${({ theme }) => theme.colors.light};
-    color: ${({ theme }) => theme.colors.dark};
-    line-height: 1.6;
+    background: ${({ theme }) => theme.colors.bg};
+    color: ${({ theme }) => theme.colors.text};
+    line-height: 1.7;
     overflow-x: hidden;
+    min-height: 100vh;
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: ${({ theme }) => theme.fonts.heading};
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
-    line-height: 1.3;
-    margin-bottom: 1rem;
+  h1, h2 {
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    text-wrap: balance;
+  }
+
+  h3, h4, h5, h6 {
+    font-family: ${({ theme }) => theme.fonts.body};
+    font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
   }
 
   h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: ${({ theme }) => theme.fontWeights.extraBold};
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
   }
 
   h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-size: clamp(2rem, 5vw, 3.25rem);
   }
 
   h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-size: clamp(1.4rem, 3vw, 1.75rem);
+  }
+
+  h4 {
+    font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
   }
 
   p {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: ${({ theme }) => theme.fontSizes.md};
+    line-height: 1.7;
+    color: ${({ theme }) => theme.colors.textMuted};
   }
 
   a {
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.accent};
     transition: ${({ theme }) => theme.transitions.fast};
   }
 
   img {
     max-width: 100%;
     height: auto;
+    display: block;
   }
 
   button {
@@ -66,6 +107,8 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${({ theme }) => theme.fonts.body};
     border: none;
     background: none;
+    font-size: inherit;
+    color: inherit;
   }
 
   ul, ol {
@@ -73,91 +116,71 @@ const GlobalStyles = createGlobalStyle`
   }
 
   section {
-    padding: 5rem 0;
+    padding: 7rem 0 8rem;
+    position: relative;
   }
 
   .container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  ::selection {
+    background: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.onAccent};
+  }
+
+  :focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 2px;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     section {
-      padding: 3rem 0;
+      padding: 4.5rem 0 5.5rem;
+    }
+
+    .container {
+      width: 95%;
+      padding: 0 1rem;
     }
   }
 
-  /* Utility Classes */
-  .text-center {
-    text-align: center;
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    .container {
+      width: 100%;
+      padding: 0 1.5rem;
+    }
   }
 
-  .text-primary {
-    color: ${({ theme }) => theme.colors.primary};
+  @media print {
+    * {
+      background: transparent !important;
+      color: black !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
   }
-
-  .text-secondary {
-    color: ${({ theme }) => theme.colors.secondary};
-  }
-
-  .bg-primary {
-    background-color: ${({ theme }) => theme.colors.primary};
-  }
-
-  .bg-secondary {
-    background-color: ${({ theme }) => theme.colors.secondary};
-  }
-
-  .bg-light {
-    background-color: ${({ theme }) => theme.colors.light};
-  }
-
-  .bg-dark {
-    background-color: ${({ theme }) => theme.colors.dark};
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .flex-col {
-    flex-direction: column;
-  }
-
-  .items-center {
-    align-items: center;
-  }
-
-  .justify-center {
-    justify-content: center;
-  }
-
-  .justify-between {
-    justify-content: space-between;
-  }
-
-  .gap-sm {
-    gap: ${({ theme }) => theme.space.sm};
-  }
-
-  .gap-md {
-    gap: ${({ theme }) => theme.space.md};
-  }
-
-  .gap-lg {
-    gap: ${({ theme }) => theme.space.lg};
-  }
-
-  .mt-sm { margin-top: ${({ theme }) => theme.space.sm}; }
-  .mt-md { margin-top: ${({ theme }) => theme.space.md}; }
-  .mt-lg { margin-top: ${({ theme }) => theme.space.lg}; }
-  .mt-xl { margin-top: ${({ theme }) => theme.space.xl}; }
-
-  .mb-sm { margin-bottom: ${({ theme }) => theme.space.sm}; }
-  .mb-md { margin-bottom: ${({ theme }) => theme.space.md}; }
-  .mb-lg { margin-bottom: ${({ theme }) => theme.space.lg}; }
-  .mb-xl { margin-bottom: ${({ theme }) => theme.space.xl}; }
 `;
 
 export default GlobalStyles;

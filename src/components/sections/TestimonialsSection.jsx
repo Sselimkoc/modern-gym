@@ -5,121 +5,77 @@ import { useInView } from "react-intersection-observer";
 import Container from "../ui/Container";
 
 const SectionWrapper = styled.section`
-  padding: 6rem 0;
-  background-color: ${({ theme }) => theme.colors.light};
+  background: ${({ theme }) => theme.colors.bgElevated};
   position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: -150px;
-    left: -150px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.accent};
-    opacity: 0.05;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -100px;
-    right: -100px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.primary};
-    opacity: 0.05;
-  }
 `;
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 4rem;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 3.5rem;
 `;
 
-const Title = styled.h2`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: 1.5rem;
-  font-size: clamp(2rem, 4vw, 2.5rem);
+const Eyebrow = styled.div`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+  margin-bottom: 1rem;
 `;
 
 const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  margin-bottom: 0;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  max-width: 600px;
 `;
 
 const TestimonialsContainer = styled.div`
-  position: relative;
-  z-index: 2;
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
 `;
 
 const TestimonialSlider = styled.div`
   position: relative;
-  overflow: hidden;
-  height: 400px; /* Set a fixed height for the slider */
+  min-height: 320px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 450px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    height: 500px;
+    min-height: 380px;
   }
 `;
 
 const TestimonialSlide = styled(motion.div)`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 1rem;
 `;
 
 const TestimonialContent = styled.div`
-  background-color: white;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: 2.5rem;
-  box-shadow: ${({ theme }) => theme.shadows.md};
   text-align: center;
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
   width: 100%;
 
   &::before {
     content: '"';
     position: absolute;
-    top: 10px;
-    left: 20px;
-    font-size: 5rem;
+    top: 0.5rem;
+    left: 1.5rem;
+    font-size: 4rem;
     color: ${({ theme }) => theme.colors.accent};
-    opacity: 0.2;
+    opacity: 0.3;
     font-family: Georgia, serif;
     line-height: 1;
   }
 `;
 
 const TestimonialText = styled.p`
-  color: ${({ theme }) => theme.colors.gray};
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.8;
   margin-bottom: 2rem;
-  font-style: italic;
 `;
 
 const TestimonialAuthor = styled.div`
@@ -129,12 +85,12 @@ const TestimonialAuthor = styled.div`
 `;
 
 const AuthorImage = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 1rem;
-  border: 3px solid ${({ theme }) => theme.colors.accent};
+  border: 2px solid ${({ theme }) => theme.colors.accent};
 
   img {
     width: 100%;
@@ -148,15 +104,14 @@ const AuthorInfo = styled.div`
 `;
 
 const AuthorName = styled.h4`
-  margin: 0 0 0.25rem 0;
-  color: ${({ theme }) => theme.colors.secondary};
-  font-size: 1.1rem;
+  margin: 0 0 0.15rem 0 !important;
 `;
 
 const AuthorTitle = styled.p`
-  margin: 0;
-  color: ${({ theme }) => theme.colors.accent};
-  font-size: 0.9rem;
+  margin: 0 !important;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.colors.textFaint};
 `;
 
 const SliderControls = styled.div`
@@ -166,72 +121,72 @@ const SliderControls = styled.div`
 `;
 
 const SliderDot = styled.button`
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: ${({ active, theme }) =>
-    active ? theme.colors.accent : "rgba(0, 0, 0, 0.1)"};
+    active ? theme.colors.accent : theme.colors.border};
   border: none;
-  margin: 0 0.5rem;
+  margin: 0 0.4rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: ${({ theme }) => theme.transitions.fast};
 
   &:hover {
-    background-color: ${({ active, theme }) =>
-      active ? theme.colors.accent : "rgba(0, 0, 0, 0.2)"};
-    transform: scale(1.2);
-  }
-
-  &:focus {
-    outline: none;
+    background-color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
 const testimonials = [
   {
     id: 1,
-    text: "I've been a member for over a year now, and the transformation in my fitness level is incredible. The trainers are knowledgeable and supportive, and the facilities are always clean and well-maintained. The virtual classes have been a game-changer for my busy schedule!",
+    text: "Black-Fit'e katıldıktan sonra hayatım tamamen değişti. Profesyonel eğitmenler sayesinde 6 ayda 20 kilo verdim ve kas kütlem arttı. Artık kendimi çok daha güçlü ve enerjik hissediyorum. Herkese tavsiye ederim!",
     author: {
-      name: "Emily Rodriguez",
-      title: "Member since 2022",
+      name: "Ahmet Yılmaz",
+      title: "2022'den beri üye",
       image:
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
     },
   },
   {
     id: 2,
-    text: "As someone who was intimidated by gyms, the welcoming atmosphere here made all the difference. The staff took time to create a personalized plan for me, and the community is so supportive. I've lost 30 pounds and gained confidence I never thought possible!",
+    text: "Spor salonlarından korkan biri olarak, buradaki sıcak atmosfer her şeyi değiştirdi. Personel benim için kişiselleştirilmiş bir plan oluşturmak için zaman ayırdı ve topluluk çok destekleyici. 30 kilo verdim ve hiç düşünmediğim bir güven kazandım!",
     author: {
-      name: "Marcus Johnson",
-      title: "Member since 2021",
+      name: "Mehmet Kaya",
+      title: "2021'den beri üye",
       image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
     },
   },
   {
     id: 3,
-    text: "The spa and wellness services are exceptional. After intense workouts, being able to recover with professional massage therapy and wellness treatments has improved my performance and overall well-being. This isn't just a gym, it's a complete fitness experience.",
+    text: "CrossFit antrenmanları ve grup dersleri harika! Muzaffer hocam sayesinde hem güçlendim hem de eğlenceli vakit geçirdim. Artık her gün spor yapmak için sabırsızlanıyorum. Black-Fit ailesine teşekkürler!",
     author: {
-      name: "Sophia Chen",
-      title: "Premium Member",
+      name: "Fatma Özkan",
+      title: "Premium üye",
       image:
-        "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+    },
+  },
+  {
+    id: 4,
+    text: "Sefa hocamın beslenme danışmanlığı sayesinde hedeflerime ulaştım. Hem antrenman hem de beslenme konusunda çok bilgilendim. Artık sağlıklı yaşam tarzımı sürdürüyorum. Black-Fit gerçekten fark yaratıyor!",
+    author: {
+      name: "Zeynep Demir",
+      title: "2023'ten beri üye",
+      image:
+        "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
     },
   },
 ];
 
 const TestimonialsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % testimonials.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -244,10 +199,11 @@ const TestimonialsSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
           >
-            <Title>What Our Members Say</Title>
+            <Eyebrow>— Yorumlar</Eyebrow>
+            <h2>Üyelerimiz ne diyor</h2>
             <Subtitle>
-              Don't just take our word for it. Hear from our community of
-              members who have transformed their lives with us.
+              Sadece bizim sözümüze güvenmeyin. Bizimle hayatlarını değiştiren
+              üyelerimizin topluluğundan dinleyin.
             </Subtitle>
           </motion.div>
         </SectionHeader>
@@ -260,10 +216,10 @@ const TestimonialsSection = () => {
                   currentSlide === index && (
                     <TestimonialSlide
                       key={testimonial.id}
-                      initial={{ opacity: 0, x: 100 }}
+                      initial={{ opacity: 0, x: 60 }}
                       animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -100 }}
-                      transition={{ duration: 0.5 }}
+                      exit={{ opacity: 0, x: -60 }}
+                      transition={{ duration: 0.4 }}
                     >
                       <TestimonialContent>
                         <TestimonialText>{testimonial.text}</TestimonialText>
@@ -276,9 +232,7 @@ const TestimonialsSection = () => {
                           </AuthorImage>
                           <AuthorInfo>
                             <AuthorName>{testimonial.author.name}</AuthorName>
-                            <AuthorTitle>
-                              {testimonial.author.title}
-                            </AuthorTitle>
+                            <AuthorTitle>{testimonial.author.title}</AuthorTitle>
                           </AuthorInfo>
                         </TestimonialAuthor>
                       </TestimonialContent>
@@ -294,7 +248,7 @@ const TestimonialsSection = () => {
                 key={index}
                 active={currentSlide === index}
                 onClick={() => setCurrentSlide(index)}
-                aria-label={`Go to testimonial ${index + 1}`}
+                aria-label={`${index + 1}. yoruma git`}
               />
             ))}
           </SliderControls>

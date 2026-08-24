@@ -1,28 +1,27 @@
-# Modern Gym - Premium Fitness Experience
+# Black-Fit Spor Merkezi - Sivas
 
-A modern, responsive React application for a premium fitness center, featuring a sleek design, animations, and an intuitive user interface.
+Sivas'taki Black-Fit Spor Merkezi için modern, responsive React uygulaması. Şık tasarım, animasyonlar ve sezgisel kullanıcı arayüzü ile premium fitness deneyimi sunar.
 
-![Modern Gym Website](public/logo192.png)
+![Black-Fit Gym Website](public/logo192.png)
 
-## Features
+## Özellikler
 
-- **Stunning UI/UX**: Video hero section, animated components, and smooth transitions
-- **Responsive Design**: Fully optimized for all device sizes
-- **Modern Architecture**: Built with React 19 and styled-components
-- **Interactive Elements**: Modal forms, animated cards, and scroll effects
-- **Performance Optimized**: Fast loading and smooth animations
+- **Etkileyici UI/UX**: Video hero bölümü, animasyonlu bileşenler ve yumuşak geçişler
+- **Responsive Tasarım**: Tüm cihaz boyutları için tam optimize edilmiş
+- **Modern Mimari**: React 19 ve styled-components ile inşa edilmiş
+- **İnteraktif Elementler**: Modal formlar, animasyonlu kartlar ve kaydırma efektleri
+- **Performans Optimizasyonu**: Hızlı yükleme ve yumuşak animasyonlar
 
-## Key Sections
+## Ana Bölümler
 
-- Hero section with video background
-- Features showcase
-- Fitness programs
-- Wellness services
-- Virtual classes
-- Customer testimonials
-- Mobile app promotion
+- Video arka planlı hero bölümü
+- Özellikler vitrini
+- Fitness programları
+- Profesyonel eğitmenler
+- Wellness hizmetleri
+- Müşteri yorumları
 
-## Technologies
+## Teknolojiler
 
 - React 19
 - Styled Components
@@ -30,51 +29,51 @@ A modern, responsive React application for a premium fitness center, featuring a
 - React Router DOM
 - React Intersection Observer
 
-## Getting Started
+## Başlangıç
 
-### Prerequisites
+### Gereksinimler
 
-- Node.js (v16 or higher)
-- npm or yarn
+- Node.js (v16 veya üzeri)
+- npm veya yarn
 
-### Installation
+### Kurulum
 
-1. Clone the repository
+1. Repository'yi klonlayın
 ```bash
-git clone https://github.com/yourusername/modern-gym.git
-cd modern-gym
+git clone https://github.com/yourusername/black-fit-gym.git
+cd black-fit-gym
 ```
 
-2. Install dependencies
+2. Bağımlılıkları yükleyin
 ```bash
 npm install
-# or
+# veya
 yarn install
 ```
 
-3. Start the development server
+3. Geliştirme sunucusunu başlatın
 ```bash
 npm start
-# or
+# veya
 yarn start
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser
+4. Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın
 
-## Building for Production
+## Production için Build
 
 ```bash
 npm run build
-# or
+# veya
 yarn build
 ```
 
-The build files will be in the `build` folder, ready for deployment.
+Build dosyaları `build` klasöründe, deployment için hazır olacaktır.
 
-## Project Structure
+## Proje Yapısı
 
 ```
-modern-gym/
+black-fit-gym/
 ├── public/
 ├── src/
 │   ├── assets/
@@ -89,10 +88,10 @@ modern-gym/
 └── package.json
 ```
 
-## License
+## Lisans
 
 MIT
 
-## Author
+## Yazar
 
 Selim Koc

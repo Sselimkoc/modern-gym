@@ -3,72 +3,83 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const StyledButton = styled(motion.button)`
-  background: ${({ theme, variant }) =>
-    variant === "outline"
-      ? "transparent"
-      : variant === "secondary"
-      ? theme.colors.secondary
-      : theme.colors.primary};
-  color: ${({ theme, variant }) =>
-    variant === "outline" ? theme.colors.primary : theme.colors.white};
-  border: ${({ theme, variant }) =>
-    variant === "outline" ? `2px solid ${theme.colors.primary}` : "none"};
-  padding: ${({ size }) =>
-    size === "sm"
-      ? "0.6rem 1.2rem"
-      : size === "lg"
-      ? "1.2rem 2.8rem"
-      : "0.9rem 2.2rem"};
-  font-size: ${({ size }) =>
-    size === "sm" ? "0.9rem" : size === "lg" ? "1.2rem" : "1.1rem"};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  box-shadow: ${({ theme, variant }) =>
-    variant === "outline" ? "none" : theme.shadows.primary};
-  transition: ${({ theme }) => theme.transitions.default};
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
+  background: ${({ theme, variant }) => {
+    if (variant === "outline") return "transparent";
+    if (variant === "text") return "transparent";
+    return theme.colors.accent;
+  }};
 
-  &::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s, height 0.4s;
-    z-index: -1;
-  }
+  color: ${({ theme, variant }) => {
+    if (variant === "outline" || variant === "text") return theme.colors.text;
+    return theme.colors.onAccent;
+  }};
+
+  border: ${({ theme, variant }) =>
+    variant === "outline" ? `2px solid ${theme.colors.borderStrong}` : "none"};
+
+  padding: ${({ size, variant }) => {
+    if (variant === "text") return "0.5rem 0";
+    if (size === "sm") return "0.7rem 1.4rem";
+    if (size === "lg") return "1.1rem 2.75rem";
+    return "0.9rem 2.25rem";
+  }};
+
+  font-size: ${({ size }) => {
+    if (size === "sm") return "0.85rem";
+    if (size === "lg") return "1rem";
+    return "0.9rem";
+  }};
+
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  border-radius: ${({ theme, variant }) =>
+    variant === "text" ? "0" : theme.borderRadius.md};
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
+  transition: ${({ theme }) => theme.transitions.fast};
 
   &:hover {
-    background: ${({ theme, variant }) =>
-      variant === "outline"
-        ? "rgba(255,60,95,0.1)"
-        : variant === "secondary"
-        ? theme.colors.secondary
-        : theme.colors.primaryDark};
-    transform: translateY(-3px);
-    box-shadow: ${({ theme, variant }) =>
-      variant === "outline" ? "none" : `0 8px 20px rgba(255,60,95,0.35)`};
-  }
-
-  &:hover::after {
-    width: 300px;
-    height: 300px;
+    background: ${({ theme, variant }) => {
+      if (variant === "outline") return theme.colors.surface;
+      if (variant === "text") return "transparent";
+      return theme.colors.accentDim;
+    }};
+    border-color: ${({ theme, variant }) =>
+      variant === "outline" ? theme.colors.accent : "transparent"};
+    color: ${({ theme, variant }) =>
+      variant === "text" ? theme.colors.accent : theme.colors.onAccent};
   }
 
   &:active {
-    transform: translateY(-1px);
-    box-shadow: ${({ theme, variant }) =>
-      variant === "outline" ? "none" : `0 4px 10px rgba(255,60,95,0.25)`};
+    transform: ${({ variant }) => (variant === "text" ? "none" : "scale(0.98)")};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+const IconWrapper = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+
+  svg {
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -77,9 +88,11 @@ const Button = ({
   variant = "primary",
   size = "md",
   onClick,
-  whileHover = { scale: 1.03 },
   whileTap = { scale: 0.98 },
   fullWidth = false,
+  icon,
+  iconPosition = "left",
+  disabled = false,
   ...props
 }) => {
   return (
@@ -87,12 +100,14 @@ const Button = ({
       variant={variant}
       size={size}
       onClick={onClick}
-      whileHover={whileHover}
-      whileTap={whileTap}
+      whileTap={disabled ? undefined : whileTap}
       fullWidth={fullWidth}
+      disabled={disabled}
       {...props}
     >
+      {icon && iconPosition === "left" && <IconWrapper>{icon}</IconWrapper>}
       {children}
+      {icon && iconPosition === "right" && <IconWrapper>{icon}</IconWrapper>}
     </StyledButton>
   );
 };
