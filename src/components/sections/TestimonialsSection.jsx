@@ -144,8 +144,8 @@ const SliderDot = styled.button`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: ${({ active, theme }) =>
-    active ? theme.colors.accent : theme.colors.border};
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.colors.accent : theme.colors.border};
   border: none;
   margin: 0 0.4rem;
   cursor: pointer;
@@ -272,7 +272,7 @@ const TestimonialsSection = () => {
             {testimonials.map((_, index) => (
               <SliderDot
                 key={index}
-                active={currentSlide === index}
+                $active={currentSlide === index}
                 onClick={() => setCurrentSlide(index)}
                 aria-label={`${index + 1}. yoruma git`}
               />

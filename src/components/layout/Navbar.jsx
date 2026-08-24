@@ -10,10 +10,10 @@ const NavbarWrapper = styled.nav`
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: ${({ scrolled, theme }) =>
-    scrolled ? theme.colors.bgElevated : "transparent"};
+  background-color: ${({ $scrolled, theme }) =>
+    $scrolled ? theme.colors.bgElevated : "transparent"};
   border-bottom: 1px solid
-    ${({ scrolled, theme }) => (scrolled ? theme.colors.border : "transparent")};
+    ${({ $scrolled, theme }) => ($scrolled ? theme.colors.border : "transparent")};
   transition: ${({ theme }) => theme.transitions.default};
 `;
 
@@ -127,7 +127,7 @@ const NavLink = styled(motion.a)`
     position: absolute;
     bottom: -5px;
     left: 0;
-    width: ${({ active }) => (active ? "100%" : "0")};
+    width: ${({ $active }) => ($active ? "100%" : "0")};
     height: 2px;
     background-color: ${({ theme }) => theme.colors.accent};
     transition: ${({ theme }) => theme.transitions.fast};
@@ -318,7 +318,7 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarWrapper scrolled={scrolled}>
+    <NavbarWrapper $scrolled={scrolled}>
       <NavContainer>
         <Logo
           href="#hero"
@@ -362,7 +362,7 @@ const Navbar = () => {
             <NavLink
               key={item.id}
               href={`#${item.id}`}
-              active={activeSection === item.id}
+              $active={activeSection === item.id}
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection(item.id);
@@ -416,7 +416,7 @@ const Navbar = () => {
                   <NavLink
                     key={item.id}
                     href={`#${item.id}`}
-                    active={activeSection === item.id}
+                    $active={activeSection === item.id}
                     onClick={(e) => {
                       e.preventDefault();
                       scrollToSection(item.id);

@@ -52,13 +52,13 @@ const TabsContainer = styled.div`
 
 const Tab = styled.button`
   padding: 0.7rem 1.4rem;
-  background: ${({ active, theme }) =>
-    active ? theme.colors.accent : "transparent"};
-  color: ${({ active, theme }) =>
-    active ? theme.colors.onAccent : theme.colors.textMuted};
+  background: ${({ $active, theme }) =>
+    $active ? theme.colors.accent : "transparent"};
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.onAccent : theme.colors.textMuted};
   border: 1px solid
-    ${({ active, theme }) =>
-      active ? theme.colors.accent : theme.colors.border};
+    ${({ $active, theme }) =>
+      $active ? theme.colors.accent : theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: ${({ theme }) => theme.fontWeights.semiBold};
   font-size: 0.9rem;
@@ -67,8 +67,8 @@ const Tab = styled.button`
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.accent};
-    color: ${({ active, theme }) =>
-      active ? theme.colors.onAccent : theme.colors.accent};
+    color: ${({ $active, theme }) =>
+      $active ? theme.colors.onAccent : theme.colors.accent};
   }
 `;
 
@@ -363,23 +363,23 @@ const ProgramsSection = () => {
         </SectionHeader>
 
         <TabsContainer>
-          <Tab active={activeTab === "all"} onClick={() => setActiveTab("all")}>
+          <Tab $active={activeTab === "all"} onClick={() => setActiveTab("all")}>
             Tümü
           </Tab>
           <Tab
-            active={activeTab === "beginner"}
+            $active={activeTab === "beginner"}
             onClick={() => setActiveTab("beginner")}
           >
             Başlangıç
           </Tab>
           <Tab
-            active={activeTab === "intermediate"}
+            $active={activeTab === "intermediate"}
             onClick={() => setActiveTab("intermediate")}
           >
             Orta
           </Tab>
           <Tab
-            active={activeTab === "advanced"}
+            $active={activeTab === "advanced"}
             onClick={() => setActiveTab("advanced")}
           >
             İleri

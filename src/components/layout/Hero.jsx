@@ -429,7 +429,7 @@ const Hero = () => {
                       required
                     />
                   </FormGroup>
-                  <SubmitButton type="submit" fullWidth>
+                  <SubmitButton type="submit" $fullWidth>
                     Yolculuğuna Başla
                   </SubmitButton>
                 </Form>

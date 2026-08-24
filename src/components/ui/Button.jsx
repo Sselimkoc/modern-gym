@@ -40,7 +40,7 @@ const StyledButton = styled(motion.button)`
   gap: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
+  width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "auto")};
   transition: ${({ theme }) => theme.transitions.fast};
 
   &:hover {
@@ -101,7 +101,7 @@ const Button = ({
       size={size}
       onClick={onClick}
       whileTap={disabled ? undefined : whileTap}
-      fullWidth={fullWidth}
+      $fullWidth={fullWidth}
       disabled={disabled}
       {...props}
     >
