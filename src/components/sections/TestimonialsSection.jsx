@@ -53,18 +53,12 @@ const TestimonialsContainer = styled.div`
   margin: 0 auto;
 `;
 
-const TestimonialSlider = styled.div`
+const TestimonialSlider = styled(motion.div)`
   position: relative;
-  min-height: 320px;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    min-height: 380px;
-  }
+  overflow: hidden;
 `;
 
 const TestimonialSlide = styled(motion.div)`
-  position: absolute;
-  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,7 +229,7 @@ const TestimonialsSection = () => {
         </SectionHeader>
 
         <TestimonialsContainer ref={ref}>
-          <TestimonialSlider>
+          <TestimonialSlider layout transition={{ layout: { duration: 0.4 } }}>
             <AnimatePresence mode="wait">
               {testimonials.map(
                 (testimonial, index) =>

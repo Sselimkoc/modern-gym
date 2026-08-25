@@ -114,6 +114,10 @@ const ProfileImage = styled(motion.img)`
   height: 100%;
   object-fit: cover;
   display: block;
+
+  @media (max-width: 700px) {
+    object-position: top;
+  }
 `;
 
 const InfoArea = styled.div`

@@ -207,6 +207,7 @@ const MobileNavFooter = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.75rem;
     width: 100%;
     padding: 1rem 1.5rem 1.5rem;
     margin-top: 1rem;
@@ -258,7 +259,7 @@ const NAV_ITEMS = [
   { id: "testimonials", label: "Yorumlar" },
 ];
 
-const Navbar = () => {
+const Navbar = ({ onToggleDevAccent }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -268,27 +269,6 @@ const Navbar = () => {
 
     const updateScrollState = () => {
       setScrolled(window.scrollY > 50);
-
-      const sections = ["hero", ...NAV_ITEMS.map((item) => item.id)];
-      let currentSection = "";
-      let minDistance = Number.MAX_VALUE;
-
-      sections.forEach((sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          const distance = Math.abs(rect.top);
-          if (distance < minDistance) {
-            minDistance = distance;
-            currentSection = sectionId;
-          }
-        }
-      });
-
-      setActiveSection((prev) =>
-        prev === currentSection ? prev : currentSection,
-      );
-
       ticking = false;
     };
 
@@ -300,13 +280,59 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
+
+    if (isMenuOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = scrollbarWidth > 0 ? `${scrollbarWidth}px` : "";
+    } else {
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "";
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "";
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    const sectionIds = ["hero", ...NAV_ITEMS.map((item) => item.id)];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (sections.length === 0) return undefined;
+
+    const visibleRatios = new Map();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibleRatios.set(entry.target.id, entry.intersectionRatio);
+        });
+
+        let topId = "";
+        let topRatio = 0;
+        visibleRatios.forEach((ratio, id) => {
+          if (ratio > topRatio) {
+            topRatio = ratio;
+            topId = id;
+          }
+        });
+
+        if (topId) {
+          setActiveSection((prev) => (prev === topId ? prev : topId));
+        }
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: "-45% 0px -45% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -402,6 +428,9 @@ const Navbar = () => {
               {item.label}
             </NavLink>
           ))}
+          <Button variant="outline" size="sm" onClick={onToggleDevAccent}>
+            Renk Değiştir
+          </Button>
           <Button size="sm" onClick={() => scrollToSection("hero")}>
             Hemen Katıl
           </Button>
@@ -463,6 +492,9 @@ const Navbar = () => {
               </MobileNavContent>
 
               <MobileNavFooter>
+                <Button variant="outline" fullWidth onClick={onToggleDevAccent}>
+                  Renk Değiştir
+                </Button>
                 <Button fullWidth onClick={() => scrollToSection("hero")}>
                   Hemen Katıl
                 </Button>

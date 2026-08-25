@@ -29,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
   }
 
   body {
